@@ -90,34 +90,42 @@ function makeEditMenu(fullConfig?: FullConfigType): Electron.MenuItemConstructor
     }
     return [
         {
+            label: "Отменить",
             role: "undo",
             accelerator: unamePlatform === "darwin" ? "Command+Z" : "",
         },
         {
+            label: "Повторить",
             role: "redo",
             accelerator: unamePlatform === "darwin" ? "Command+Shift+Z" : "",
         },
         { type: "separator" },
         {
+            label: "Вырезать",
             role: "cut",
             accelerator: unamePlatform === "darwin" ? "Command+X" : "",
         },
         {
+            label: "Копировать",
             role: "copy",
             accelerator: unamePlatform === "darwin" ? "Command+C" : "",
         },
         {
+            label: "Вставить",
             role: "paste",
             accelerator: pasteAccelerator,
         },
         {
+            label: "Вставить без форматирования",
             role: "pasteAndMatchStyle",
             accelerator: unamePlatform === "darwin" ? "Command+Shift+V" : "",
         },
         {
+            label: "Удалить",
             role: "delete",
         },
         {
+            label: "Выбрать всё",
             role: "selectAll",
             accelerator: unamePlatform === "darwin" ? "Command+A" : "",
         },
@@ -188,14 +196,14 @@ function makeAppMenuItems(webContents: electron.WebContents): Electron.MenuItemC
     ];
     if (unamePlatform === "darwin") {
         appMenuItems.push(
-            { role: "services" },
+            { label: "Службы", role: "services" },
             { type: "separator" },
-            { role: "hide" },
-            { role: "hideOthers" },
+            { label: "Скрыть PwnAI", role: "hide" },
+            { label: "Скрыть остальные", role: "hideOthers" },
             { type: "separator" }
         );
     }
-    appMenuItems.push({ role: "quit" });
+    appMenuItems.push({ label: "Выйти из PwnAI", role: "quit" });
     return appMenuItems;
 }
 
@@ -309,6 +317,7 @@ function makeViewMenu(
         },
         { type: "separator" },
         {
+            label: "Полноэкранный режим",
             role: "togglefullscreen",
         },
     ];
@@ -338,25 +347,26 @@ async function makeFullAppMenu(callbacks: AppMenuCallbacks, workspaceOrBuilderId
         console.error("getWorkspaceMenu error:", e);
     }
     const windowMenu: Electron.MenuItemConstructorOptions[] = [
-        { role: "minimize", accelerator: "" },
-        { role: "zoom" },
+        { label: "Свернуть", role: "minimize", accelerator: "" },
+        { label: "Масштаб", role: "zoom" },
         { type: "separator" },
-        { role: "front" },
+        { label: "На передний план", role: "front" },
     ];
     const menuTemplate: Electron.MenuItemConstructorOptions[] = [
-        { role: "appMenu", submenu: appMenuItems },
-        { role: "fileMenu", submenu: fileMenu },
-        { role: "editMenu", submenu: editMenu },
-        { role: "viewMenu", submenu: viewMenu },
+        { label: "PwnAI", role: "appMenu", submenu: appMenuItems },
+        { label: "Файл", role: "fileMenu", submenu: fileMenu },
+        { label: "Правка", role: "editMenu", submenu: editMenu },
+        { label: "Вид", role: "viewMenu", submenu: viewMenu },
     ];
     if (workspaceMenu != null && !isBuilderWindowFocused) {
         menuTemplate.push({
-            label: "Workspace",
+            label: "Рабочее пространство",
             id: "workspace-menu",
             submenu: workspaceMenu,
         });
     }
     menuTemplate.push({
+        label: "Окно",
         role: "windowMenu",
         submenu: windowMenu,
     });
@@ -484,7 +494,7 @@ electron.ipcMain.on("builder-appmenu-show", (event, builderId: string) => {
 
 const dockMenu = electron.Menu.buildFromTemplate([
     {
-        label: "New Window",
+        label: "Новое окно",
         click() {
             fireAndForget(createNewWaveWindow);
         },
