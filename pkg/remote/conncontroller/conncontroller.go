@@ -246,7 +246,7 @@ func (conn *SSHConn) OpenDomainSocketListener(ctx context.Context) error {
 	return nil
 }
 
-// expects the output of `wsh version` which looks like `wsh v0.10.4` or "not-installed [os] [arch]"
+// ожидает вывод `ish version` который выглядит как `ish v0.10.4` or "not-installed [os] [arch]"
 // returns (up-to-date, semver, osArchStr, error)
 // if not up to date, or error, version might be ""
 func IsWshVersionUpToDate(logCtx context.Context, wshVersionLine string) (bool, string, string, error) {

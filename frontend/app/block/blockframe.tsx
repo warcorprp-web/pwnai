@@ -253,7 +253,7 @@ const BlockFrame_Header = ({
     const wshInstallButton: IconButtonDecl = {
         elemtype: "iconbutton",
         icon: "link-slash",
-        title: "wsh is not installed for this connection",
+        title: "ish не установлен для этого соединения",
     };
     const showNoWshButton =
         manageConnection && wshProblem && !util.isLocalConnName(connName) && !connName.startsWith("aws:");
@@ -435,10 +435,10 @@ const ConnStatusOverlay = React.memo(
             async (e: React.MouseEvent) => {
                 const errTexts = [];
                 if (showError) {
-                    errTexts.push(`error: ${connStatus.error}`);
+                    errTexts.push(`ошибка: ${connStatus.error}`);
                 }
                 if (showWshError) {
-                    errTexts.push(`unable to use wsh: ${connStatus.wsherror}`);
+                    errTexts.push(`невозможно использовать ish: ${connStatus.wsherror}`);
                 }
                 const textToCopy = errTexts.join("\n");
                 await navigator.clipboard.writeText(textToCopy);
@@ -463,8 +463,8 @@ const ConnStatusOverlay = React.memo(
                                     options={{ scrollbars: { autoHide: "leave" } }}
                                 >
                                     <CopyButton className="copy-button" onClick={handleCopy} title="Копировать" />
-                                    {showError ? <div>error: {connStatus.error}</div> : null}
-                                    {showWshError ? <div>unable to use wsh: {connStatus.wsherror}</div> : null}
+                                    {showError ? <div>ошибка: {connStatus.error}</div> : null}
+                                    {showWshError ? <div>невозможно использовать ish: {connStatus.wsherror}</div> : null}
                                 </OverlayScrollbarsComponent>
                             )}
                             {showWshError && (

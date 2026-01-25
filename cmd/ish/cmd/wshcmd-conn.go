@@ -141,7 +141,7 @@ func connReinstallRun(cmd *cobra.Command, args []string) error {
 	if err != nil {
 		return fmt.Errorf("reinstalling connection: %w", err)
 	}
-	WriteStdout("wsh reinstalled on connection %q\n", connName)
+	WriteStdout("ish переустановлен on connection %q\n", connName)
 	return nil
 }
 
@@ -207,6 +207,6 @@ func connEnsureRun(cmd *cobra.Command, args []string) error {
 	if err != nil {
 		return fmt.Errorf("ensuring connection: %w", err)
 	}
-	WriteStdout("wsh ensured on connection %q\n", connName)
+	WriteStdout("ish установлен on connection %q\n", connName)
 	return nil
 }

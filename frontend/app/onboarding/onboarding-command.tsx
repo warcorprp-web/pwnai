@@ -99,7 +99,7 @@ Use Ctrl-Shift + Arrow Keys (←→↑↓) to move between blocks in the current
 Use Ctrl-Shift + Number (1-9) to focus a specific block by its position.`;
 
     return (
-        <FakeCommand command="wsh view keyboard-shortcuts.md" onComplete={onComplete}>
+        <FakeCommand command="ish view keyboard-shortcuts.md" onComplete={onComplete}>
             <FakeBlock icon="file-lines" name="keyboard-shortcuts.md" markdown={markdown} />
         </FakeCommand>
     );
@@ -107,7 +107,7 @@ Use Ctrl-Shift + Number (1-9) to focus a specific block by its position.`;
 
 export const ViewLogoCommand = ({ onComplete }: { onComplete?: () => void }) => {
     return (
-        <FakeCommand command="wsh view public/wave-logo.png" onComplete={onComplete}>
+        <FakeCommand command="ish view public/wave-logo.png" onComplete={onComplete}>
             <FakeBlock icon="image" name="wave-logo.png" imgsrc={waveLogo} />
         </FakeCommand>
     );
@@ -127,7 +127,7 @@ PS1="\\[\\e[32m\\]\\u@\\h\\[\\e[0m\\]:\\[\\e[34m\\]\\w\\[\\e[0m\\]\\$ "
 export PATH="$HOME/.local/bin:$PATH"`;
 
     return (
-        <FakeCommand command="wsh edit ~/.bashrc" onComplete={onComplete}>
+        <FakeCommand command="ish edit ~/.bashrc" onComplete={onComplete}>
             <FakeBlock
                 icon="file-lines"
                 name=".bashrc"

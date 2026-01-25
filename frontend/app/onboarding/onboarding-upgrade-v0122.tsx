@@ -47,7 +47,7 @@ const UpgradeOnboardingModal_v0_12_2_Content = () => {
                         <ul className="list-disc list-outside space-y-1 pl-5">
                             <li>Drag & drop files from preview viewer directly to Искра AI</li>
                             <li>
-                                Directory listings support in <span className="font-mono">`wsh ai`</span> commands
+                                Directory listings support in <span className="font-mono">`ish ai`</span> commands
                             </li>
                             <li>Adjustable thinking level and max output tokens per chat</li>
                             <li>Improved tool descriptions and input validations</li>
