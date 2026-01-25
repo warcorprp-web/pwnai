@@ -731,8 +731,6 @@ const AIPanelComponentInner = memo(() => {
                                     <AIModeDropdown />
                                 </div>
                                 {model.inBuilder ? <AIBuilderWelcomeMessage /> : <AIWelcomeMessage />}
-                                {/* TODO: Показывать только если не авторизован */}
-                                <AILoginBanner />
                             </div>
                         ) : (
                             <AIPanelMessages

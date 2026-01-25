@@ -5,9 +5,10 @@ import { formatFileSizeError, isAcceptableFile, validateFileSize } from "@/app/a
 import { waveAIHasFocusWithin } from "@/app/aipanel/waveai-focus-utils";
 import { type WaveAIModel } from "@/app/aipanel/waveai-model";
 import { Tooltip } from "@/element/tooltip";
+import { modalsModel } from "@/app/store/modalmodel";
 import { cn } from "@/util/util";
 import { useAtom, useAtomValue } from "jotai";
-import { memo, useCallback, useEffect, useRef } from "react";
+import { memo, useCallback, useEffect, useRef, useState } from "react";
 
 interface AIPanelInputProps {
     onSubmit: (e: React.FormEvent) => void;
@@ -28,6 +29,10 @@ export const AIPanelInput = memo(({ onSubmit, status, model }: AIPanelInputProps
     const textareaRef = useRef<HTMLTextAreaElement>(null);
     const fileInputRef = useRef<HTMLInputElement>(null);
     const isPanelOpen = useAtomValue(model.getPanelVisibleAtom());
+    const [showLoginOverlay, setShowLoginOverlay] = useState(false);
+    
+    // TODO: Заменить на реальную проверку авторизации
+    const isAuthenticated = false;
 
     let placeholder: string;
     if (!isChatEmpty) {
@@ -37,6 +42,10 @@ export const AIPanelInput = memo(({ onSubmit, status, model }: AIPanelInputProps
     } else {
         placeholder = "Спросите что угодно...";
     }
+    
+    const handleLogin = () => {
+        modalsModel.pushModal("SettingsModal", { initialTab: "general" });
+    };
 
     const resizeTextarea = useCallback(() => {
         const textarea = textareaRef.current;
@@ -207,6 +216,39 @@ export const AIPanelInput = memo(({ onSubmit, status, model }: AIPanelInputProps
                         </div>
                     </div>
                 </form>
+                
+                {/* Login overlay */}
+                {!isAuthenticated && (
+                    <div 
+                        className="absolute inset-0 backdrop-blur-sm bg-black/30 flex items-center justify-center rounded-lg cursor-pointer transition-all"
+                        onClick={handleLogin}
+                        onMouseEnter={() => setShowLoginOverlay(true)}
+                        onMouseLeave={() => setShowLoginOverlay(false)}
+                    >
+                        <div className={cn(
+                            "bg-zinc-800/95 border border-accent/30 rounded-lg p-4 shadow-xl transition-all",
+                            showLoginOverlay ? "scale-100 opacity-100" : "scale-95 opacity-90"
+                        )}>
+                            <div className="flex items-center gap-3">
+                                <i className="fa fa-lock text-2xl text-accent"></i>
+                                <div>
+                                    <div className="text-sm font-semibold text-white mb-1">
+                                        Требуется авторизация
+                                    </div>
+                                    <div className="text-xs text-gray-400 mb-2">
+                                        3 дня бесплатно для новых пользователей
+                                    </div>
+                                    <button
+                                        onClick={handleLogin}
+                                        className="px-3 py-1.5 bg-accent hover:bg-accent/90 text-white text-sm font-medium rounded transition-colors"
+                                    >
+                                        Войти
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                )}
             </div>
         </div>
     );

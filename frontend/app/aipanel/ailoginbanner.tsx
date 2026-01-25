@@ -32,7 +32,7 @@ export const AILoginBanner = memo(() => {
                             </li>
                             <li className="flex items-center gap-2">
                                 <i className="fa fa-check text-accent text-xs"></i>
-                                <span>7 дней бесплатно для новых пользователей</span>
+                                <span>3 дня бесплатно для новых пользователей</span>
                             </li>
                         </ul>
                         <button
