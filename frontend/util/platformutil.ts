@@ -20,20 +20,20 @@ export function isWindows(): boolean {
 export function makeNativeLabel(isDirectory: boolean) {
     let managerName: string;
     if (!isDirectory) {
-        managerName = "Default Application";
+        managerName = "приложении по умолчанию";
     } else if (PLATFORM === PlatformMacOS) {
         managerName = "Finder";
     } else if (PLATFORM == PlatformWindows) {
         managerName = "Explorer";
     } else {
-        managerName = "File Manager";
+        managerName = "файловом менеджере";
     }
 
     let fileAction: string;
     if (isDirectory) {
-        fileAction = "Reveal";
+        fileAction = "Показать";
     } else {
-        fileAction = "Open File";
+        fileAction = "Открыть файл";
     }
-    return `${fileAction} in ${managerName}`;
+    return `${fileAction} в ${managerName}`;
 }
