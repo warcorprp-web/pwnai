@@ -92,12 +92,15 @@ const AIWelcomeMessage = memo(() => {
     const hasCustomModes = Object.keys(aiModeConfigs).some((key) => !key.startsWith("waveai@"));
     const isPwnAIMode = currentMode === "pwnai@default";
     
+    const welcomeIcon = isPwnAIMode ? "fa-shield-halved" : "fa-sparkles";
+    const welcomeTitle = isPwnAIMode ? "Добро пожаловать в PwnAI" : "Wave AI";
+    
     if (isPwnAIMode) {
         return (
             <div className="text-secondary py-8">
                 <div className="text-center">
-                    <i className="fa fa-shield-halved text-4xl text-accent mb-2 block"></i>
-                    <p className="text-lg font-bold text-primary">Добро пожаловать в PwnAI</p>
+                    <i className={`fa ${welcomeIcon} text-4xl text-accent mb-2 block`}></i>
+                    <p className="text-lg font-bold text-primary">{welcomeTitle}</p>
                     <p className="text-sm text-muted mt-1">AI-ассистент для пентестинга</p>
                 </div>
                 <div className="mt-4 text-left max-w-md mx-auto">
