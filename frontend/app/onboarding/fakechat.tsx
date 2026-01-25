@@ -26,18 +26,18 @@ const chatConfigs: ChatConfig[] = [
 - **Electron main process:** \`emain/*.ts\` настраивает окна, меню, preload скрипты, обновления и связывается с Go бэкендом через локальный RPC. (\`emain/\`)
 - **Renderer UI:** React/TS собирается с Vite, Tailwind. (\`frontend/\`, \`index.html\`)
 - **Go backend:** запускает сервисы, web и websocket слушатели, телеметрию, конфиг watcher, локальный RPC, filestore и SQLite-backed object store. (\`cmd/server/main-server.go\`, \`pkg/*\`)
-- **CLI helper ("ish"):** собирается для разных OS/arch; используется для shell интеграции и удалённых операций. (\`cmd/wsh/\`)
+- **CLI helper ("ish"):** собирается для разных OS/arch; используется для shell интеграции и удалённых операций. (\`cmd/ish/\`)
 
 ## Ключевые директории
 - **cmd/:** точки входа
   - \`server/\`: главный сервер
-  - \`wsh/\`: shell helper (ish)
+  - \`ish/\`: shell helper (ish)
 
 - **pkg/:** backend пакеты
   - \`wcore/\`: координация запуска, начальные данные, создание окон/workspace
   - \`web/\`: HTTP+WS серверы
   - \`waveai/\`: AI бэкенды (Anthropic, Alibaba)
-  - \`wshrpc\`, \`wshutil\`: локальный/удалённый RPC
+  - \`ishrpc\`, \`ishutil\`: локальный/удалённый RPC
   - \`wstore/\`: постоянное хранилище (SQLite)
   - \`filestore/\`: локальный кэш файлов`,
     },
@@ -207,7 +207,7 @@ const FakeAIPanelHeader = memo(() => {
 
             <div className="flex items-center flex-shrink-0 whitespace-nowrap">
                 <div className="flex items-center text-sm whitespace-nowrap">
-                    <span className="text-gray-300 mr-1 text-[12px]">Context</span>
+                    <span className="text-gray-300 mr-1 text-[12px]">Контекст</span>
                     <button
                         className="relative inline-flex h-6 w-14 items-center rounded-full transition-colors bg-accent-600"
                         title="Доступ к виджетам ВКЛ"
