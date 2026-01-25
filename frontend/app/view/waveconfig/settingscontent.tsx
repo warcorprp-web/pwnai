@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import { Button } from "@/app/element/button";
-import { Input } from "@/app/element/input";
 import type { WaveConfigViewModel } from "@/app/view/waveconfig/waveconfig-model";
 import { isAuthenticatedAtom } from "@/app/store/authstate";
 import { useAtom } from "jotai";
@@ -124,12 +123,12 @@ const SettingsContentComponent = ({ model }: SettingsContentProps) => {
                         <label className="block text-sm font-medium text-gray-300 mb-2">
                             Email
                         </label>
-                        <Input
+                        <input
                             type="email"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                             placeholder="your@email.com"
-                            className="w-full"
+                            className="w-full px-4 py-3 bg-zinc-800 border border-zinc-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-accent transition-colors"
                             disabled={loading}
                         />
                     </div>
@@ -138,12 +137,12 @@ const SettingsContentComponent = ({ model }: SettingsContentProps) => {
                         <label className="block text-sm font-medium text-gray-300 mb-2">
                             Пароль
                         </label>
-                        <Input
+                        <input
                             type="password"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                             placeholder="••••••••"
-                            className="w-full"
+                            className="w-full px-4 py-3 bg-zinc-800 border border-zinc-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-accent transition-colors"
                             disabled={loading}
                         />
                     </div>
@@ -153,12 +152,12 @@ const SettingsContentComponent = ({ model }: SettingsContentProps) => {
                             <label className="block text-sm font-medium text-gray-300 mb-2">
                                 Подтвердите пароль
                             </label>
-                            <Input
+                            <input
                                 type="password"
                                 value={confirmPassword}
                                 onChange={(e) => setConfirmPassword(e.target.value)}
                                 placeholder="••••••••"
-                                className="w-full"
+                                className="w-full px-4 py-3 bg-zinc-800 border border-zinc-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-accent transition-colors"
                                 disabled={loading}
                             />
                         </div>
