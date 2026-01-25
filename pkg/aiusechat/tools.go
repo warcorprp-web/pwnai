@@ -196,6 +196,12 @@ func GenerateTabStateAndTools(ctx context.Context, tabid string, widgetAccess bo
 			tools = append(tools, GetWebNavigateToolDefinition(tabid))
 		}
 	}
+	
+	// Добавляем PwnAI tools если режим pwnai@default
+	if chatOpts.Config.AIMode == "pwnai@default" {
+		tools = append(tools, GetPwnAIToolDefinitions()...)
+	}
+	
 	return tabState, tools, nil
 }
 
