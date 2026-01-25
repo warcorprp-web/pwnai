@@ -337,7 +337,7 @@ func GetTermRunCommandToolDefinition(tabId string) uctypes.ToolDefinition {
 	return uctypes.ToolDefinition{
 		Name:        "term_run_command",
 		DisplayName: "Run Terminal Command",
-		Description: "Execute a command in a terminal widget and return its output. The command will be sent to the terminal as if typed by the user, followed by Enter. Waits up to 10 seconds for command completion.",
+		Description: "Execute a command in a terminal widget and return its output. The command will be sent to the terminal as if typed by the user, followed by Enter. If shell integration is enabled, waits for command completion (up to 25 seconds). Otherwise waits 2 seconds.",
 		ToolLogName: "term:runcommand",
 		InputSchema: map[string]any{
 			"type": "object",
@@ -386,12 +386,21 @@ func GetTermRunCommandToolDefinition(tabId string) uctypes.ToolDefinition {
 				return nil, err
 			}
 
-			ctx, cancelFn := context.WithTimeout(context.Background(), 10*time.Second)
+			ctx, cancelFn := context.WithTimeout(context.Background(), 30*time.Second)
 			defer cancelFn()
 
 			fullBlockId, err := wcore.ResolveBlockIdFromPrefix(ctx, tabId, parsed.WidgetId)
 			if err != nil {
 				return nil, err
+			}
+
+			// Get current shell state before command
+			blockORef := waveobj.MakeORef(waveobj.OType_Block, fullBlockId)
+			rtInfoBefore := wstore.GetRTInfo(blockORef)
+			hasShellIntegration := rtInfoBefore != nil && rtInfoBefore.ShellIntegration
+			lastCmdBefore := ""
+			if hasShellIntegration {
+				lastCmdBefore = rtInfoBefore.ShellLastCmd
 			}
 
 			// Send command to terminal
@@ -407,8 +416,24 @@ func GetTermRunCommandToolDefinition(tabId string) uctypes.ToolDefinition {
 				return nil, fmt.Errorf("failed to send command to terminal: %w", err)
 			}
 
-			// Wait a bit for command to execute
-			time.Sleep(500 * time.Millisecond)
+			// Wait for command completion if shell integration is available
+			if hasShellIntegration {
+				// Poll for command completion (max 25 seconds)
+				deadline := time.Now().Add(25 * time.Second)
+				for time.Now().Before(deadline) {
+					time.Sleep(200 * time.Millisecond)
+					
+					rtInfo := wstore.GetRTInfo(blockORef)
+					if rtInfo != nil && rtInfo.ShellLastCmd != lastCmdBefore {
+						// Command completed, wait a bit more for output to settle
+						time.Sleep(300 * time.Millisecond)
+						break
+					}
+				}
+			} else {
+				// No shell integration, just wait fixed time
+				time.Sleep(2 * time.Second)
+			}
 
 			// Get the output
 			output, err := getTermScrollbackOutput(
@@ -417,7 +442,7 @@ func GetTermRunCommandToolDefinition(tabId string) uctypes.ToolDefinition {
 				wshrpc.CommandTermGetScrollbackLinesData{
 					LineStart:   0,
 					LineEnd:     200,
-					LastCommand: false,
+					LastCommand: hasShellIntegration,
 				},
 			)
 			if err != nil {
