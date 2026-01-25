@@ -47,6 +47,8 @@ const (
 	WaveAIMode                 = "waveai:mode"
 	WaveAIProvider             = "waveai:provider"
 	WaveAIIsLocal              = "waveai:islocal"
+	WshHadError                = "wsh:haderror"
+	WshCmd                     = "wsh:cmd"
 )
 
 func MakeTEvent(eventType string, props ...TEventProps) *TEvent {

@@ -1287,9 +1287,9 @@ func (ws *WshServer) WshActivityCommand(ctx context.Context, data map[string]int
 			delete(data, key)
 		}
 		if strings.HasSuffix(key, "#error") {
-			props.WshHadError = true
+			props[telemetrydata.WshHadError] = true
 		} else {
-			props.WshCmd = key
+			props[telemetrydata.WshCmd] = key
 		}
 	}
 	activityUpdate := wshrpc.ActivityUpdate{
