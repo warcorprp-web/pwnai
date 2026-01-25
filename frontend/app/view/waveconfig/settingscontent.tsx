@@ -239,6 +239,27 @@ const SettingsContentComponent = ({ model }: SettingsContentProps) => {
         resetForm();
     };
 
+    const handleUpgrade = async (plan: "pro" | "pro_plus") => {
+        try {
+            const response = await fetch("http://localhost:3001/api/payment/create", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${authToken}`
+                },
+                body: JSON.stringify({ plan })
+            });
+
+            if (!response.ok) throw new Error("Ошибка создания платежа");
+
+            const data = await response.json();
+            window.open(data.confirmationUrl, "_blank");
+        } catch (err) {
+            console.error("Ошибка оплаты:", err);
+            setError("Не удалось создать платеж");
+        }
+    };
+
     if (isAuthenticated) {
         const subscriptionTier = userData?.subscription_tier || "trial";
         const subscriptionExpires = userData?.subscription_expires 
@@ -306,10 +327,16 @@ const SettingsContentComponent = ({ model }: SettingsContentProps) => {
                         <div className="space-y-2">
                             {subscriptionTier === "trial" && (
                                 <>
-                                    <button className="w-full px-4 py-2.5 bg-accent/20 hover:bg-accent/30 text-accent font-medium rounded transition-colors cursor-pointer">
+                                    <button 
+                                        onClick={() => handleUpgrade("pro")}
+                                        className="w-full px-4 py-2.5 bg-accent/20 hover:bg-accent/30 text-accent font-medium rounded transition-colors cursor-pointer"
+                                    >
                                         Pro - 500 запросов/день (990₽/мес)
                                     </button>
-                                    <button className="w-full px-4 py-2.5 bg-accent hover:bg-accent/90 text-white font-medium rounded transition-colors cursor-pointer">
+                                    <button 
+                                        onClick={() => handleUpgrade("pro_plus")}
+                                        className="w-full px-4 py-2.5 bg-accent hover:bg-accent/90 text-white font-medium rounded transition-colors cursor-pointer"
+                                    >
                                         Pro Plus - 2000 запросов/день (1990₽/мес)
                                     </button>
                                 </>
