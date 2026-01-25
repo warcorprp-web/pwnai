@@ -14,6 +14,14 @@ export interface AuthResponse {
     error?: string;
 }
 
+export interface AIResponse {
+    success: boolean;
+    message?: string;
+    response?: string;
+    remainingRequests?: number;
+    error?: string;
+}
+
 export const authApi = {
     // Отправка OTP кода для регистрации
     async sendCode(email: string): Promise<AuthResponse> {
@@ -51,6 +59,31 @@ export const authApi = {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ email, password }),
+        });
+        return response.json();
+    },
+};
+
+export const aiApi = {
+    // Анонимный AI запрос
+    async anonymousRequest(prompt: string, deviceId: string, fingerprint: string): Promise<AIResponse> {
+        const response = await fetch(`${API_BASE_URL}/ai/anonymous`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ prompt, deviceId, fingerprint }),
+        });
+        return response.json();
+    },
+
+    // Авторизованный AI запрос
+    async authenticatedRequest(prompt: string, token: string): Promise<AIResponse> {
+        const response = await fetch(`${API_BASE_URL}/ai/request`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify({ prompt }),
         });
         return response.json();
     },

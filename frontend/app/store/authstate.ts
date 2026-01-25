@@ -3,6 +3,7 @@
 
 import { atom } from "jotai";
 import { atomWithStorage } from "jotai/utils";
+import { generateFingerprint } from "./fingerprint";
 
 // Счётчик бесплатных запросов (хранится локально)
 export const freeRequestCountAtom = atomWithStorage<number>("iskra:free-requests", 0);
@@ -41,4 +42,14 @@ export const showLimitBannerAtom = atom<boolean>(false);
 // Device ID для анонимных пользователей
 export const deviceIdAtom = atomWithStorage<string>("iskra:device-id", () => {
     return crypto.randomUUID();
+});
+
+// Browser fingerprint (кешируется)
+let cachedFingerprint: string | null = null;
+
+export const fingerprintAtom = atom(async () => {
+    if (!cachedFingerprint) {
+        cachedFingerprint = await generateFingerprint();
+    }
+    return cachedFingerprint;
 });
