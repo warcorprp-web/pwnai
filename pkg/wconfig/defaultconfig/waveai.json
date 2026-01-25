@@ -1,40 +1,50 @@
 {
-    "waveai@quick": {
-        "display:name": "Быстрый",
-        "display:order": -3,
+    "anthropic@sonnet": {
+        "display:name": "Claude Sonnet 4.5",
+        "display:order": -5,
+        "display:icon": "brain",
+        "display:description": "Наиболее сбалансированная модель Anthropic\nОтлично подходит для большинства задач",
+        "ai:provider": "openai",
+        "ai:apitype": "openai-chat",
+        "ai:model": "claude-sonnet-4-5",
+        "ai:apitoken": "879621",
+        "ai:endpoint": "https://api.ceiller.ru/claude-kiro-oauth/v1/chat/completions",
+        "ai:capabilities": ["tools"]
+    },
+    "anthropic@haiku": {
+        "display:name": "Claude Haiku 4.5",
+        "display:order": -4,
         "display:icon": "bolt",
-        "display:description": "Самые быстрые ответы (gpt-5-mini)",
-        "ai:provider": "wave",
-        "ai:apitype": "openai-responses",
-        "ai:model": "gpt-5-mini",
-        "ai:thinkinglevel": "low",
-        "ai:capabilities": ["tools", "images", "pdfs"],
-		"ai:switchcompat": ["wavecloud"]
+        "display:description": "Быстрая и эффективная модель Anthropic\nДля простых задач и быстрых ответов",
+        "ai:provider": "openai",
+        "ai:apitype": "openai-chat",
+        "ai:model": "claude-haiku-4-5",
+        "ai:apitoken": "879621",
+        "ai:endpoint": "https://api.ceiller.ru/claude-kiro-oauth/v1/chat/completions",
+        "ai:capabilities": ["tools"]
     },
-    "waveai@balanced": {
-        "display:name": "Сбалансированный",
+    "qwen@coder3plus": {
+        "display:name": "Qwen Coder 3 Plus",
         "display:order": -2,
-        "display:icon": "sparkles",
-        "display:description": "Хороший баланс скорости и точности\n(gpt-5.1 с минимальным размышлением)",
-        "ai:provider": "wave",
-        "ai:apitype": "openai-responses",
-        "ai:model": "gpt-5.1",
-        "ai:thinkinglevel": "low",
-        "ai:capabilities": ["tools", "images", "pdfs"],
-        "waveai:premium": true,
-		"ai:switchcompat": ["wavecloud"]
+        "display:icon": "code",
+        "display:description": "Мощная модель Qwen для программирования\nОтлично справляется со сложными задачами кодирования",
+        "ai:provider": "openai",
+        "ai:apitype": "openai-chat",
+        "ai:model": "qwen-coder3-plus",
+        "ai:apitoken": "879621",
+        "ai:endpoint": "https://api.ceiller.ru/claude-kiro-oauth/v1/chat/completions",
+        "ai:capabilities": ["tools"]
     },
-    "waveai@deep": {
-        "display:name": "Глубокий",
+    "qwen@coder3flash": {
+        "display:name": "Qwen Coder 3 Flash",
         "display:order": -1,
-        "display:icon": "lightbulb",
-        "display:description": "Медленнее, но наиболее способный\n(gpt-5.1 с полным рассуждением)",
-        "ai:provider": "wave",
-        "ai:apitype": "openai-responses",
-        "ai:model": "gpt-5.1",
-        "ai:thinkinglevel": "medium",
-        "ai:capabilities": ["tools", "images", "pdfs"],
-        "waveai:premium": true,
-		"ai:switchcompat": ["wavecloud"]
+        "display:icon": "bolt-lightning",
+        "display:description": "Быстрая модель Qwen для программирования\nДля быстрых ответов на вопросы о коде",
+        "ai:provider": "openai",
+        "ai:apitype": "openai-chat",
+        "ai:model": "qwen-coder3-flash",
+        "ai:apitoken": "879621",
+        "ai:endpoint": "https://api.ceiller.ru/claude-kiro-oauth/v1/chat/completions",
+        "ai:capabilities": ["tools"]
     }
 }
