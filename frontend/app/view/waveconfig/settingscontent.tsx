@@ -253,7 +253,7 @@ const SettingsContentComponent = ({ model }: SettingsContentProps) => {
             if (!response.ok) throw new Error("Ошибка создания платежа");
 
             const data = await response.json();
-            window.open(data.confirmationUrl, "_blank");
+            window.open(data.payment_url, "_blank");
         } catch (err) {
             console.error("Ошибка оплаты:", err);
             setError("Не удалось создать платеж");
