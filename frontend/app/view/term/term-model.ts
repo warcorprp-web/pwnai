@@ -116,7 +116,7 @@ export class TermViewModel implements ViewModel {
             if (blockData?.meta?.controller == "cmd") {
                 return "";
             }
-            return "Terminal";
+            return "Терминал";
         });
         this.viewText = jotai.atom((get) => {
             const termMode = get(this.termMode);

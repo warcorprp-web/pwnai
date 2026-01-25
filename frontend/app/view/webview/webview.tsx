@@ -90,7 +90,7 @@ export class WebViewModel implements ViewModel {
         this.isLoading = atom(false);
         this.refreshIcon = atom("rotate-right");
         this.viewIcon = atom("globe");
-        this.viewName = atom("Web");
+        this.viewName = atom("Браузер");
         this.urlInputRef = createRef<HTMLInputElement>();
         this.webviewRef = createRef<WebviewTag>();
         this.domReady = atom(false);
