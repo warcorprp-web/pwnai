@@ -354,7 +354,7 @@ func startupActivityUpdate(firstLaunch bool) {
 			telemetrydata.AutoUpdateEnabled:   autoUpdateEnabled,
 			telemetrydata.LocalShellType:      shellType,
 			telemetrydata.LocalShellVersion:   shellVersion,
-			SettingsTransparent: fullConfig.Settings.WindowTransparent,
+			telemetrydata.SettingsTransparent: fullConfig.Settings.WindowTransparent,
 		},
 		telemetrydata.UserSetOnce: userSetOnce,
 	}

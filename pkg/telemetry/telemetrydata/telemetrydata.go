@@ -79,6 +79,7 @@ const (
 	AutoUpdateEnabled          = "autoupdate:enabled"
 	LocalShellType             = "localshell:type"
 	LocalShellVersion          = "localshell:version"
+	SettingsTransparent        = "settings:transparent"
 )
 
 func MakeTEvent(eventType string, props ...TEventProps) *TEvent {
