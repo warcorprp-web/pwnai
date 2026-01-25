@@ -66,34 +66,22 @@ const InitPage = ({ isCompact }: { isCompact: boolean }) => {
                 className="flex-1 overflow-y-auto min-h-0"
                 options={{ scrollbars: { autoHide: "never" } }}
             >
-                <div className="grid grid-cols-2 gap-4 w-full mb-5 unselectable">
-                    <div className="flex flex-col items-center gap-3 p-5 rounded-lg border border-border/50 bg-background/50">
-                        <i className="text-[40px] text-accent fa-solid fa-sparkles"></i>
-                        <div className="text-foreground text-base font-medium">AI ассистент</div>
-                        <div className="text-secondary text-sm text-center leading-relaxed">
-                            Помощь с командами и кодом
-                        </div>
+                <div className="grid grid-cols-2 gap-3 w-full mb-5 unselectable">
+                    <div className="flex flex-col items-center gap-2 p-4 rounded-lg border border-border/50 bg-background/50">
+                        <i className="text-[28px] text-accent fa-solid fa-sparkles"></i>
+                        <div className="text-foreground text-sm font-medium">AI ассистент</div>
                     </div>
-                    <div className="flex flex-col items-center gap-3 p-5 rounded-lg border border-border/50 bg-background/50">
-                        <i className="text-[40px] text-accent fa-solid fa-terminal"></i>
-                        <div className="text-foreground text-base font-medium">Умный терминал</div>
-                        <div className="text-secondary text-sm text-center leading-relaxed">
-                            История и автодополнение
-                        </div>
+                    <div className="flex flex-col items-center gap-2 p-4 rounded-lg border border-border/50 bg-background/50">
+                        <i className="text-[28px] text-accent fa-solid fa-terminal"></i>
+                        <div className="text-foreground text-sm font-medium">Умный терминал</div>
                     </div>
-                    <div className="flex flex-col items-center gap-3 p-5 rounded-lg border border-border/50 bg-background/50">
-                        <i className="text-[40px] text-accent fa-solid fa-browser"></i>
-                        <div className="text-foreground text-base font-medium">Встроенный браузер</div>
-                        <div className="text-secondary text-sm text-center leading-relaxed">
-                            Просмотр веб-страниц и документации
-                        </div>
+                    <div className="flex flex-col items-center gap-2 p-4 rounded-lg border border-border/50 bg-background/50">
+                        <i className="text-[28px] text-accent fa-solid fa-browser"></i>
+                        <div className="text-foreground text-sm font-medium">Встроенный браузер</div>
                     </div>
-                    <div className="flex flex-col items-center gap-3 p-5 rounded-lg border border-border/50 bg-background/50">
-                        <i className="text-[40px] text-accent fa-solid fa-code"></i>
-                        <div className="text-foreground text-base font-medium">Редактор кода</div>
-                        <div className="text-secondary text-sm text-center leading-relaxed">
-                            Подсветка синтаксиса и редактирование
-                        </div>
+                    <div className="flex flex-col items-center gap-2 p-4 rounded-lg border border-border/50 bg-background/50">
+                        <i className="text-[28px] text-accent fa-solid fa-code"></i>
+                        <div className="text-foreground text-sm font-medium">Редактор кода</div>
                     </div>
                 </div>
             </OverlayScrollbarsComponent>
