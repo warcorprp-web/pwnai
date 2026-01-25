@@ -500,7 +500,7 @@ function SingleLinePlot({
         axis: !sparkline,
         x: {
             grid: true,
-            label: "time",
+            label: "Время",
             tickFormat: (d) => `${dayjs.unix(d / 1000).format("HH:mm:ss")}`,
             domain: [minX, maxX],
         },
