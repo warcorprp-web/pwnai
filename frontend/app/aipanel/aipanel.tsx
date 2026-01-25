@@ -17,6 +17,7 @@ import { memo, useCallback, useEffect, useRef, useState } from "react";
 import { useDrop } from "react-dnd";
 import { formatFileSizeError, isAcceptableFile, validateFileSize } from "./ai-utils";
 import { AIDroppedFiles } from "./aidroppedfiles";
+import { AILimitReachedBanner } from "./ailimitreached";
 import { AILoginBanner } from "./ailoginbanner";
 import { AIModeDropdown } from "./aimode";
 import { AIPanelHeader } from "./aipanelheader";
@@ -28,6 +29,7 @@ import { BYOKAnnouncement } from "./byokannouncement";
 import { WaveAIModel } from "./waveai-model";
 import { usePwnAIChat } from "./use-pwnai-chat";
 import { PwnAIClient } from "@/app/store/pwnai-client";
+import { freeRequestCountAtom, isFreeLimitReachedAtom, isAuthenticatedAtom } from "@/app/store/authstate";
 
 const AIBlockMask = memo(() => {
     return (
@@ -374,6 +376,8 @@ const AIPanelComponentInner = memo(() => {
     const tabModel = maybeUseTabModel();
     const defaultMode = jotai.useAtomValue(getSettingsKeyAtom("waveai:defaultmode")) ?? "waveai@balanced";
     const isPwnAIMode = defaultMode === "pwnai@default";
+    const isFreeLimitReached = jotai.useAtomValue(isFreeLimitReachedAtom);
+    const isAuthenticated = jotai.useAtomValue(isAuthenticatedAtom);
     
     const welcomeTitle = isPwnAIMode ? "PwnAI" : "Искра AI";
     const welcomeDescription = isPwnAIMode 
@@ -508,6 +512,22 @@ const AIPanelComponentInner = memo(() => {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+        
+        // Проверка лимита для неавторизованных пользователей
+        const isAuthenticated = globalStore.get(isAuthenticatedAtom);
+        const isLimitReached = globalStore.get(isFreeLimitReachedAtom);
+        
+        if (!isAuthenticated && isLimitReached) {
+            // Не отправляем запрос, баннер уже показан в чате
+            return;
+        }
+        
+        // Инкремент счётчика для неавторизованных
+        if (!isAuthenticated) {
+            const currentCount = globalStore.get(freeRequestCountAtom);
+            globalStore.set(freeRequestCountAtom, currentCount + 1);
+        }
+        
         await model.handleSubmit();
         setTimeout(() => {
             model.focusInput();
@@ -740,6 +760,7 @@ const AIPanelComponentInner = memo(() => {
                             />
                         )}
                         <AIErrorMessage />
+                        {!isAuthenticated && isFreeLimitReached && <AILimitReachedBanner />}
                         <AIDroppedFiles model={model} />
                         <AIPanelInput onSubmit={handleSubmit} status={status} model={model} />
                 </>
