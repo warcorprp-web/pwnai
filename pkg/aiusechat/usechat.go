@@ -612,12 +612,12 @@ func sendAIMetricsTelemetry(ctx context.Context, metrics *uctypes.AIMetrics) {
 		telemetrydata.WaveAITextDocCount:         metrics.TextDocCount,
 		telemetrydata.WaveAITextLen:              metrics.TextLen,
 		telemetrydata.WaveAIFirstByteMs:          metrics.FirstByteLatency,
-		WaveAIRequestDurMs:         metrics.RequestDuration,
-		WaveAIWidgetAccess:         metrics.WidgetAccess,
-		WaveAIThinkingLevel:        metrics.ThinkingLevel,
-		WaveAIMode:                 metrics.AIMode,
-		WaveAIProvider:             metrics.AIProvider,
-		WaveAIIsLocal:              metrics.IsLocal,
+		telemetrydata.WaveAIRequestDurMs:         metrics.RequestDuration,
+		telemetrydata.WaveAIWidgetAccess:         metrics.WidgetAccess,
+		telemetrydata.WaveAIThinkingLevel:        metrics.ThinkingLevel,
+		telemetrydata.WaveAIMode:                 metrics.AIMode,
+		telemetrydata.WaveAIProvider:             metrics.AIProvider,
+		telemetrydata.WaveAIIsLocal:              metrics.IsLocal,
 	})
 	_ = telemetry.RecordTEvent(ctx, event)
 }

@@ -41,11 +41,21 @@ const (
 	WaveAITextLen              = "waveai:textlen"
 	WaveAIFirstByteMs          = "waveai:firstbytems"
 	WaveAITotalMs              = "waveai:totalms"
+	WaveAIRequestDurMs         = "waveai:requestdurms"
+	WaveAIWidgetAccess         = "waveai:widgetaccess"
+	WaveAIThinkingLevel        = "waveai:thinkinglevel"
+	WaveAIMode                 = "waveai:mode"
+	WaveAIProvider             = "waveai:provider"
+	WaveAIIsLocal              = "waveai:islocal"
 )
 
-func MakeTEvent(eventType string) *TEvent {
-	return &TEvent{
+func MakeTEvent(eventType string, props ...TEventProps) *TEvent {
+	event := &TEvent{
 		EventType: eventType,
 		Props:     make(TEventProps),
 	}
+	if len(props) > 0 {
+		event.Props = props[0]
+	}
+	return event
 }
