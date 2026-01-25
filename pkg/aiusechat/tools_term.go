@@ -299,3 +299,132 @@ func GetTermCommandOutputToolDefinition(tabId string) uctypes.ToolDefinition {
 		},
 	}
 }
+
+
+type TermRunCommandToolInput struct {
+	WidgetId string `json:"widget_id"`
+	Command  string `json:"command"`
+}
+
+func parseTermRunCommandInput(input any) (*TermRunCommandToolInput, error) {
+	result := &TermRunCommandToolInput{}
+
+	if input == nil {
+		return nil, fmt.Errorf("input is required")
+	}
+
+	inputBytes, err := json.Marshal(input)
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal input: %w", err)
+	}
+
+	if err := json.Unmarshal(inputBytes, result); err != nil {
+		return nil, fmt.Errorf("failed to unmarshal input: %w", err)
+	}
+
+	if result.WidgetId == "" {
+		return nil, fmt.Errorf("widget_id is required")
+	}
+
+	if result.Command == "" {
+		return nil, fmt.Errorf("command is required")
+	}
+
+	return result, nil
+}
+
+func GetTermRunCommandToolDefinition(tabId string) uctypes.ToolDefinition {
+	return uctypes.ToolDefinition{
+		Name:        "term_run_command",
+		DisplayName: "Run Terminal Command",
+		Description: "Execute a command in a terminal widget and return its output. The command will be sent to the terminal as if typed by the user, followed by Enter. Waits up to 10 seconds for command completion.",
+		ToolLogName: "term:runcommand",
+		InputSchema: map[string]any{
+			"type": "object",
+			"properties": map[string]any{
+				"widget_id": map[string]any{
+					"type":        "string",
+					"description": "8-character widget ID of the terminal widget",
+				},
+				"command": map[string]any{
+					"type":        "string",
+					"description": "Command to execute in the terminal",
+				},
+			},
+			"required":             []string{"widget_id", "command"},
+			"additionalProperties": false,
+		},
+		ToolCallDesc: func(input any, output any, toolUseData *uctypes.UIMessageDataToolUse) string {
+			parsed, err := parseTermRunCommandInput(input)
+			if err != nil {
+				return fmt.Sprintf("error parsing input: %v", err)
+			}
+			return fmt.Sprintf("executing command in terminal %s: %s", parsed.WidgetId, parsed.Command)
+		},
+		ToolApproval: func(input any) *uctypes.ToolApprovalInfo {
+			parsed, err := parseTermRunCommandInput(input)
+			if err != nil {
+				return nil
+			}
+			
+			// Require approval for potentially dangerous commands
+			dangerousPatterns := []string{"rm ", "del ", "format", "mkfs", "dd ", "> /dev/", "sudo rm", "chmod -R", "chown -R"}
+			for _, pattern := range dangerousPatterns {
+				if strings.Contains(strings.ToLower(parsed.Command), pattern) {
+					return &uctypes.ToolApprovalInfo{
+						ToolName:    "term_run_command",
+						ToolDesc:    fmt.Sprintf("Execute potentially dangerous command: %s", parsed.Command),
+						NeedsPrompt: true,
+					}
+				}
+			}
+			return nil
+		},
+		ToolAnyCallback: func(input any, toolUseData *uctypes.UIMessageDataToolUse) (any, error) {
+			parsed, err := parseTermRunCommandInput(input)
+			if err != nil {
+				return nil, err
+			}
+
+			ctx, cancelFn := context.WithTimeout(context.Background(), 10*time.Second)
+			defer cancelFn()
+
+			fullBlockId, err := wcore.ResolveBlockIdFromPrefix(ctx, tabId, parsed.WidgetId)
+			if err != nil {
+				return nil, err
+			}
+
+			// Send command to terminal
+			inputData := wshrpc.CommandBlockInputData{
+				BlockId:   fullBlockId,
+				InputData: []byte(parsed.Command + "\n"),
+			}
+
+			err = wshclient.ControllerInputCommand(wcore.GetWebSocketRpcClient(), inputData, &wshrpc.RpcOpts{
+				Timeout: 5000,
+			})
+			if err != nil {
+				return nil, fmt.Errorf("failed to send command to terminal: %w", err)
+			}
+
+			// Wait a bit for command to execute
+			time.Sleep(500 * time.Millisecond)
+
+			// Get the output
+			output, err := getTermScrollbackOutput(
+				tabId,
+				parsed.WidgetId,
+				wshrpc.CommandTermGetScrollbackLinesData{
+					LineStart:   0,
+					LineEnd:     200,
+					LastCommand: false,
+				},
+			)
+			if err != nil {
+				return nil, fmt.Errorf("failed to get command output: %w", err)
+			}
+
+			return output, nil
+		},
+	}
+}
