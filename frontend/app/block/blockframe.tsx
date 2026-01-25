@@ -109,7 +109,7 @@ const OptMagnifyButton = React.memo(
         const magnifyDecl: IconButtonDecl = {
             elemtype: "iconbutton",
             icon: <MagnifyIcon enabled={magnified} />,
-            title: magnified ? "Minimize" : "Magnify",
+            title: magnified ? "Уменьшить" : "Увеличить",
             click: toggleMagnify,
             disabled,
         };
@@ -135,7 +135,7 @@ function computeEndIcons(
     const settingsDecl: IconButtonDecl = {
         elemtype: "iconbutton",
         icon: "cog",
-        title: "Settings",
+        title: "Настройки",
         click: onContextMenu,
     };
     endIconsElem.push(<IconButton key="settings" decl={settingsDecl} className="block-frame-settings" />);
@@ -143,7 +143,7 @@ function computeEndIcons(
         const addToLayoutDecl: IconButtonDecl = {
             elemtype: "iconbutton",
             icon: "circle-plus",
-            title: "Add to Layout",
+            title: "Добавить в макет",
             click: () => {
                 nodeModel.addEphemeralNodeToLayout();
             },
@@ -163,7 +163,7 @@ function computeEndIcons(
     const closeDecl: IconButtonDecl = {
         elemtype: "iconbutton",
         icon: "xmark-large",
-        title: "Close",
+        title: "Закрыть",
         click: () => uxCloseBlock(nodeModel.blockId),
     };
     endIconsElem.push(<IconButton key="close" decl={closeDecl} className="block-frame-default-close" />);
