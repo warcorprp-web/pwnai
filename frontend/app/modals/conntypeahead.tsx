@@ -143,7 +143,7 @@ function getReconnectItem(
         status: "connected",
         icon: "arrow-right-arrow-left",
         iconColor: "var(--grey-text-color)",
-        label: `Reconnect to ${connStatus.connection}`,
+        label: `Переподключиться к ${connStatus.connection}`,
         value: "",
         onSelect: async (_: string) => {
             const prtn = RpcApi.ConnConnectCommand(
@@ -189,7 +189,7 @@ function getLocalSuggestions(
         return null;
     }
     const localSuggestions: SuggestionConnectionScope = {
-        headerText: "Local",
+        headerText: "Локальные",
         items: sortedSuggestionItems,
     };
     return localSuggestions;
@@ -210,7 +210,7 @@ function getRemoteSuggestions(
         return null;
     }
     const remoteSuggestions: SuggestionConnectionScope = {
-        headerText: "Remote",
+        headerText: "Удаленные",
         items: sortedSuggestionItems,
     };
     return remoteSuggestions;
@@ -252,7 +252,7 @@ function getDisconnectItem(
         status: "connected",
         icon: "xmark",
         iconColor: "var(--grey-text-color)",
-        label: `Disconnect ${connStatus.connection}`,
+        label: `Отключить ${connStatus.connection}`,
         value: "",
         onSelect: async (_: string) => {
             const prtn = RpcApi.ConnDisconnectCommand(TabRpcClient, connection, { timeout: 60000 });
@@ -310,7 +310,7 @@ function getNewConnectionSuggestionItem(
         status: "connected",
         icon: "plus",
         iconColor: "var(--grey-text-color)",
-        label: `${connSelected} (New Connection)`,
+        label: `${connSelected} (Новое соединение)`,
         value: "",
         onSelect: (_: string) => {
             changeConnection(connSelected);
@@ -548,7 +548,7 @@ const ChangeConnectionBlockModal = React.memo(
                 onKeyDown={(e) => keyutil.keydownWrapper(handleTypeAheadKeyDown)(e)}
                 onChange={(current: string) => setConnSelected(current)}
                 value={connSelected}
-                label="Connect to (username@host)..."
+                label="Подключиться к (пользователь@хост)..."
                 onClickBackdrop={() => globalStore.set(changeConnModalAtom, false)}
             />
         );
