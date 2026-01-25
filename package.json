@@ -5,7 +5,7 @@
         "email": "info@iskra-terminal.dev"
     },
     "productName": "Искра Терминал",
-    "description": "AI-Powered Terminal with Penetration Testing Tools",
+    "description": "Удобный терминал с интеграцией с ИИ",
     "license": "Apache-2.0",
     "version": "1.0.0",
     "homepage": "https://iskra-terminal.dev",
