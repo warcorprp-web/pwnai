@@ -13,68 +13,66 @@ interface ChatConfig {
 
 const chatConfigs: ChatConfig[] = [
     {
-        userPrompt: "Check out ~/waveterm and summarize the project — what it does and how it's organized.",
+        userPrompt: "Проверь ~/iskra-terminal и опиши проект — что он делает и как организован.",
         toolName: "read_dir",
-        toolDescription: 'reading directory "~/waveterm"',
-        markdownResponse: `Here's a quick, file-structure–driven overview of this repo (Wave Terminal):
+        toolDescription: 'чтение директории "~/iskra-terminal"',
+        markdownResponse: `Вот краткий обзор структуры этого репозитория (Искра Терминал):
 
-## What it is
-- Electron + React front end with a Go backend ("wavesrv"). Provides a terminal with GUI widgets, previews, web, and AI. (README.md)
-- Licensed Apache-2.0. (LICENSE)
+## Что это
+- Electron + React фронтенд с Go бэкендом. Предоставляет терминал с GUI виджетами, превью, веб-браузером и AI. (README.md)
+- Лицензия Apache-2.0. (LICENSE)
 
-## Architecture at a glance
-- **Electron main process:** \`emain/*.ts\` configures windows, menus, preload scripts, updater, and ties into the Go backend via local RPC. (\`emain/\`)
-- **Renderer UI:** React/TS built with Vite, Tailwind. (\`frontend/\`, \`index.html\`, \`electron.vite.config.ts\`)
-- **Go backend ("wavesrv"):** starts services, web and websocket listeners, telemetry loops, config watcher, local RPC, filestore and SQLite-backed object store. (\`cmd/server/main-server.go\`, \`pkg/*\`)
-- **CLI/helper ("wsh"):** built for multiple OS/arch; used for shell integration and remote operations. (\`cmd/wsh/\`, \`Taskfile.yml build:wsh\`)
+## Архитектура
+- **Electron main process:** \`emain/*.ts\` настраивает окна, меню, preload скрипты, обновления и связывается с Go бэкендом через локальный RPC. (\`emain/\`)
+- **Renderer UI:** React/TS собирается с Vite, Tailwind. (\`frontend/\`, \`index.html\`)
+- **Go backend:** запускает сервисы, web и websocket слушатели, телеметрию, конфиг watcher, локальный RPC, filestore и SQLite-backed object store. (\`cmd/server/main-server.go\`, \`pkg/*\`)
+- **CLI helper ("ish"):** собирается для разных OS/arch; используется для shell интеграции и удалённых операций. (\`cmd/wsh/\`)
 
-## Key directories
-- **cmd/:** entrypoints and generators
-  - \`server/\`: wavesrv main
-  - \`generategs/\`, \`generatego/\`: TS/Go bindings generation
-  - \`wsh/\`: shell helper
+## Ключевые директории
+- **cmd/:** точки входа
+  - \`server/\`: главный сервер
+  - \`wsh/\`: shell helper (ish)
 
-- **pkg/:** backend packages
-  - \`wcore/\`: startup coordination, initial data, window/workspace creation
-  - \`web/\`: HTTP+WS servers, Unix listener
-  - \`waveai/\`: AI backends (OpenAI, Anthropic, Google, Perplexity)
-  - \`wshrpc\`, \`wshutil\`, \`wslconn\`, \`remote/*\`: local/remote RPC, WSL, SSH, fileshare
-  - \`wstore/\`: persistent store (SQLite via sqlx); \`waveobj/\`: object model
-  - \`filestore/\`: local file cache/storage
-  - \`telemetry/\`: metrics/events, periodic reporting`,
+- **pkg/:** backend пакеты
+  - \`wcore/\`: координация запуска, начальные данные, создание окон/workspace
+  - \`web/\`: HTTP+WS серверы
+  - \`waveai/\`: AI бэкенды (Anthropic, Alibaba)
+  - \`wshrpc\`, \`wshutil\`: локальный/удалённый RPC
+  - \`wstore/\`: постоянное хранилище (SQLite)
+  - \`filestore/\`: локальный кэш файлов`,
     },
     {
-        userPrompt: "can you analyze the log output in my terminal?",
+        userPrompt: "можешь проанализировать вывод логов в моём терминале?",
         toolName: "term_get_scrollback",
-        toolDescription: "reading terminal output from widget",
-        markdownResponse: `Here's what your log shows:
+        toolDescription: "чтение вывода терминала из виджета",
+        markdownResponse: `Вот что показывают ваши логи:
 
-- Normal startup/init at 18:06:51 (router/register, DBGetAllObjsByType, Stat/Read).
-- Many FocusWindow events — normal UI activity.
-- 18:08:28.558 WebSocket ReadPump error: close 1001 (going away) — usually a tab/app reload, sleep, or brief network hiccup.
-- 18:08:29 re-init + new WebSocket connection — successful auto-reconnect.
-- SetMetaCommand and periodic filestore flushes with err: — normal; no failures.
-- No panics/fatal errors; just the transient disconnect.
+- Нормальный запуск/инициализация в 18:06:51 (router/register, DBGetAllObjsByType).
+- Много событий FocusWindow — обычная активность UI.
+- 18:08:28.558 WebSocket ReadPump error: close 1001 (going away) — обычно перезагрузка вкладки/приложения, сон или кратковременный сбой сети.
+- 18:08:29 повторная инициализация + новое WebSocket соединение — успешное автоподключение.
+- SetMetaCommand и периодические сбросы filestore — нормально; ошибок нет.
+- Никаких паник/фатальных ошибок; только временное отключение.
 
-If that disconnect was unexpected, check for a tab reload/sleep at 18:08:28, and watch for repeats.
+Если это отключение было неожиданным, проверьте перезагрузку вкладки/сон в 18:08:28 и следите за повторениями.
 
-Want deeper triage? Run these and paste results:
+Нужна более глубокая диагностика? Запустите эти команды:
 
 \`\`\`bash
-# 1) Scan recent logs for problems
+# 1) Сканирование последних логов на проблемы
 grep -Ei 'error|panic|fatal|websocket|1006|1011' \\
-  "$HOME/Library/Application Support/waveterm-dev/waveapp.log" | tail -n 200
+  "$HOME/.config/iskra-terminal/iskra.log" | tail -n 200
 
-# 2) Inspect around the disconnect window
+# 2) Проверка окна отключения
 awk '($0 ~ /2025-10-10 18:08:2[0-9]/){print}' \\
-  "$HOME/Library/Application Support/waveterm-dev/waveapp.log"
+  "$HOME/.config/iskra-terminal/iskra.log"
 
-# 3) Live follow for recurring drops
-tail -f "$HOME/Library/Application Support/waveterm-dev/waveapp.log" \\
+# 3) Отслеживание в реальном времени
+tail -f "$HOME/.config/iskra-terminal/iskra.log" \\
   | grep -Ei 'error|panic|fatal|websocket|close'
 \`\`\`
 
-Need me to look at a longer slice (e.g., last 1000 lines) or a different time range?`,
+Нужно посмотреть больший срез (например, последние 1000 строк) или другой временной диапазон?`,
     },
 ];
 
@@ -85,7 +83,7 @@ const AIThinking = memo(() => (
             <i className="fa fa-circle text-[10px] mx-1"></i>
             <i className="fa fa-circle text-[10px]"></i>
         </div>
-        <span className="text-sm text-gray-400">AI is thinking...</span>
+        <span className="text-sm text-gray-400">AI думает...</span>
     </div>
 ));
 

@@ -3,7 +3,6 @@
 
 import Logo from "@/app/asset/logo.svg";
 import { Button } from "@/app/element/button";
-import { EmojiButton } from "@/app/element/emojibutton";
 import { MagnifyIcon } from "@/app/element/magnify";
 import { ClientModel } from "@/app/store/client-model";
 import * as WOS from "@/app/store/wos";
@@ -66,20 +65,6 @@ const OnboardingFooter = ({
 const WaveAIPage = ({ onNext, onSkip }: { onNext: () => void; onSkip: () => void }) => {
     const isMac = isMacOS();
     const shortcutKey = isMac ? "⌘-Shift-A" : "Alt-Shift-A";
-    const [fireClicked, setFireClicked] = useState(false);
-
-    const handleFireClick = () => {
-        setFireClicked(!fireClicked);
-        if (!fireClicked) {
-            RpcApi.RecordTEventCommand(TabRpcClient, {
-                event: "onboarding:fire",
-                props: {
-                    "onboarding:feature": "waveai",
-                    "onboarding:version": CurrentOnboardingVersion,
-                },
-            });
-        }
-    };
 
     return (
         <div className="flex flex-col h-full">
@@ -126,13 +111,11 @@ const WaveAIPage = ({ onNext, onSkip }: { onNext: () => void; onSkip: () => void
                             </div>
 
                             <div className="flex items-start gap-3 w-full">
-                                <i className="fa fa-key text-accent text-lg mt-1 flex-shrink-0" />
+                                <i className="fa fa-brain text-accent text-lg mt-1 flex-shrink-0" />
                                 <p>
-                                    Используйте свои API ключи или локальные модели через Ollama, LM Studio и другие OpenAI-совместимые провайдеры
+                                    Мощные модели Anthropic и Alibaba в вашем распоряжении по доступной цене подписки
                                 </p>
                             </div>
-
-                            <EmojiButton emoji="🔥" isClicked={fireClicked} onClick={handleFireClick} />
                         </div>
                     </div>
                 </div>
@@ -159,20 +142,6 @@ const MagnifyBlocksPage = ({
 }) => {
     const isMac = isMacOS();
     const shortcutKey = isMac ? "⌘" : "Alt";
-    const [fireClicked, setFireClicked] = useState(false);
-
-    const handleFireClick = () => {
-        setFireClicked(!fireClicked);
-        if (!fireClicked) {
-            RpcApi.RecordTEventCommand(TabRpcClient, {
-                event: "onboarding:fire",
-                props: {
-                    "onboarding:feature": "magnify",
-                    "onboarding:version": CurrentOnboardingVersion,
-                },
-            });
-        }
-    };
 
     return (
         <div className="flex flex-col h-full">
@@ -200,7 +169,6 @@ const MagnifyBlocksPage = ({
                         <p>
                             Быстро: {shortcutKey}-M для увеличения и снова {shortcutKey}-M для возврата
                         </p>
-                        <EmojiButton emoji="🔥" isClicked={fireClicked} onClick={handleFireClick} />
                     </div>
                 </div>
                 <div className="w-[2px] bg-border flex-shrink-0"></div>
@@ -214,23 +182,9 @@ const MagnifyBlocksPage = ({
 };
 
 const FilesPage = ({ onFinish, onPrev }: { onFinish: () => void; onPrev?: () => void }) => {
-    const [fireClicked, setFireClicked] = useState(false);
     const isMac = isMacOS();
     const [commandIndex, setCommandIndex] = useState(0);
     const [key, setKey] = useState(0);
-
-    const handleFireClick = () => {
-        setFireClicked(!fireClicked);
-        if (!fireClicked) {
-            RpcApi.RecordTEventCommand(TabRpcClient, {
-                event: "onboarding:fire",
-                props: {
-                    "onboarding:feature": "wsh",
-                    "onboarding:version": CurrentOnboardingVersion,
-                },
-            });
-        }
-    };
 
     const commands = [
         (onComplete: () => void) => <EditBashrcCommand onComplete={onComplete} />,
@@ -290,8 +244,6 @@ const FilesPage = ({ onFinish, onPrev }: { onFinish: () => void; onPrev?: () => 
                             <p>
                                 Эти команды работают одинаково на локальных и удалённых машинах, упрощая просмотр и редактирование файлов где угодно.
                             </p>
-
-                            <EmojiButton emoji="🔥" isClicked={fireClicked} onClick={handleFireClick} />
                         </div>
                     </div>
                 </div>
