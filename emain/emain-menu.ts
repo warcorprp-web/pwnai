@@ -49,7 +49,7 @@ async function getWorkspaceMenu(ww?: WaveBrowserWindow): Promise<Electron.MenuIt
     const workspaceList = await RpcApi.WorkspaceListCommand(ElectronWshClient);
     const workspaceMenu: Electron.MenuItemConstructorOptions[] = [
         {
-            label: "Create Workspace",
+            label: "Создать рабочее пространство",
             click: (_, window) => fireAndForget(() => createWorkspace((window as WaveBrowserWindow) ?? ww)),
         },
     ];
@@ -131,7 +131,7 @@ function makeFileMenu(
 ): Electron.MenuItemConstructorOptions[] {
     const fileMenu: Electron.MenuItemConstructorOptions[] = [
         {
-            label: "New Window",
+            label: "Новое окно",
             accelerator: "CommandOrControl+Shift+N",
             click: () => fireAndForget(callbacks.createNewWaveWindow),
         },
@@ -146,21 +146,21 @@ function makeFileMenu(
     const featureWaveAppBuilder = fullConfig?.settings?.["feature:waveappbuilder"];
     if (isDev || featureWaveAppBuilder) {
         fileMenu.splice(1, 0, {
-            label: "New WaveApp Builder Window",
+            label: "Новое окно WaveApp Builder",
             accelerator: unamePlatform === "darwin" ? "Command+Shift+B" : "Alt+Shift+B",
             click: () => openBuilderWindow(""),
         });
     }
     if (numWaveWindows == 0) {
         fileMenu.push({
-            label: "New Window (hidden-1)",
+            label: "Новое окно (hidden-1)",
             accelerator: unamePlatform === "darwin" ? "Command+N" : "Alt+N",
             acceleratorWorksWhenHidden: true,
             visible: false,
             click: () => fireAndForget(callbacks.createNewWaveWindow),
         });
         fileMenu.push({
-            label: "New Window (hidden-2)",
+            label: "Новое окно (hidden-2)",
             accelerator: unamePlatform === "darwin" ? "Command+T" : "Alt+T",
             acceleratorWorksWhenHidden: true,
             visible: false,
@@ -173,13 +173,13 @@ function makeFileMenu(
 function makeAppMenuItems(webContents: electron.WebContents): Electron.MenuItemConstructorOptions[] {
     const appMenuItems: Electron.MenuItemConstructorOptions[] = [
         {
-            label: "About Wave Terminal",
+            label: "О программе PwnAI",
             click: (_, window) => {
                 (getWindowWebContents(window) ?? webContents)?.send("menu-item-about");
             },
         },
         {
-            label: "Check for Updates",
+            label: "Проверить обновления",
             click: () => {
                 fireAndForget(() => updater?.checkForUpdates(true));
             },
@@ -208,22 +208,22 @@ function makeViewMenu(
     const devToolsAccel = unamePlatform === "darwin" ? "Option+Command+I" : "Alt+Shift+I";
     return [
         {
-            label: isBuilderWindowFocused ? "Reload Window" : "Reload Tab",
+            label: isBuilderWindowFocused ? "Перезагрузить окно" : "Перезагрузить вкладку",
             accelerator: "Shift+CommandOrControl+R",
             click: (_, window) => {
                 (getWindowWebContents(window) ?? webContents)?.reloadIgnoringCache();
             },
         },
         {
-            label: "Relaunch All Windows",
+            label: "Перезапустить все окна",
             click: () => callbacks.relaunchBrowserWindows(),
         },
         {
-            label: "Clear Tab Cache",
+            label: "Очистить кэш вкладки",
             click: () => clearTabCache(),
         },
         {
-            label: "Toggle DevTools",
+            label: "Инструменты разработчика",
             accelerator: devToolsAccel,
             click: (_, window) => {
                 let wc = getWindowWebContents(window) ?? webContents;
@@ -232,7 +232,7 @@ function makeViewMenu(
         },
         { type: "separator" },
         {
-            label: "Reset Zoom",
+            label: "Сбросить масштаб",
             accelerator: "CommandOrControl+0",
             click: (_, window) => {
                 const wc = getWindowWebContents(window) ?? webContents;
@@ -243,7 +243,7 @@ function makeViewMenu(
             },
         },
         {
-            label: "Zoom In",
+            label: "Увеличить",
             accelerator: "CommandOrControl+=",
             click: (_, window) => {
                 const wc = getWindowWebContents(window) ?? webContents;
@@ -253,7 +253,7 @@ function makeViewMenu(
             },
         },
         {
-            label: "Zoom In (hidden)",
+            label: "Увеличить (hidden)",
             accelerator: "CommandOrControl+Shift+=",
             click: (_, window) => {
                 const wc = getWindowWebContents(window) ?? webContents;
@@ -265,7 +265,7 @@ function makeViewMenu(
             acceleratorWorksWhenHidden: true,
         },
         {
-            label: "Zoom Out",
+            label: "Уменьшить",
             accelerator: "CommandOrControl+-",
             click: (_, window) => {
                 const wc = getWindowWebContents(window) ?? webContents;
@@ -275,7 +275,7 @@ function makeViewMenu(
             },
         },
         {
-            label: "Zoom Out (hidden)",
+            label: "Уменьшить (hidden)",
             accelerator: "CommandOrControl+Shift+-",
             click: (_, window) => {
                 const wc = getWindowWebContents(window) ?? webContents;
@@ -287,10 +287,10 @@ function makeViewMenu(
             acceleratorWorksWhenHidden: true,
         },
         {
-            label: "Launch On Full Screen",
+            label: "Запуск в полноэкранном режиме",
             submenu: [
                 {
-                    label: "On",
+                    label: "Вкл",
                     type: "radio",
                     checked: fullscreenOnLaunch,
                     click: () => {
@@ -298,7 +298,7 @@ function makeViewMenu(
                     },
                 },
                 {
-                    label: "Off",
+                    label: "Выкл",
                     type: "radio",
                     checked: !fullscreenOnLaunch,
                     click: () => {
