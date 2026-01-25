@@ -24,7 +24,6 @@ import { AIPanelMessages } from "./aipanelmessages";
 import { AIRateLimitStrip } from "./airatelimitstrip";
 import { WaveUIMessage } from "./aitypes";
 import { BYOKAnnouncement } from "./byokannouncement";
-import { TelemetryRequiredMessage } from "./telemetryrequired";
 import { WaveAIModel } from "./waveai-model";
 import { usePwnAIChat } from "./use-pwnai-chat";
 import { PwnAIClient } from "@/app/store/pwnai-client";
@@ -721,14 +720,11 @@ const AIPanelComponentInner = memo(() => {
             <AIRateLimitStrip />
 
             <div key="main-content" className="flex-1 flex flex-col min-h-0">
-                {!allowAccess ? (
-                    <TelemetryRequiredMessage />
-                ) : (
-                    <>
-                        {messages.length === 0 && initialLoadDone ? (
-                            <div
-                                className="flex-1 overflow-y-auto p-2 relative"
-                                onContextMenu={(e) => handleWaveAIContextMenu(e, true)}
+                <>
+                    {messages.length === 0 && initialLoadDone ? (
+                        <div
+                            className="flex-1 overflow-y-auto p-2 relative"
+                            onContextMenu={(e) => handleWaveAIContextMenu(e, true)}
                             >
                                 <div className="absolute top-2 left-2 z-10">
                                     <AIModeDropdown />
@@ -745,8 +741,7 @@ const AIPanelComponentInner = memo(() => {
                         <AIErrorMessage />
                         <AIDroppedFiles model={model} />
                         <AIPanelInput onSubmit={handleSubmit} status={status} model={model} />
-                    </>
-                )}
+                </>
             </div>
         </div>
     );
