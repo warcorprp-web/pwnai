@@ -696,7 +696,7 @@ type WshCheckResult struct {
 func (conn *SSHConn) tryEnableWsh(ctx context.Context, clientDisplayName string) WshCheckResult {
 	conn.Infof(ctx, "running tryEnableWsh...\n")
 	enableWsh, askBeforeInstall := conn.getConnWshSettings()
-	conn.Infof(ctx, "wsh settings enable:%v ask:%v\n", enableWsh, askBeforeInstall)
+	conn.Infof(ctx, "ish настройки enable:%v ask:%v\n", enableWsh, askBeforeInstall)
 	if !enableWsh {
 		return WshCheckResult{NoWshReason: "conn:wshenabled set to false", NoWshCode: NoWshCode_Disabled}
 	}
@@ -804,7 +804,7 @@ func (conn *SSHConn) connectInternal(ctx context.Context, connFlags *wconfig.Con
 			conn.Infof(ctx, "ERROR enabling wsh: %v\n", wshResult.WshError)
 			conn.Infof(ctx, "will connect with wsh disabled\n")
 		} else {
-			conn.Infof(ctx, "wsh not enabled: %s\n", wshResult.NoWshReason)
+			conn.Infof(ctx, "ish не включен: %s\n", wshResult.NoWshReason)
 		}
 		telemetry.GoRecordTEventWrap(&telemetrydata.TEvent{
 			Event: "conn:nowsh",
