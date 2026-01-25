@@ -419,7 +419,19 @@ const AIPanelComponentInner = memo(() => {
     const pwnaiChat = usePwnAIChat({
         onError: (error) => {
             console.error("PwnAI Chat error:", error);
-            model.setError(error || "An error occurred");
+            let errorMsg = error || "An error occurred";
+            
+            // Переводим ошибки на русский
+            if (typeof errorMsg === "string") {
+                if (errorMsg.includes("WaveAI configuration error")) {
+                    errorMsg = errorMsg.replace("WaveAI configuration error", "Ошибка конфигурации Искра AI");
+                }
+                if (errorMsg.includes("secret ISKRA_AI_KEY not found or empty")) {
+                    errorMsg = "Секрет ISKRA_AI_KEY не найден. Пожалуйста, войдите в систему.";
+                }
+            }
+            
+            model.setError(errorMsg);
         },
         onToolCall: handleToolCall,
     });
@@ -447,7 +459,17 @@ const AIPanelComponentInner = memo(() => {
         }),
         onError: (error) => {
             console.error("AI Chat error:", error);
-            model.setError(error.message || "An error occurred");
+            let errorMsg = error.message || "An error occurred";
+            
+            // Переводим ошибки на русский
+            if (errorMsg.includes("WaveAI configuration error")) {
+                errorMsg = errorMsg.replace("WaveAI configuration error", "Ошибка конфигурации Искра AI");
+            }
+            if (errorMsg.includes("secret ISKRA_AI_KEY not found or empty")) {
+                errorMsg = "Секрет ISKRA_AI_KEY не найден. Пожалуйста, войдите в систему.";
+            }
+            
+            model.setError(errorMsg);
         },
     });
 
