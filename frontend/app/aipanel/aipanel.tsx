@@ -17,7 +17,6 @@ import { memo, useCallback, useEffect, useRef, useState } from "react";
 import { useDrop } from "react-dnd";
 import { formatFileSizeError, isAcceptableFile, validateFileSize } from "./ai-utils";
 import { AIDroppedFiles } from "./aidroppedfiles";
-import { AILimitReachedBanner } from "./ailimitreached";
 import { AILoginBanner } from "./ailoginbanner";
 import { AIModeDropdown } from "./aimode";
 import { AIPanelHeader } from "./aipanelheader";
@@ -29,7 +28,7 @@ import { BYOKAnnouncement } from "./byokannouncement";
 import { WaveAIModel } from "./waveai-model";
 import { usePwnAIChat } from "./use-pwnai-chat";
 import { PwnAIClient } from "@/app/store/pwnai-client";
-import { freeRequestCountAtom, isFreeLimitReachedAtom, isAuthenticatedAtom, showLimitBannerAtom } from "@/app/store/authstate";
+import { isAuthenticatedAtom } from "@/app/store/authstate";
 
 const AIBlockMask = memo(() => {
     return (
@@ -376,9 +375,7 @@ const AIPanelComponentInner = memo(() => {
     const tabModel = maybeUseTabModel();
     const defaultMode = jotai.useAtomValue(getSettingsKeyAtom("waveai:defaultmode")) ?? "waveai@balanced";
     const isPwnAIMode = defaultMode === "pwnai@default";
-    const isFreeLimitReached = jotai.useAtomValue(isFreeLimitReachedAtom);
     const isAuthenticated = jotai.useAtomValue(isAuthenticatedAtom);
-    const showLimitBanner = jotai.useAtomValue(showLimitBannerAtom);
     
     const welcomeTitle = isPwnAIMode ? "PwnAI" : "Искра AI";
     const welcomeDescription = isPwnAIMode 
@@ -535,22 +532,6 @@ const AIPanelComponentInner = memo(() => {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        
-        // Проверка лимита для неавторизованных пользователей
-        const isAuthenticated = globalStore.get(isAuthenticatedAtom);
-        const isLimitReached = globalStore.get(isFreeLimitReachedAtom);
-        
-        if (!isAuthenticated && isLimitReached) {
-            // Показываем баннер при попытке 4-го запроса
-            globalStore.set(showLimitBannerAtom, true);
-            return;
-        }
-        
-        // Инкремент счётчика для неавторизованных
-        if (!isAuthenticated) {
-            const currentCount = globalStore.get(freeRequestCountAtom);
-            globalStore.set(freeRequestCountAtom, currentCount + 1);
-        }
         
         await model.handleSubmit();
         setTimeout(() => {
@@ -784,7 +765,6 @@ const AIPanelComponentInner = memo(() => {
                             />
                         )}
                         <AIErrorMessage />
-                        {!isAuthenticated && showLimitBanner && <AILimitReachedBanner />}
                         <AIDroppedFiles model={model} />
                         <AIPanelInput onSubmit={handleSubmit} status={status} model={model} />
                 </>
