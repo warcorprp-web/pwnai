@@ -40,7 +40,14 @@ func (b *pwnaiBackend) StreamCompletion(
 		defer close(respChan)
 
 		// Конвертируем сообщения
-		messages := make([]aiclient.Message, 0, len(request.Messages))
+		messages := make([]aiclient.Message, 0, len(request.Messages)+1)
+		
+		// Добавляем System Prompt в начало
+		messages = append(messages, aiclient.Message{
+			Role:    "system",
+			Content: pentest.PwnAISystemPrompt,
+		})
+		
 		for _, msg := range request.Messages {
 			content := msg.Content
 			if msg.Content == "" && len(msg.Parts) > 0 {
