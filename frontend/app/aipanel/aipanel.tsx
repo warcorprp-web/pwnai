@@ -381,9 +381,6 @@ const AIPanelComponentInner = memo(() => {
     const isUsingCustomMode = !defaultMode.startsWith("waveai@");
     const allowAccess = telemetryEnabled || (hasCustomModes && isUsingCustomMode);
 
-    // PwnAI: Используем наш хук вместо useChat
-    const isPwnAIMode = defaultMode === "pwnai@default";
-    
     // Получаем tabId
     const tabId = jotai.useAtomValue(atoms.staticTabId);
     
