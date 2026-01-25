@@ -327,7 +327,7 @@ func readTextFileCallback(input any, toolUseData *uctypes.UIMessageDataToolUse) 
 func GetReadTextFileToolDefinition() uctypes.ToolDefinition {
 	return uctypes.ToolDefinition{
 		Name:        "read_text_file",
-		DisplayName: "Read Text File",
+		DisplayName: "Чтение файла",
 		Description: "Read a text file from the filesystem. Can read specific line ranges or from the end. Detects and rejects binary files.",
 		ToolLogName: "gen:readfile",
 		Strict:      false,
@@ -369,7 +369,7 @@ func GetReadTextFileToolDefinition() uctypes.ToolDefinition {
 		ToolCallDesc: func(input any, output any, toolUseData *uctypes.UIMessageDataToolUse) string {
 			parsed, err := parseReadTextFileInput(input)
 			if err != nil {
-				return fmt.Sprintf("error parsing input: %v", err)
+				return fmt.Sprintf("ошибка разбора входных данных: %v", err)
 			}
 
 			origin := *parsed.Origin

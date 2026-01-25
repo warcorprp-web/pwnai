@@ -52,7 +52,7 @@ func makeTabCaptureBlockScreenshot(tabId string) func(any) (string, error) {
 func GetCaptureScreenshotToolDefinition(tabId string) uctypes.ToolDefinition {
 	return uctypes.ToolDefinition{
 		Name:        "capture_screenshot",
-		DisplayName: "Capture Screenshot",
+		DisplayName: "Скриншот",
 		Description: "Capture a screenshot of a widget and return it as an image",
 		ToolLogName: "gen:screenshot",
 		Strict:      true,

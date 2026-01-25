@@ -155,7 +155,7 @@ func getTermScrollbackOutput(tabId string, widgetId string, rpcData wshrpc.Comma
 func GetTermGetScrollbackToolDefinition(tabId string) uctypes.ToolDefinition {
 	return uctypes.ToolDefinition{
 		Name:        "term_get_scrollback",
-		DisplayName: "Get Terminal Scrollback",
+		DisplayName: "Чтение терминала",
 		Description: "Fetch terminal scrollback from a widget as plain text. Index 0 is the most recent line; indices increase going upward (older lines). Also returns last command and exit code if shell integration is enabled.",
 		ToolLogName: "term:getscrollback",
 		InputSchema: map[string]any{
@@ -182,14 +182,14 @@ func GetTermGetScrollbackToolDefinition(tabId string) uctypes.ToolDefinition {
 		ToolCallDesc: func(input any, output any, toolUseData *uctypes.UIMessageDataToolUse) string {
 			parsed, err := parseTermGetScrollbackInput(input)
 			if err != nil {
-				return fmt.Sprintf("error parsing input: %v", err)
+				return fmt.Sprintf("ошибка разбора входных данных: %v", err)
 			}
 
 			if parsed.LineStart == 0 && parsed.Count == 200 {
-				return fmt.Sprintf("reading terminal output from %s (most recent %d lines)", parsed.WidgetId, parsed.Count)
+				return fmt.Sprintf("чтение вывода терминала %s (последние %d строк)", parsed.WidgetId, parsed.Count)
 			}
 			lineEnd := parsed.LineStart + parsed.Count
-			return fmt.Sprintf("reading terminal output from %s (lines %d-%d)", parsed.WidgetId, parsed.LineStart, lineEnd)
+			return fmt.Sprintf("чтение вывода терминала %s (строки %d-%d)", parsed.WidgetId, parsed.LineStart, lineEnd)
 		},
 		ToolAnyCallback: func(input any, toolUseData *uctypes.UIMessageDataToolUse) (any, error) {
 			parsed, err := parseTermGetScrollbackInput(input)
@@ -337,7 +337,7 @@ func parseTermRunCommandInput(input any) (*TermRunCommandToolInput, error) {
 func GetTermRunCommandToolDefinition(tabId string) uctypes.ToolDefinition {
 	return uctypes.ToolDefinition{
 		Name:        "term_run_command",
-		DisplayName: "Run Terminal Command",
+		DisplayName: "Выполнение команды",
 		Description: "Execute a command in a terminal widget and return its output. The command will be sent to the terminal as if typed by the user, followed by Enter. If shell integration is enabled, waits for command completion (up to 25 seconds). Otherwise waits 2 seconds.",
 		ToolLogName: "term:runcommand",
 		InputSchema: map[string]any{
@@ -358,9 +358,9 @@ func GetTermRunCommandToolDefinition(tabId string) uctypes.ToolDefinition {
 		ToolCallDesc: func(input any, output any, toolUseData *uctypes.UIMessageDataToolUse) string {
 			parsed, err := parseTermRunCommandInput(input)
 			if err != nil {
-				return fmt.Sprintf("error parsing input: %v", err)
+				return fmt.Sprintf("ошибка разбора входных данных: %v", err)
 			}
-			return fmt.Sprintf("executing command in terminal %s: %s", parsed.WidgetId, parsed.Command)
+			return fmt.Sprintf("выполнение команды в терминале %s: %s", parsed.WidgetId, parsed.Command)
 		},
 		ToolApproval: func(input any) string {
 			parsed, err := parseTermRunCommandInput(input)

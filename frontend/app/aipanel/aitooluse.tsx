@@ -120,7 +120,7 @@ const AIToolUseBatchItem = memo(({ part, effectiveApproval }: AIToolUseBatchItem
     const statusIcon = part.data.status === "completed" ? "✓" : part.data.status === "error" ? "✗" : "•";
     const statusColor =
         part.data.status === "completed"
-            ? "text-success"
+            ? "text-accent"
             : part.data.status === "error"
               ? "text-error"
               : "text-gray-400";
@@ -200,7 +200,7 @@ const AIToolUse = memo(({ part, isStreaming }: AIToolUseProps) => {
 
     const statusIcon = toolData.status === "completed" ? "✓" : toolData.status === "error" ? "✗" : "•";
     const statusColor =
-        toolData.status === "completed" ? "text-success" : toolData.status === "error" ? "text-error" : "text-gray-400";
+        toolData.status === "completed" ? "text-accent" : toolData.status === "error" ? "text-error" : "text-gray-400";
 
     const baseApproval = userApprovalOverride || toolData.approval;
     const effectiveApproval = getEffectiveApprovalStatus(baseApproval, isStreaming);

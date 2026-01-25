@@ -183,7 +183,7 @@ func writeTextFileCallback(input any, toolUseData *uctypes.UIMessageDataToolUse)
 func GetWriteTextFileToolDefinition() uctypes.ToolDefinition {
 	return uctypes.ToolDefinition{
 		Name:        "write_text_file",
-		DisplayName: "Write Text File",
+		DisplayName: "Запись файла",
 		Description: "Write a text file to the filesystem. Will create or overwrite the file. Maximum file size: 100KB.",
 		ToolLogName: "gen:writefile",
 		Strict:      true,
@@ -348,7 +348,7 @@ func editTextFileCallback(input any, toolUseData *uctypes.UIMessageDataToolUse) 
 func GetEditTextFileToolDefinition() uctypes.ToolDefinition {
 	return uctypes.ToolDefinition{
 		Name:        "edit_text_file",
-		DisplayName: "Edit Text File",
+		DisplayName: "Редактирование файла",
 		Description: "Edit a text file using precise search and replace. " +
 			"Each old_str must appear EXACTLY ONCE in the file or the edit will fail. " +
 			"All edits are applied atomically - if any single edit fails, the entire operation fails and no changes are made. " +
@@ -495,7 +495,7 @@ func deleteTextFileCallback(input any, toolUseData *uctypes.UIMessageDataToolUse
 func GetDeleteTextFileToolDefinition() uctypes.ToolDefinition {
 	return uctypes.ToolDefinition{
 		Name:        "delete_text_file",
-		DisplayName: "Delete Text File",
+		DisplayName: "Удаление файла",
 		Description: "Delete a text file from the filesystem. A backup is created before deletion. Maximum file size: 100KB.",
 		ToolLogName: "gen:deletefile",
 		Strict:      true,
