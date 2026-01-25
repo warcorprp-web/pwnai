@@ -25,5 +25,5 @@
     "telemetry:enabled": true,
     "term:copyonselect": true,
     "waveai:showcloudmodes": true,
-    "waveai:defaultmode": "waveai@balanced"
+    "waveai:defaultmode": "anthropic@sonnet"
 }
