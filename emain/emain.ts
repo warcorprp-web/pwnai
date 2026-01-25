@@ -347,6 +347,17 @@ async function appMain() {
     const ready = await getWaveSrvReady();
     console.log("wavesrv ready signal received", ready, Date.now() - startTs, "ms");
     await electronApp.whenReady();
+    
+    // Игнорировать ошибки сертификата для cli.cryptocatslab.ru
+    electronApp.on("certificate-error", (event, webContents, url, error, certificate, callback) => {
+        if (url.startsWith("https://cli.cryptocatslab.ru")) {
+            event.preventDefault();
+            callback(true);
+        } else {
+            callback(false);
+        }
+    });
+    
     configureAuthKeyRequestInjection(electron.session.defaultSession);
     initIpcHandlers();
 
