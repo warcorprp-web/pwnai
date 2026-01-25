@@ -215,7 +215,7 @@ func panicTelemetryHandler(panicName string) {
 		log.Printf("error updating activity (panicTelemetryHandler): %v\n", err)
 	}
 	telemetry.RecordTEvent(context.Background(), telemetrydata.MakeTEvent("debug:panic", telemetrydata.TEventProps{
-		PanicType: panicName,
+		telemetrydata.PanicType: panicName,
 	}))
 }
 
@@ -241,13 +241,13 @@ func updateTelemetryCounts(lastCounts telemetrydata.TEventProps) telemetrydata.T
 	ctx, cancelFn := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancelFn()
 	var props telemetrydata.TEventProps
-	props.CountBlocks, _ = wstore.DBGetCount[*waveobj.Block](ctx)
-	props.CountTabs, _ = wstore.DBGetCount[*waveobj.Tab](ctx)
-	props.CountWindows, _ = wstore.DBGetCount[*waveobj.Window](ctx)
-	props.CountWorkspaces, _, _ = wstore.DBGetWSCounts(ctx)
-	props.CountSSHConn = conncontroller.GetNumSSHHasConnected()
-	props.CountWSLConn = wslconn.GetNumWSLHasConnected()
-	props.CountViews, _ = wstore.DBGetBlockViewCounts(ctx)
+	props[telemetrydata.CountBlocks], _ = wstore.DBGetCount[*waveobj.Block](ctx)
+	props[telemetrydata.CountTabs], _ = wstore.DBGetCount[*waveobj.Tab](ctx)
+	props[telemetrydata.CountWindows], _ = wstore.DBGetCount[*waveobj.Window](ctx)
+	props[telemetrydata.CountWorkspaces], _, _ = wstore.DBGetWSCounts(ctx)
+	props[telemetrydata.CountSSHConn] = conncontroller.GetNumSSHHasConnected()
+	props[telemetrydata.CountWSLConn] = wslconn.GetNumWSLHasConnected()
+	props[telemetrydata.CountViews], _ = wstore.DBGetBlockViewCounts(ctx)
 
 	fullConfig := wconfig.GetWatcher().GetFullConfig()
 	customWidgets := fullConfig.CountCustomWidgets()
@@ -255,7 +255,7 @@ func updateTelemetryCounts(lastCounts telemetrydata.TEventProps) telemetrydata.T
 	customSettings := wconfig.CountCustomSettings()
 	customAIModes := fullConfig.CountCustomAIModes()
 
-	props.UserSet = &telemetrydata.TEventUserProps{
+	props[telemetrydata.UserSet] = &telemetrydata.TEventUserProps{
 		SettingsCustomWidgets:   customWidgets,
 		SettingsCustomAIPresets: customAIPresets,
 		SettingsCustomSettings:  customSettings,
@@ -264,7 +264,7 @@ func updateTelemetryCounts(lastCounts telemetrydata.TEventProps) telemetrydata.T
 
 	secretsCount, err := secretstore.CountSecrets()
 	if err == nil {
-		props.UserSet.SettingsSecretsCount = secretsCount
+		props[telemetrydata.UserSet].SettingsSecretsCount = secretsCount
 	}
 
 	if utilfn.CompareAsMarshaledJson(props, lastCounts) {

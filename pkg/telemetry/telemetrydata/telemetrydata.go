@@ -13,6 +13,8 @@ type TEvent struct {
 
 type TEventProps map[string]interface{}
 
+type TEventUserProps map[string]interface{}
+
 // Exported constants for use in other packages
 const (
 	ConnType                   = "conn:type"
@@ -49,6 +51,15 @@ const (
 	WaveAIIsLocal              = "waveai:islocal"
 	WshHadError                = "wsh:haderror"
 	WshCmd                     = "wsh:cmd"
+	PanicType                  = "panic:type"
+	CountBlocks                = "count:blocks"
+	CountTabs                  = "count:tabs"
+	CountWindows               = "count:windows"
+	CountWorkspaces            = "count:workspaces"
+	CountSSHConn               = "count:sshconn"
+	CountWSLConn               = "count:wslconn"
+	CountViews                 = "count:views"
+	UserSet                    = "user:set"
 )
 
 func MakeTEvent(eventType string, props ...TEventProps) *TEvent {
