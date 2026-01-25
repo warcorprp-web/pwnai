@@ -6,6 +6,7 @@ import { waveAIHasFocusWithin } from "@/app/aipanel/waveai-focus-utils";
 import { type WaveAIModel } from "@/app/aipanel/waveai-model";
 import { Tooltip } from "@/element/tooltip";
 import { modalsModel } from "@/app/store/modalmodel";
+import { isAuthenticatedAtom } from "@/app/store/authstate";
 import { cn } from "@/util/util";
 import { useAtom, useAtomValue } from "jotai";
 import { memo, useCallback, useEffect, useRef, useState } from "react";
@@ -26,6 +27,7 @@ export const AIPanelInput = memo(({ onSubmit, status, model }: AIPanelInputProps
     const [input, setInput] = useAtom(model.inputAtom);
     const isFocused = useAtomValue(model.isWaveAIFocusedAtom);
     const isChatEmpty = useAtomValue(model.isChatEmptyAtom);
+    const isAuthenticated = useAtomValue(isAuthenticatedAtom);
     const textareaRef = useRef<HTMLTextAreaElement>(null);
     const fileInputRef = useRef<HTMLInputElement>(null);
     const isPanelOpen = useAtomValue(model.getPanelVisibleAtom());
@@ -135,6 +137,30 @@ export const AIPanelInput = memo(({ onSubmit, status, model }: AIPanelInputProps
 
     return (
         <div className={cn("px-3 pb-3 pt-2")}>
+            {!isAuthenticated ? (
+                <div className={cn(
+                    "border border-gray-600 rounded-xl p-4 text-center"
+                )}>
+                    <div className="flex flex-col items-center gap-3">
+                        <i className="fa fa-lock text-3xl text-gray-500"></i>
+                        <div className="text-gray-300 font-medium">
+                            Войдите для использования Искра AI
+                        </div>
+                        <div className="text-sm text-gray-500">
+                            Зарегистрируйтесь и получите 100 бесплатных запросов в день на 3 дня
+                        </div>
+                        <button
+                            onClick={() => modalsModel.pushModal("settings")}
+                            className={cn(
+                                "px-6 py-2 rounded-lg transition-all",
+                                "bg-accent/20 text-accent hover:bg-accent/30 cursor-pointer font-medium"
+                            )}
+                        >
+                            Войти / Регистрация
+                        </button>
+                    </div>
+                </div>
+            ) : (
             <div className={cn(
                 "border rounded-xl transition-all",
                 isFocused ? "border-accent/50 shadow-lg shadow-accent/10" : "border-gray-600"
@@ -209,6 +235,7 @@ export const AIPanelInput = memo(({ onSubmit, status, model }: AIPanelInputProps
                     </div>
                 </form>
             </div>
+            )}
         </div>
     );
 });
