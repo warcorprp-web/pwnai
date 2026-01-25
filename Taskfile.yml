@@ -125,7 +125,7 @@ tasks:
         desc: Build the wavesrv and wsh components.
         cmds:
             - task: build:server
-            - task: build:wsh
+            - task: build:ish
 
     build:backend:quickdev:
         desc: Build only the wavesrv component for quickdev (arm64 macOS only, no generate, no wsh).
@@ -257,44 +257,44 @@ tasks:
                 as: GOARCH
         internal: true
 
-    build:wsh:
+    build:ish:
         desc: Build the wsh component for all possible targets.
         cmds:
-            - cmd: rm -f dist/bin/wsh*
+            - cmd: rm -f dist/bin/ish*
               platforms: [darwin, linux]
               ignore_error: true
-            - cmd: powershell -Command "Remove-Item -Force -ErrorAction SilentlyContinue -Path dist/bin/wsh*"
+            - cmd: powershell -Command "Remove-Item -Force -ErrorAction SilentlyContinue -Path dist/bin/ish*"
               platforms: [windows]
               ignore_error: true
-            - task: build:wsh:internal
+            - task: build:ish:internal
               vars:
                   GOOS: darwin
                   GOARCH: arm64
-            - task: build:wsh:internal
+            - task: build:ish:internal
               vars:
                   GOOS: darwin
                   GOARCH: amd64
-            - task: build:wsh:internal
+            - task: build:ish:internal
               vars:
                   GOOS: linux
                   GOARCH: arm64
-            - task: build:wsh:internal
+            - task: build:ish:internal
               vars:
                   GOOS: linux
                   GOARCH: amd64
-            - task: build:wsh:internal
+            - task: build:ish:internal
               vars:
                   GOOS: linux
                   GOARCH: mips
-            - task: build:wsh:internal
+            - task: build:ish:internal
               vars:
                   GOOS: linux
                   GOARCH: mips64
-            - task: build:wsh:internal
+            - task: build:ish:internal
               vars:
                   GOOS: windows
                   GOARCH: amd64
-            - task: build:wsh:internal
+            - task: build:ish:internal
               vars:
                   GOOS: windows
                   GOARCH: arm64
@@ -302,12 +302,12 @@ tasks:
             - go:mod:tidy
             - generate
         sources:
-            - "cmd/wsh/**/*.go"
+            - "cmd/ish/**/*.go"
             - "pkg/**/*.go"
         generates:
-            - "dist/bin/wsh*"
+            - "dist/bin/ish*"
 
-    build:wsh:internal:
+    build:ish:internal:
         vars:
             EXT:
                 sh: echo {{if eq .GOOS "windows"}}.exe{{end}}
@@ -318,7 +318,7 @@ tasks:
                 - GOOS
                 - GOARCH
                 - VERSION
-        cmd: (CGO_ENABLED=0 GOOS={{.GOOS}} GOARCH={{.GOARCH}} go build -ldflags="-s -w -X main.BuildTime=$({{.DATE}} +'%Y%m%d%H%M') -X main.WaveVersion={{.VERSION}}" -o dist/bin/wsh-{{.VERSION}}-{{.GOOS}}.{{.NORMALIZEDARCH}}{{.EXT}} cmd/wsh/main-wsh.go)
+        cmd: (CGO_ENABLED=0 GOOS={{.GOOS}} GOARCH={{.GOARCH}} go build -ldflags="-s -w -X main.BuildTime=$({{.DATE}} +'%Y%m%d%H%M') -X main.WaveVersion={{.VERSION}}" -o dist/bin/ish-{{.VERSION}}-{{.GOOS}}.{{.NORMALIZEDARCH}}{{.EXT}} cmd/ish/main-ish.go)
         internal: true
 
     build:tsunamiscaffold:
@@ -418,11 +418,11 @@ tasks:
             vars:
                 - VERSION
         cmds:
-            - task: build:wsh:internal
+            - task: build:ish:internal
               vars:
                   GOOS: darwin
                   GOARCH: arm64
-            - cp dist/bin/wsh-{{.VERSION}}-darwin.arm64 ~/Library/Application\ Support/waveterm-dev/bin/wsh
+            - cp dist/bin/ish-{{.VERSION}}-darwin.arm64 ~/Library/Application\ Support/waveterm-dev/bin/wsh
 
     dev:clearconfig:
         desc: Clear the config directory for waveterm-dev

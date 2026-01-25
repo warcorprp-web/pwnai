@@ -343,9 +343,9 @@ func GetLocalWshBinaryPath(version string, goos string, goarch string) (string, 
 		ext = ".exe"
 	}
 	if !wavebase.SupportedWshBinaries[fmt.Sprintf("%s-%s", goos, goarch)] {
-		return "", fmt.Errorf("unsupported wsh platform: %s-%s", goos, goarch)
+		return "", fmt.Errorf("unsupported ish platform: %s-%s", goos, goarch)
 	}
-	baseName := fmt.Sprintf("wsh-%s-%s.%s%s", version, goos, goarch, ext)
+	baseName := fmt.Sprintf("ish-%s-%s.%s%s", version, goos, goarch, ext)
 	return filepath.Join(wavebase.GetWaveAppBinPath(), baseName), nil
 }
 
@@ -440,22 +440,22 @@ func initCustomShellStartupFilesInternal() error {
 	// copy the correct binary to bin
 	wshFullPath, err := GetLocalWshBinaryPath(wavebase.WaveVersion, runtime.GOOS, runtime.GOARCH)
 	if err != nil {
-		log.Printf("error (non-fatal), could not resolve wsh binary path: %v\n", err)
+		log.Printf("error (non-fatal), could not resolve ish binary path: %v\n", err)
 	}
 	if _, err := os.Stat(wshFullPath); err != nil {
-		log.Printf("error (non-fatal), could not resolve wsh binary %q: %v\n", wshFullPath, err)
+		log.Printf("error (non-fatal), could not resolve ish binary %q: %v\n", wshFullPath, err)
 		return nil
 	}
-	wshDstPath := filepath.Join(binDir, "wsh")
+	wshDstPath := filepath.Join(binDir, "ish")
 	if runtime.GOOS == "windows" {
 		wshDstPath = wshDstPath + ".exe"
 	}
 	err = utilfn.AtomicRenameCopy(wshDstPath, wshFullPath, 0755)
 	if err != nil {
-		return fmt.Errorf("error copying wsh binary to bin: %v", err)
+		return fmt.Errorf("error copying ish binary to bin: %v", err)
 	}
 	wshBaseName := filepath.Base(wshFullPath)
-	log.Printf("wsh binary successfully copied from %q to %q\n", wshBaseName, wshDstPath)
+	log.Printf("ish binary successfully copied from %q to %q\n", wshBaseName, wshDstPath)
 	return nil
 }
 

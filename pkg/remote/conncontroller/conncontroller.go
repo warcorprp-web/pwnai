@@ -526,8 +526,8 @@ func (conn *SSHConn) InstallWsh(ctx context.Context, osArchStr string) error {
 	conn.Infof(ctx, "detected remote platform os:%s arch:%s\n", clientOs, clientArch)
 	err = remote.CpWshToRemote(ctx, client, clientOs, clientArch)
 	if err != nil {
-		conn.Infof(ctx, "ERROR copying wsh binary to remote: %v\n", err)
-		return fmt.Errorf("error copying wsh binary to remote: %w", err)
+		conn.Infof(ctx, "ERROR copying ish binary to remote: %v\n", err)
+		return fmt.Errorf("error copying ish binary to remote: %w", err)
 	}
 	conn.Infof(ctx, "successfully installed wsh\n")
 	return nil
