@@ -46,9 +46,9 @@ export function getLastModifiedTime(unixMillis: number, column: Column<FileInfo,
 
     let datePortion: string;
     if (nowDatetime.isSame(fileDatetime, "date")) {
-        datePortion = "Today";
+        datePortion = "Сегодня";
     } else if (nowDatetime.subtract(1, "day").isSame(fileDatetime, "date")) {
-        datePortion = "Yesterday";
+        datePortion = "Вчера";
     } else {
         datePortion = dayjs(fileDatetime).format("M/D/YY");
     }
@@ -81,7 +81,42 @@ export function getSortIcon(sortType: string | boolean): React.ReactNode {
 
 export function cleanMimetype(input: string): string {
     const truncated = input.split(";")[0];
-    return truncated.trim();
+    const cleaned = truncated.trim();
+    
+    // Маппинг типов на русский
+    const typeMap: Record<string, string> = {
+        "directory": "папка",
+        "text/plain": "текст",
+        "text/html": "HTML",
+        "text/css": "CSS",
+        "text/javascript": "JavaScript",
+        "text/markdown": "Markdown",
+        "application/json": "JSON",
+        "application/xml": "XML",
+        "application/pdf": "PDF",
+        "application/zip": "архив",
+        "image/png": "изображение PNG",
+        "image/jpeg": "изображение JPEG",
+        "image/gif": "изображение GIF",
+        "image/svg+xml": "изображение SVG",
+        "video/mp4": "видео MP4",
+        "audio/mpeg": "аудио MP3",
+        "audio/wav": "аудио WAV"
+    };
+    
+    // Проверяем точное совпадение
+    if (typeMap[cleaned]) {
+        return typeMap[cleaned];
+    }
+    
+    // Проверяем по префиксу
+    if (cleaned.startsWith("text/")) return "текст";
+    if (cleaned.startsWith("image/")) return "изображение";
+    if (cleaned.startsWith("video/")) return "видео";
+    if (cleaned.startsWith("audio/")) return "аудио";
+    if (cleaned.startsWith("application/")) return "приложение";
+    
+    return cleaned;
 }
 
 export function handleRename(
