@@ -42,14 +42,14 @@ const EmptyState = memo(({ onAddSecret }: { onAddSecret: () => void }) => {
     return (
         <div className="flex flex-col items-center justify-center gap-4 py-12 h-full bg-zinc-800/50 rounded-lg">
             <i className="fa-sharp fa-solid fa-key text-4xl text-zinc-600" />
-            <h3 className="text-lg font-semibold text-zinc-400">No Secrets</h3>
-            <p className="text-zinc-500">Add a secret to get started</p>
+            <h3 className="text-lg font-semibold text-zinc-400">Нет секретов</h3>
+            <p className="text-zinc-500">Добавьте секрет для начала работы</p>
             <button
                 className="flex items-center gap-2 px-4 py-2 bg-accent-600 hover:bg-accent-500 rounded cursor-pointer transition-colors"
                 onClick={onAddSecret}
             >
                 <i className="fa-sharp fa-solid fa-plus" />
-                <span className="font-medium">Add New Secret</span>
+                <span className="font-medium">Добавить новый секрет</span>
             </button>
         </div>
     );
@@ -105,7 +105,7 @@ const SecretListView = memo(({ secretNames, onSelectSecret, onAddSecret }: Secre
                     onClick={onAddSecret}
                 >
                     <i className="fa-sharp fa-solid fa-plus text-accent-500" />
-                    <span className="font-medium text-accent-500">Add New Secret</span>
+                    <span className="font-medium text-accent-500">Добавить новый секрет</span>
                 </div>
             </div>
             <CLIInfoBubble />
@@ -120,7 +120,7 @@ interface AddSecretFormProps {
     isLoading: boolean;
     onNameChange: (name: string) => void;
     onValueChange: (value: string) => void;
-    onCancel: () => void;
+    onОтмена: () => void;
     onSubmit: () => void;
 }
 
@@ -131,16 +131,16 @@ const AddSecretForm = memo(
         isLoading,
         onNameChange,
         onValueChange,
-        onCancel,
+        onОтмена,
         onSubmit,
     }: AddSecretFormProps) => {
         const isNameInvalid = newSecretName !== "" && !SecretNameRegex.test(newSecretName);
 
         return (
             <div className="flex flex-col gap-4 min-h-full p-6 bg-zinc-800/50 rounded-lg">
-                <h3 className="text-lg font-semibold">Add New Secret</h3>
+                <h3 className="text-lg font-semibold">Добавить новый секрет</h3>
                 <div className="flex flex-col gap-2">
-                    <label className="text-sm font-medium">Secret Name</label>
+                    <label className="text-sm font-medium">Имя секрета</label>
                     <input
                         type="text"
                         className={cn(
@@ -155,16 +155,16 @@ const AddSecretForm = memo(
                         disabled={isLoading}
                     />
                     <div className="text-xs text-zinc-400">
-                        Must start with a letter and contain only letters, numbers, and underscores
+                        Должно начинаться с буквы и содержать только буквы, цифры и подчеркивания
                     </div>
                 </div>
                 <div className="flex flex-col gap-2">
-                    <label className="text-sm font-medium">Secret Value</label>
+                    <label className="text-sm font-medium">Значение секрета</label>
                     <textarea
                         className="px-3 py-2 bg-zinc-800 border border-zinc-600 rounded focus:outline-none focus:border-accent-500 font-mono text-sm"
                         value={newSecretValue}
                         onChange={(e) => onValueChange(e.target.value)}
-                        placeholder="Enter secret value..."
+                        placeholder="Введите значение секрета..."
                         disabled={isLoading}
                         rows={4}
                     />
@@ -172,10 +172,10 @@ const AddSecretForm = memo(
                 <div className="flex gap-2 justify-end">
                     <button
                         className="px-4 py-2 bg-zinc-700 hover:bg-zinc-600 rounded cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
-                        onClick={onCancel}
+                        onClick={onОтмена}
                         disabled={isLoading}
                     >
-                        Cancel
+                        Отмена
                     </button>
                     <button
                         className="px-4 py-2 bg-accent-600 hover:bg-accent-500 rounded cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
@@ -185,10 +185,10 @@ const AddSecretForm = memo(
                         {isLoading ? (
                             <>
                                 <i className="fa-sharp fa-solid fa-spinner fa-spin" />
-                                Adding...
+                                Добавление...
                             </>
                         ) : (
-                            "Add Secret"
+                            "Добавить секрет"
                         )}
                     </button>
                 </div>
@@ -220,7 +220,7 @@ const SecretDetailView = memo(({ model }: SecretDetailViewProps) => {
                 <h3 className="text-lg font-semibold">{secretName}</h3>
             </div>
             <div className="flex flex-col gap-2">
-                <label className="text-sm font-medium">Secret Value</label>
+                <label className="text-sm font-medium">Значение секрета</label>
                 <textarea
                     ref={(ref) => {
                         model.secretValueRef = ref;
@@ -238,14 +238,14 @@ const SecretDetailView = memo(({ model }: SecretDetailViewProps) => {
                     }}
                     disabled={isLoading}
                     rows={6}
-                    placeholder={!secretShown ? "Enter new secret value..." : ""}
+                    placeholder={!secretShown ? "Введите новое значение секрета..." : ""}
                 />
                 {!secretShown && (
                     <div className="text-sm text-zinc-400">
-                        The current secret value is not shown by default for security purposes.{" "}
+                        Текущее значение секрета не отображается по умолчанию в целях безопасности.{" "}
                         {isLoading ? (
                             <span className="text-zinc-500">
-                                <i className="fa-sharp fa-solid fa-spinner fa-spin" /> Loading...
+                                <i className="fa-sharp fa-solid fa-spinner fa-spin" /> Загрузка...
                             </span>
                         ) : (
                             <button
@@ -253,7 +253,7 @@ const SecretDetailView = memo(({ model }: SecretDetailViewProps) => {
                                 onClick={() => model.showSecret()}
                                 disabled={isLoading}
                             >
-                                Show Secret
+                                Показать секрет
                             </button>
                         )}
                     </div>
@@ -264,17 +264,17 @@ const SecretDetailView = memo(({ model }: SecretDetailViewProps) => {
                     className="px-4 py-2 bg-red-600 hover:bg-red-500 rounded cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
                     onClick={() => model.deleteSecret()}
                     disabled={isLoading}
-                    title="Delete this secret"
+                    title="Удалить this secret"
                 >
                     {isLoading ? (
                         <>
                             <i className="fa-sharp fa-solid fa-spinner fa-spin" />
-                            Deleting...
+                            Удаление...
                         </>
                     ) : (
                         <>
                             <i className="fa-sharp fa-solid fa-trash" />
-                            Delete
+                            Удалить
                         </>
                     )}
                 </button>
@@ -284,7 +284,7 @@ const SecretDetailView = memo(({ model }: SecretDetailViewProps) => {
                         onClick={() => model.closeSecretView()}
                         disabled={isLoading}
                     >
-                        Cancel
+                        Отмена
                     </button>
                     <button
                         className="px-4 py-2 bg-accent-600 hover:bg-accent-500 rounded cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
@@ -294,10 +294,10 @@ const SecretDetailView = memo(({ model }: SecretDetailViewProps) => {
                         {isLoading ? (
                             <>
                                 <i className="fa-sharp fa-solid fa-spinner fa-spin" />
-                                Saving...
+                                Сохранение...
                             </>
                         ) : (
-                            "Save"
+                            "Сохранить"
                         )}
                     </button>
                 </div>
@@ -342,7 +342,7 @@ export const SecretsContent = memo(({ model }: SecretsContentProps) => {
         return (
             <div className="w-full h-full">
                 <div>
-                    <LoadingSpinner message="Loading secrets..." />
+                    <LoadingSpinner message="Загрузка секретов..." />
                 </div>
             </div>
         );
@@ -357,7 +357,7 @@ export const SecretsContent = memo(({ model }: SecretsContentProps) => {
                     isLoading={isLoading}
                     onNameChange={setNewSecretName}
                     onValueChange={setNewSecretValue}
-                    onCancel={() => model.cancelAddingSecret()}
+                    onОтмена={() => model.cancelAddingSecret()}
                     onSubmit={() => model.addNewSecret()}
                 />
             );

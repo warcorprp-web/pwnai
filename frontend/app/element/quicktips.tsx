@@ -98,7 +98,7 @@ const QuickTips = () => {
             <div className="flex flex-col gap-4 p-5 bg-gradient-to-br from-highlightbg/30 to-transparent hover:from-accent-400/5 rounded-lg border border-white/10 hover:border-accent-400/20 transition-all duration-300">
                 <div className="flex items-center gap-2 text-xl font-bold">
                     <div className="w-1 h-6 bg-accent-400 rounded-full"></div>
-                    <span className="text-foreground">Header Icons</span>
+                    <span className="text-foreground">Иконки заголовка</span>
                 </div>
                 <div className="grid grid-cols-1 @lg:grid-cols-2 gap-3">
                     <div className="flex items-center gap-3 p-2 rounded-md hover:bg-white/5 transition-colors">
@@ -106,7 +106,7 @@ const QuickTips = () => {
                             <MagnifyIcon enabled={false} />
                         </IconBox>
                         <div className="flex flex-col gap-0.5 flex-1">
-                            <span className="text-[15px]">Magnify a Block</span>
+                            <span className="text-[15px]">Увеличить блок</span>
                             <KeyBinding keyDecl="Cmd:m" />
                         </div>
                     </div>
@@ -115,7 +115,7 @@ const QuickTips = () => {
                             <i className="fa-solid fa-sharp fa-laptop fa-fw" />
                         </IconBox>
                         <div className="flex flex-col gap-0.5 flex-1">
-                            <span className="text-[15px]">Connect to a remote server</span>
+                            <span className="text-[15px]">Подключиться к удаленному серверу</span>
                             <KeyBinding keyDecl="Cmd:g" />
                         </div>
                     </div>
@@ -123,14 +123,14 @@ const QuickTips = () => {
                         <IconBox variant="secondary">
                             <i className="fa-solid fa-sharp fa-cog fa-fw" />
                         </IconBox>
-                        <span className="text-[15px]">Block Settings</span>
+                        <span className="text-[15px]">Настройки блока</span>
                     </div>
                     <div className="flex items-center gap-3 p-2 rounded-md hover:bg-white/5 transition-colors">
                         <IconBox variant="secondary">
                             <i className="fa-solid fa-sharp fa-xmark-large fa-fw" />
                         </IconBox>
                         <div className="flex flex-col gap-0.5 flex-1">
-                            <span className="text-[15px]">Close Block</span>
+                            <span className="text-[15px]">Закрыть блок</span>
                             <KeyBinding keyDecl="Cmd:w" />
                         </div>
                     </div>
@@ -140,13 +140,13 @@ const QuickTips = () => {
             <div className="flex flex-col gap-4 p-5 bg-gradient-to-br from-highlightbg/30 to-transparent hover:from-accent-400/5 rounded-lg border border-white/10 hover:border-accent-400/20 transition-all duration-300">
                 <div className="flex items-center gap-2 text-xl font-bold">
                     <div className="w-1 h-6 bg-accent-400 rounded-full"></div>
-                    <span className="text-foreground">Important Keybindings</span>
+                    <span className="text-foreground">Важные сочетания клавиш</span>
                 </div>
 
                 <div className="grid grid-cols-1 @lg:grid-cols-2 gap-x-5 gap-y-6">
                     <div className="flex flex-col gap-1.5">
                         <div className="text-sm text-accent-400 font-semibold uppercase tracking-wide mb-1">
-                            Main Keybindings
+                            Основные сочетания
                         </div>
                         <div className="flex flex-col gap-0.5 p-2 rounded-md hover:bg-white/5 transition-colors">
                             <span className="text-[15px]">Новая вкладка</span>
