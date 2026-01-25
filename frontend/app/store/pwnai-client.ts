@@ -99,11 +99,17 @@ export class PwnAIClient {
     }
 
     // Выполнение tool result
-    static async executeToolResult(toolCallId: string, toolName: string, params: any): Promise<any> {
+    static async executeToolResult(toolCallId: string, toolName: string, params: any, tabId?: string): Promise<any> {
+        // Добавляем tabId в params для виджетов
+        const fullParams = { ...params };
+        if (tabId) {
+            fullParams.tab_id = tabId;
+        }
+        
         return await RpcApi.PentestToolResultCommand({
             toolCallId,
             toolName,
-            params,
+            params: fullParams,
         });
     }
 }

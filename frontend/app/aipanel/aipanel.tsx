@@ -339,6 +339,9 @@ const AIPanelComponentInner = memo(() => {
     // PwnAI: Используем наш хук вместо useChat
     const isPwnAIMode = defaultMode === "pwnai@default";
     
+    // Получаем tabId
+    const tabId = jotai.useAtomValue(atoms.staticTabId);
+    
     // Обработчик вызова инструментов
     const handleToolCall = useCallback(async (toolCall: any) => {
         console.log("🔧 Executing tool:", toolCall.name);
@@ -348,7 +351,8 @@ const AIPanelComponentInner = memo(() => {
             const result = await PwnAIClient.executeToolResult(
                 toolCall.id,
                 toolCall.name,
-                params.input || params
+                params.input || params,
+                tabId  // Передаём tabId для виджетов
             );
             
             console.log("✅ Tool result:", result);
@@ -357,7 +361,7 @@ const AIPanelComponentInner = memo(() => {
             console.error("❌ Tool execution failed:", error);
             throw error;
         }
-    }, []);
+    }, [tabId]);
 
     const pwnaiChat = usePwnAIChat({
         onError: (error) => {
