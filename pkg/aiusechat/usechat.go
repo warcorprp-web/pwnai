@@ -800,9 +800,22 @@ func CreateWriteTextFileDiff(ctx context.Context, chatId string, toolCallId stri
 		return nil, nil, fmt.Errorf("tool call %s is not a write_text_file or edit_text_file (got: %s)", toolCallId, toolName)
 	}
 
+	// Get backup filename from UIChat
 	var backupFileName string
-	if funcCallInput.ToolUseData != nil {
-		backupFileName = funcCallInput.ToolUseData.WriteBackupFileName
+	uiChat, err := backend.ConvertAIChatToUIChat(*aiChat)
+	if err == nil && uiChat != nil {
+		// Search for ToolUseData in UIChat messages
+		for _, uiMsg := range uiChat.Messages {
+			for _, part := range uiMsg.Parts {
+				if part.Type == "data-tooluse" && part.Data != nil && part.Data.ToolCallId == toolCallId {
+					backupFileName = part.Data.WriteBackupFileName
+					break
+				}
+			}
+			if backupFileName != "" {
+				break
+			}
+		}
 	}
 
 	var parsedArguments any
