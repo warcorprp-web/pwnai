@@ -5,6 +5,8 @@ import { Button } from "@/app/element/button";
 import type { WaveConfigViewModel } from "@/app/view/waveconfig/waveconfig-model";
 import { authTokenAtom, userDataAtom, isAuthenticatedAtom } from "@/app/store/authstate";
 import { authApi } from "@/app/store/authapi";
+import { RpcApi } from "@/app/store/wshclientapi";
+import { TabRpcClient } from "@/app/store/wshrpcutil";
 import { useAtom } from "jotai";
 import { memo, useState } from "react";
 
@@ -123,6 +125,17 @@ const SettingsContentComponent = ({ model }: SettingsContentProps) => {
             if (result.success && result.token) {
                 setAuthToken(result.token);
                 setUserData(result.user || null);
+                
+                // Сохраняем API ключ в secretstore
+                if (result.apiKey) {
+                    try {
+                        await RpcApi.SetSecretsCommand(TabRpcClient, {
+                            "ISKRA_AI_KEY": result.apiKey
+                        });
+                    } catch (secretError) {
+                        console.error("Ошибка сохранения API ключа:", secretError);
+                    }
+                }
             } else {
                 setError(result.error || "Ошибка регистрации");
             }

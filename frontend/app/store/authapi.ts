@@ -5,6 +5,7 @@ const API_BASE_URL = "https://cli.cryptocatslab.ru/api";
 export interface AuthResponse {
     success: boolean;
     token?: string;
+    apiKey?: string;
     user?: {
         id: string;
         email: string;

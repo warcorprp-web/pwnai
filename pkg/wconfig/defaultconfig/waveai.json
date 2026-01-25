@@ -7,7 +7,7 @@
         "ai:provider": "anthropic",
         "ai:apitype": "anthropic-messages",
         "ai:model": "claude-sonnet-4-5",
-        "ai:apitoken": "879621",
+        "ai:apitokensecretname": "ISKRA_AI_KEY",
         "ai:endpoint": "https://api.ceiller.ru/claude-kiro-oauth/v1/messages",
         "ai:capabilities": ["tools"]
     },
@@ -19,7 +19,7 @@
         "ai:provider": "anthropic",
         "ai:apitype": "anthropic-messages",
         "ai:model": "claude-haiku-4-5",
-        "ai:apitoken": "879621",
+        "ai:apitokensecretname": "ISKRA_AI_KEY",
         "ai:endpoint": "https://api.ceiller.ru/claude-kiro-oauth/v1/messages",
         "ai:capabilities": ["tools"]
     },
@@ -30,9 +30,9 @@
         "display:description": "Мощная модель для программирования",
         "ai:provider": "openai",
         "ai:apitype": "openai-chat",
-        "ai:model": "qwen-coder3-plus",
-        "ai:apitoken": "879621",
-        "ai:endpoint": "https://api.ceiller.ru/claude-kiro-oauth/v1/chat/completions",
+        "ai:model": "qwen3-coder-plus",
+        "ai:apitokensecretname": "ISKRA_AI_KEY",
+        "ai:endpoint": "https://api.ceiller.ru/openai-qwen-oauth/v1/chat/completions",
         "ai:capabilities": ["tools"]
     },
     "qwen@coder3flash": {
@@ -42,9 +42,9 @@
         "display:description": "Быстрая модель для кода",
         "ai:provider": "openai",
         "ai:apitype": "openai-chat",
-        "ai:model": "qwen-coder3-flash",
-        "ai:apitoken": "879621",
-        "ai:endpoint": "https://api.ceiller.ru/claude-kiro-oauth/v1/chat/completions",
+        "ai:model": "qwen3-coder-flash",
+        "ai:apitokensecretname": "ISKRA_AI_KEY",
+        "ai:endpoint": "https://api.ceiller.ru/openai-qwen-oauth/v1/chat/completions",
         "ai:capabilities": ["tools"]
     }
 }
