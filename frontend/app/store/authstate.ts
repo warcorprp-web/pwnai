@@ -16,8 +16,24 @@ export const isFreeLimitReachedAtom = atom((get) => {
     return count >= FREE_REQUEST_LIMIT;
 });
 
-// Состояние авторизации (TODO: заменить на реальную проверку)
-export const isAuthenticatedAtom = atom<boolean>(false);
+// JWT токен
+export const authTokenAtom = atomWithStorage<string | null>("iskra:auth-token", null);
+
+// Данные пользователя
+export const userDataAtom = atomWithStorage<{
+    id: string;
+    email: string;
+    subscription_tier?: string;
+    subscription_expires?: string;
+} | null>("iskra:user-data", null);
+
+// Состояние авторизации
+export const isAuthenticatedAtom = atom(
+    (get) => {
+        const token = get(authTokenAtom);
+        return token !== null;
+    }
+);
 
 // Флаг попытки превышения лимита (показывать баннер)
 export const showLimitBannerAtom = atom<boolean>(false);

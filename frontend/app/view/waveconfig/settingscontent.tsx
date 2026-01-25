@@ -3,7 +3,8 @@
 
 import { Button } from "@/app/element/button";
 import type { WaveConfigViewModel } from "@/app/view/waveconfig/waveconfig-model";
-import { isAuthenticatedAtom } from "@/app/store/authstate";
+import { authTokenAtom, userDataAtom, isAuthenticatedAtom } from "@/app/store/authstate";
+import { authApi } from "@/app/store/authapi";
 import { useAtom } from "jotai";
 import { memo, useState } from "react";
 
@@ -12,7 +13,9 @@ interface SettingsContentProps {
 }
 
 const SettingsContentComponent = ({ model }: SettingsContentProps) => {
-    const [isAuthenticated, setIsAuthenticated] = useAtom(isAuthenticatedAtom);
+    const [isAuthenticated] = useAtom(isAuthenticatedAtom);
+    const [, setAuthToken] = useAtom(authTokenAtom);
+    const [, setUserData] = useAtom(userDataAtom);
     const [isLogin, setIsLogin] = useState(true);
     const [step, setStep] = useState<"email" | "otp" | "password">("email");
     const [email, setEmail] = useState("");
@@ -34,9 +37,12 @@ const SettingsContentComponent = ({ model }: SettingsContentProps) => {
         setLoading(true);
         
         try {
-            // TODO: API запрос на отправку кода (только для регистрации)
-            await new Promise(resolve => setTimeout(resolve, 1000));
-            setStep("otp");
+            const result = await authApi.sendCode(email);
+            if (result.success) {
+                setStep("otp");
+            } else {
+                setError(result.error || "Ошибка отправки кода");
+            }
         } catch (err) {
             setError("Ошибка отправки кода");
         } finally {
@@ -56,11 +62,15 @@ const SettingsContentComponent = ({ model }: SettingsContentProps) => {
         setLoading(true);
         
         try {
-            // TODO: API запрос на вход с email+password
-            await new Promise(resolve => setTimeout(resolve, 1000));
-            setIsAuthenticated(true);
+            const result = await authApi.login(email, password);
+            if (result.success && result.token) {
+                setAuthToken(result.token);
+                setUserData(result.user || null);
+            } else {
+                setError(result.error || "Неверный email или пароль");
+            }
         } catch (err) {
-            setError("Неверный email или пароль");
+            setError("Ошибка входа");
         } finally {
             setLoading(false);
         }
@@ -79,11 +89,14 @@ const SettingsContentComponent = ({ model }: SettingsContentProps) => {
         setLoading(true);
         
         try {
-            // TODO: API запрос на проверку кода (только для регистрации)
-            await new Promise(resolve => setTimeout(resolve, 1000));
-            setStep("password");
+            const result = await authApi.verifyCode(email, otpCode);
+            if (result.success) {
+                setStep("password");
+            } else {
+                setError(result.error || "Неверный код");
+            }
         } catch (err) {
-            setError("Неверный код");
+            setError("Ошибка проверки кода");
         } finally {
             setLoading(false);
         }
@@ -106,9 +119,13 @@ const SettingsContentComponent = ({ model }: SettingsContentProps) => {
         setLoading(true);
         
         try {
-            // TODO: API запрос на установку пароля
-            await new Promise(resolve => setTimeout(resolve, 1000));
-            setIsAuthenticated(true);
+            const result = await authApi.register(email, password);
+            if (result.success && result.token) {
+                setAuthToken(result.token);
+                setUserData(result.user || null);
+            } else {
+                setError(result.error || "Ошибка регистрации");
+            }
         } catch (err) {
             setError("Ошибка регистрации");
         } finally {
@@ -148,7 +165,8 @@ const SettingsContentComponent = ({ model }: SettingsContentProps) => {
     };
 
     const handleLogout = () => {
-        setIsAuthenticated(false);
+        setAuthToken(null);
+        setUserData(null);
         resetForm();
     };
 
