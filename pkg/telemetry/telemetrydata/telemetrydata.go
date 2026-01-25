@@ -17,4 +17,8 @@ type TEventProps map[string]interface{}
 const (
 	ConnType         = "conn:type"
 	ConnWshErrorCode = "conn:wsherrorcode"
+	BlockView        = "block:view"
+	BlockController  = "block:controller"
+	AiBackendType    = "ai:backendtype"
+	AiLocal          = "ai:local"
 )

@@ -57,6 +57,10 @@ func MarkActivityAsUploaded(ctx context.Context, activity []*ActivityType) error
 	return nil
 }
 
+func UpdateActivity(ctx context.Context, update interface{}) error {
+	return nil
+}
+
 func Shutdown() {
 	// no-op
 }
