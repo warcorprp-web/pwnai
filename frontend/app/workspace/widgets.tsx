@@ -284,14 +284,9 @@ const SettingsFloatingWindow = memo(
             },
             {
                 icon: "circle-question",
-                label: "Справка",
+                label: "Поддержка",
                 onClick: () => {
-                    const blockDef: BlockDef = {
-                        meta: {
-                            view: "help",
-                        },
-                    };
-                    createBlock(blockDef);
+                    window.open("https://t.me/deya_vocals", "_blank");
                     onClose();
                 },
             },
@@ -428,7 +423,7 @@ const Widgets = memo(() => {
                         <div className="grid grid-cols-1 gap-0 w-full">
                             <div ref={settingsButtonRef}>
                                 <Tooltip 
-                                    content="Настройки и справка" 
+                                    content="Настройки и поддержка" 
                                     placement="left" 
                                     disable={isSettingsOpen}
                                     divClassName="flex flex-col justify-center items-center w-full py-1.5 pr-0.5 text-secondary text-sm overflow-hidden rounded-sm hover:bg-hoverbg hover:text-white cursor-pointer"
@@ -449,7 +444,7 @@ const Widgets = memo(() => {
                         <div className="flex-grow" />
                         <div ref={settingsButtonRef}>
                             <Tooltip 
-                                content="Настройки и справка" 
+                                content="Настройки и поддержка" 
                                 placement="left" 
                                 disable={isSettingsOpen}
                                 divClassName="flex flex-col justify-center items-center w-full py-1.5 pr-0.5 text-secondary text-lg overflow-hidden rounded-sm hover:bg-hoverbg hover:text-white cursor-pointer"
