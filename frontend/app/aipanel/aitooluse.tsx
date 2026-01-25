@@ -124,7 +124,7 @@ const AIToolUseBatchItem = memo(({ part, effectiveApproval }: AIToolUseBatchItem
             : part.data.status === "error"
               ? "text-error"
               : "text-gray-400";
-    const effectiveErrorMessage = part.data.errormessage || (effectiveApproval === "timeout" ? "Not approved" : null);
+    const effectiveErrorMessage = part.data.errormessage || (effectiveApproval === "timeout" ? "Не одобрено" : null);
 
     return (
         <div className="text-sm pl-2 flex items-start gap-1.5">

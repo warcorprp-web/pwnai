@@ -54,11 +54,11 @@ export const RestoreBackupModal = memo(({ part }: RestoreBackupModalProps) => {
 
     if (status === "error") {
         return (
-            <Modal className="restore-backup-modal pb-5 pr-5" onClose={handleClose} onOk={handleClose} okLabel="Close">
+            <Modal className="restore-backup-modal pb-5 pr-5" onClose={handleClose} onOk={handleClose} okLabel="Закрыть">
                 <div className="flex flex-col gap-4 pt-4 pb-4 max-w-xl">
-                    <div className="font-semibold text-lg text-red-500">Failed to Restore Backup</div>
+                    <div className="font-semibold text-lg text-red-500">Не удалось восстановить резервную копию</div>
                     <div className="text-sm text-gray-300 leading-relaxed">
-                        An error occurred while restoring the backup:
+                        Произошла ошибка при восстановлении:
                     </div>
                     <div className="text-sm text-red-400 font-mono bg-zinc-800 p-3 rounded break-all">{error}</div>
                 </div>
@@ -74,8 +74,8 @@ export const RestoreBackupModal = memo(({ part }: RestoreBackupModalProps) => {
             onClose={handleCancel}
             onCancel={handleCancel}
             onOk={handleConfirm}
-            okLabel={isProcessing ? "Restoring..." : "Confirm Restore"}
-            cancelLabel="Cancel"
+            okLabel={isProcessing ? "Восстановление..." : "Подтвердить восстановление"}
+            cancelLabel="Отмена"
             okDisabled={isProcessing}
             cancelDisabled={isProcessing}
         >

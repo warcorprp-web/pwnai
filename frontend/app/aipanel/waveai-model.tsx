@@ -202,18 +202,18 @@ export class WaveAIModel {
 
     async addFileFromRemoteUri(draggedFile: DraggedFile): Promise<void> {
         if (draggedFile.isDir) {
-            this.setError("Cannot add directories to Wave AI. Please select a file.");
+            this.setError("Невозможно добавить директории. Выберите файл.");
             return;
         }
 
         try {
             const fileInfo = await RpcApi.FileInfoCommand(TabRpcClient, { info: { path: draggedFile.uri } }, null);
             if (fileInfo.notfound) {
-                this.setError(`File not found: ${draggedFile.relName}`);
+                this.setError(`Файл не найден: ${draggedFile.relName}`);
                 return;
             }
             if (fileInfo.isdir) {
-                this.setError("Cannot add directories to Wave AI. Please select a file.");
+                this.setError("Невозможно добавить директории. Выберите файл.");
                 return;
             }
 
@@ -227,7 +227,7 @@ export class WaveAIModel {
 
             const fileData = await RpcApi.FileReadCommand(TabRpcClient, { info: { path: draggedFile.uri } }, null);
             if (!fileData.data64) {
-                this.setError(`Failed to read file: ${draggedFile.relName}`);
+                this.setError(`Не удалось прочитать файл: ${draggedFile.relName}`);
                 return;
             }
 
