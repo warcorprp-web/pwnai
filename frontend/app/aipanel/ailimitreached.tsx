@@ -2,11 +2,16 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import { memo } from "react";
-import { modalsModel } from "@/app/store/modalmodel";
+import { createBlock } from "@/store/global";
 
 export const AILimitReachedBanner = memo(() => {
     const handleLogin = () => {
-        modalsModel.pushModal("SettingsModal", { initialTab: "general" });
+        const blockDef: BlockDef = {
+            meta: {
+                view: "waveconfig",
+            },
+        };
+        createBlock(blockDef, false, true);
     };
 
     return (
