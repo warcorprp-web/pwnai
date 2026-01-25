@@ -60,10 +60,10 @@ const DomainSocketBaseName = "wave.sock"
 const RemoteDomainSocketBaseName = "wave-remote.sock"
 const WaveDBDir = "db"
 const ConfigDir = "config"
-const RemoteWaveHomeDirName = ".waveterm"
+const RemoteWaveHomeDirName = ".iskra"
 const RemoteWshBinDirName = "bin"
-const RemoteFullWshBinPath = "~/.waveterm/bin/ish"
-const RemoteFullDomainSocketPath = "~/.waveterm/wave-remote.sock"
+const RemoteFullWshBinPath = "~/.iskra/bin/ish"
+const RemoteFullDomainSocketPath = "~/.iskra/wave-remote.sock"
 
 const AppPathBinDir = "bin"
 

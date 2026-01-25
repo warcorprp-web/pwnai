@@ -219,18 +219,18 @@ func StartWslShellProc(ctx context.Context, termSize waveobj.TermSize, cmdStr st
 		if shellType == shellutil.ShellType_bash {
 			// add --rcfile
 			// cant set -l or -i with --rcfile
-			bashPath := fmt.Sprintf("~/.waveterm/%s/.bashrc", shellutil.BashIntegrationDir)
+			bashPath := fmt.Sprintf("~/.iskra/%s/.bashrc", shellutil.BashIntegrationDir)
 			shellOpts = append(shellOpts, "--rcfile", bashPath)
 		} else if shellType == shellutil.ShellType_fish {
 			if cmdOpts.Login {
 				shellOpts = append(shellOpts, "-l")
 			}
 			// source the wave.fish file
-			waveFishPath := fmt.Sprintf("~/.waveterm/%s/wave.fish", shellutil.FishIntegrationDir)
+			waveFishPath := fmt.Sprintf("~/.iskra/%s/wave.fish", shellutil.FishIntegrationDir)
 			carg := fmt.Sprintf(`"source %s"`, waveFishPath)
 			shellOpts = append(shellOpts, "-C", carg)
 		} else if shellType == shellutil.ShellType_pwsh {
-			pwshPath := fmt.Sprintf("~/.waveterm/%s/wavepwsh.ps1", shellutil.PwshIntegrationDir)
+			pwshPath := fmt.Sprintf("~/.iskra/%s/wavepwsh.ps1", shellutil.PwshIntegrationDir)
 			// powershell is weird about quoted path executables and requires an ampersand first
 			shellPath = "& " + shellPath
 			shellOpts = append(shellOpts, "-ExecutionPolicy", "Bypass", "-NoExit", "-File", pwshPath)
@@ -253,7 +253,7 @@ func StartWslShellProc(ctx context.Context, termSize waveobj.TermSize, cmdStr st
 	conn.Infof(ctx, "WSL-NEWSESSION (StartWslShellProc)\n")
 
 	if shellType == shellutil.ShellType_zsh {
-		zshDir := fmt.Sprintf("~/.waveterm/%s", shellutil.ZshIntegrationDir)
+		zshDir := fmt.Sprintf("~/.iskra/%s", shellutil.ZshIntegrationDir)
 		conn.Infof(ctx, "setting ZDOTDIR to %s\n", zshDir)
 		cmdCombined = fmt.Sprintf(`ZDOTDIR=%s %s`, zshDir, cmdCombined)
 	}
@@ -371,18 +371,18 @@ func StartRemoteShellProc(ctx context.Context, logCtx context.Context, termSize 
 		if shellType == shellutil.ShellType_bash {
 			// add --rcfile
 			// cant set -l or -i with --rcfile
-			bashPath := fmt.Sprintf("~/.waveterm/%s/.bashrc", shellutil.BashIntegrationDir)
+			bashPath := fmt.Sprintf("~/.iskra/%s/.bashrc", shellutil.BashIntegrationDir)
 			shellOpts = append(shellOpts, "--rcfile", bashPath)
 		} else if shellType == shellutil.ShellType_fish {
 			if cmdOpts.Login {
 				shellOpts = append(shellOpts, "-l")
 			}
 			// source the wave.fish file
-			waveFishPath := fmt.Sprintf("~/.waveterm/%s/wave.fish", shellutil.FishIntegrationDir)
+			waveFishPath := fmt.Sprintf("~/.iskra/%s/wave.fish", shellutil.FishIntegrationDir)
 			carg := fmt.Sprintf(`"source %s"`, waveFishPath)
 			shellOpts = append(shellOpts, "-C", carg)
 		} else if shellType == shellutil.ShellType_pwsh {
-			pwshPath := fmt.Sprintf("~/.waveterm/%s/wavepwsh.ps1", shellutil.PwshIntegrationDir)
+			pwshPath := fmt.Sprintf("~/.iskra/%s/wavepwsh.ps1", shellutil.PwshIntegrationDir)
 			// powershell is weird about quoted path executables and requires an ampersand first
 			shellPath = "& " + shellPath
 			shellOpts = append(shellOpts, "-ExecutionPolicy", "Bypass", "-NoExit", "-File", pwshPath)
@@ -432,7 +432,7 @@ func StartRemoteShellProc(ctx context.Context, logCtx context.Context, termSize 
 	session.Stdout = remoteStdoutWrite
 	session.Stderr = remoteStdoutWrite
 	if shellType == shellutil.ShellType_zsh {
-		zshDir := fmt.Sprintf("~/.waveterm/%s", shellutil.ZshIntegrationDir)
+		zshDir := fmt.Sprintf("~/.iskra/%s", shellutil.ZshIntegrationDir)
 		conn.Infof(logCtx, "setting ZDOTDIR to %s\n", zshDir)
 		cmdCombined = fmt.Sprintf(`ZDOTDIR=%s %s`, zshDir, cmdCombined)
 	}

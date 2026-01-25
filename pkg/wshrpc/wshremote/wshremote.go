@@ -96,7 +96,7 @@ func (impl *ServerImpl) getWshPath() (string, error) {
 	if impl.IsLocal {
 		return filepath.Join(wavebase.GetWaveDataDir(), "bin", "ish"), nil
 	}
-	wshPath, err := wavebase.ExpandHomeDir("~/.waveterm/bin/ish")
+	wshPath, err := wavebase.ExpandHomeDir("~/.iskra/bin/ish")
 	if err != nil {
 		return "", fmt.Errorf("cannot expand ish path: %w", err)
 	}
