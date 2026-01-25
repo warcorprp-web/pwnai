@@ -340,20 +340,20 @@ func startupActivityUpdate(firstLaunch bool) {
 	cohortMonth := cohortTime.Format("2006-01")
 	year, week := cohortTime.ISOWeek()
 	cohortISOWeek := fmt.Sprintf("%04d-W%02d", year, week)
-	userSetOnce[telemetrydata.CohortMonth] = cohortMonth
-	userSetOnce[telemetrydata.CohortISOWeek] = cohortISOWeek
+	(*userSetOnce)[telemetrydata.CohortMonth] = cohortMonth
+	(*userSetOnce)[telemetrydata.CohortISOWeek] = cohortISOWeek
 	fullConfig := wconfig.GetWatcher().GetFullConfig()
 	props := telemetrydata.TEventProps{
 		telemetrydata.UserSet: &telemetrydata.TEventUserProps{
-			ClientVersion:       "v" + wavebase.WaveVersion,
-			ClientBuildTime:     wavebase.BuildTime,
-			ClientArch:          wavebase.ClientArch(),
-			ClientOSRelease:     wavebase.UnameKernelRelease(),
-			ClientIsDev:         wavebase.IsDevMode(),
-			AutoUpdateChannel:   autoUpdateChannel,
-			AutoUpdateEnabled:   autoUpdateEnabled,
-			LocalShellType:      shellType,
-			LocalShellVersion:   shellVersion,
+			telemetrydata.ClientVersion:       "v" + wavebase.WaveVersion,
+			telemetrydata.ClientBuildTime:     wavebase.BuildTime,
+			telemetrydata.ClientArch:          wavebase.ClientArch(),
+			telemetrydata.ClientOSRelease:     wavebase.UnameKernelRelease(),
+			telemetrydata.ClientIsDev:         wavebase.IsDevMode(),
+			telemetrydata.AutoUpdateChannel:   autoUpdateChannel,
+			telemetrydata.AutoUpdateEnabled:   autoUpdateEnabled,
+			telemetrydata.LocalShellType:      shellType,
+			telemetrydata.LocalShellVersion:   shellVersion,
 			SettingsTransparent: fullConfig.Settings.WindowTransparent,
 		},
 		telemetrydata.UserSetOnce: userSetOnce,

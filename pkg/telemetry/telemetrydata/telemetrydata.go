@@ -70,6 +70,15 @@ const (
 	CohortISOWeek              = "cohort:isoweek"
 	UserSetOnce                = "user:setonce"
 	AppFirstLaunch             = "app:firstlaunch"
+	ClientVersion              = "client:version"
+	ClientBuildTime            = "client:buildtime"
+	ClientArch                 = "client:arch"
+	ClientOSRelease            = "client:osrelease"
+	ClientIsDev                = "client:isdev"
+	AutoUpdateChannel          = "autoupdate:channel"
+	AutoUpdateEnabled          = "autoupdate:enabled"
+	LocalShellType             = "localshell:type"
+	LocalShellVersion          = "localshell:version"
 )
 
 func MakeTEvent(eventType string, props ...TEventProps) *TEvent {
