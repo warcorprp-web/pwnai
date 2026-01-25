@@ -3,19 +3,6 @@
 
 import { atom } from "jotai";
 import { atomWithStorage } from "jotai/utils";
-import { generateFingerprint } from "./fingerprint";
-
-// Счётчик бесплатных запросов (хранится локально)
-export const freeRequestCountAtom = atomWithStorage<number>("iskra:free-requests", 0);
-
-// Лимит бесплатных запросов
-export const FREE_REQUEST_LIMIT = 3;
-
-// Проверка, исчерпан ли лимит
-export const isFreeLimitReachedAtom = atom((get) => {
-    const count = get(freeRequestCountAtom);
-    return count >= FREE_REQUEST_LIMIT;
-});
 
 // JWT токен
 export const authTokenAtom = atomWithStorage<string | null>("iskra:auth-token", null);
@@ -29,27 +16,7 @@ export const userDataAtom = atomWithStorage<{
 } | null>("iskra:user-data", null);
 
 // Состояние авторизации
-export const isAuthenticatedAtom = atom(
-    (get) => {
-        const token = get(authTokenAtom);
-        return token !== null;
-    }
-);
-
-// Флаг попытки превышения лимита (показывать баннер)
-export const showLimitBannerAtom = atom<boolean>(false);
-
-// Device ID для анонимных пользователей
-export const deviceIdAtom = atomWithStorage<string>("iskra:device-id", () => {
-    return crypto.randomUUID();
-});
-
-// Browser fingerprint (кешируется)
-let cachedFingerprint: string | null = null;
-
-export const fingerprintAtom = atom(async () => {
-    if (!cachedFingerprint) {
-        cachedFingerprint = await generateFingerprint();
-    }
-    return cachedFingerprint;
+export const isAuthenticatedAtom = atom((get) => {
+    const token = get(authTokenAtom);
+    return token !== null;
 });

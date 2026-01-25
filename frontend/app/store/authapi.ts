@@ -78,16 +78,6 @@ export const authApi = {
 };
 
 export const aiApi = {
-    // Анонимный AI запрос
-    async anonymousRequest(prompt: string, deviceId: string, fingerprint: string): Promise<AIResponse> {
-        const response = await fetch(`${API_BASE_URL}/ai/anonymous`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ prompt, deviceId, fingerprint }),
-        });
-        return response.json();
-    },
-
     // Авторизованный AI запрос
     async authenticatedRequest(prompt: string, token: string): Promise<AIResponse> {
         const response = await fetch(`${API_BASE_URL}/ai/request`, {
