@@ -30,7 +30,7 @@ export function addOpenMenuItems(menu: ContextMenuItem[], conn: string, finfo: F
         }
     } else {
         menu.push({
-            label: "Download File",
+            label: "Скачать файл",
             click: () => {
                 const remoteUri = formatRemoteUri(finfo.path, conn);
                 getApi().downloadFile(remoteUri);
@@ -42,7 +42,7 @@ export function addOpenMenuItems(menu: ContextMenuItem[], conn: string, finfo: F
     });
     if (!finfo.isdir) {
         menu.push({
-            label: "Open Preview in New Block",
+            label: "Открыть просмотр в новом блоке",
             click: () =>
                 fireAndForget(async () => {
                     const blockDef: BlockDef = {
@@ -59,7 +59,7 @@ export function addOpenMenuItems(menu: ContextMenuItem[], conn: string, finfo: F
     // TODO: improve behavior as we add more connection types
     if (!conn?.startsWith("aws:")) {
         menu.push({
-            label: "Open Terminal Here",
+            label: "Открыть терминал здесь",
             click: () => {
                 const termBlockDef: BlockDef = {
                     meta: {
