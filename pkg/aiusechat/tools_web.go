@@ -24,7 +24,7 @@ func parseWebNavigateInput(input any) (*WebNavigateToolInput, error) {
 	result := &WebNavigateToolInput{}
 
 	if input == nil {
-		return nil, fmt.Errorf("input is required")
+		return nil, fmt.Errorf("требуется входной параметр")
 	}
 
 	inputBytes, err := json.Marshal(input)
@@ -37,7 +37,7 @@ func parseWebNavigateInput(input any) (*WebNavigateToolInput, error) {
 	}
 
 	if result.WidgetId == "" {
-		return nil, fmt.Errorf("widget_id is required")
+		return nil, fmt.Errorf("требуется widget_id")
 	}
 
 	if result.Url == "" {
@@ -51,7 +51,7 @@ func GetWebNavigateToolDefinition(tabId string) uctypes.ToolDefinition {
 
 	return uctypes.ToolDefinition{
 		Name:        "web_navigate",
-		DisplayName: "Navigate Web Widget",
+		DisplayName: "Навигация в браузере",
 		Description: "Navigate a web browser widget to a new URL",
 		ToolLogName: "web:navigate",
 		Strict:      true,
@@ -75,7 +75,7 @@ func GetWebNavigateToolDefinition(tabId string) uctypes.ToolDefinition {
 			if err != nil {
 				return fmt.Sprintf("error parsing input: %v", err)
 			}
-			return fmt.Sprintf("navigating web widget %s to %q", parsed.WidgetId, parsed.Url)
+			return fmt.Sprintf("переход в веб-виджете %s на %q", parsed.WidgetId, parsed.Url)
 		},
 		ToolAnyCallback: func(input any, toolUseData *uctypes.UIMessageDataToolUse) (any, error) {
 			parsed, err := parseWebNavigateInput(input)

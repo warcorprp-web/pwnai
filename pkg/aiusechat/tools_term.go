@@ -208,7 +208,7 @@ func GetTermGetScrollbackToolDefinition(tabId string) uctypes.ToolDefinition {
 				},
 			)
 			if err != nil {
-				return nil, fmt.Errorf("failed to get terminal scrollback: %w", err)
+				return nil, fmt.Errorf("не удалось получить вывод терминала: %w", err)
 			}
 			return output, nil
 		},
@@ -223,7 +223,7 @@ func parseTermCommandOutputInput(input any) (*TermCommandOutputToolInput, error)
 	result := &TermCommandOutputToolInput{}
 
 	if input == nil {
-		return nil, fmt.Errorf("widget_id is required")
+		return nil, fmt.Errorf("требуется widget_id")
 	}
 
 	inputBytes, err := json.Marshal(input)
@@ -236,7 +236,7 @@ func parseTermCommandOutputInput(input any) (*TermCommandOutputToolInput, error)
 	}
 
 	if result.WidgetId == "" {
-		return nil, fmt.Errorf("widget_id is required")
+		return nil, fmt.Errorf("требуется widget_id")
 	}
 
 	return result, nil
@@ -245,7 +245,7 @@ func parseTermCommandOutputInput(input any) (*TermCommandOutputToolInput, error)
 func GetTermCommandOutputToolDefinition(tabId string) uctypes.ToolDefinition {
 	return uctypes.ToolDefinition{
 		Name:        "term_command_output",
-		DisplayName: "Get Last Command Output",
+		DisplayName: "Вывод последней команды",
 		Description: "Retrieve output from the most recent command in a terminal widget. Requires shell integration to be enabled. Returns the command text, exit code, and up to 1000 lines of output.",
 		ToolLogName: "term:commandoutput",
 		InputSchema: map[string]any{
@@ -264,7 +264,7 @@ func GetTermCommandOutputToolDefinition(tabId string) uctypes.ToolDefinition {
 			if err != nil {
 				return fmt.Sprintf("error parsing input: %v", err)
 			}
-			return fmt.Sprintf("reading last command output from %s", parsed.WidgetId)
+			return fmt.Sprintf("чтение вывода последней команды из %s", parsed.WidgetId)
 		},
 		ToolAnyCallback: func(input any, toolUseData *uctypes.UIMessageDataToolUse) (any, error) {
 			parsed, err := parseTermCommandOutputInput(input)
@@ -283,7 +283,7 @@ func GetTermCommandOutputToolDefinition(tabId string) uctypes.ToolDefinition {
 			blockORef := waveobj.MakeORef(waveobj.OType_Block, fullBlockId)
 			rtInfo := wstore.GetRTInfo(blockORef)
 			if rtInfo == nil || !rtInfo.ShellIntegration {
-				return nil, fmt.Errorf("shell integration is not enabled for this terminal")
+				return nil, fmt.Errorf("интеграция shell не включена для этого терминала")
 			}
 
 			output, err := getTermScrollbackOutput(
@@ -294,7 +294,7 @@ func GetTermCommandOutputToolDefinition(tabId string) uctypes.ToolDefinition {
 				},
 			)
 			if err != nil {
-				return nil, fmt.Errorf("failed to get command output: %w", err)
+				return nil, fmt.Errorf("не удалось получить вывод команды: %w", err)
 			}
 			return output, nil
 		},
@@ -311,7 +311,7 @@ func parseTermRunCommandInput(input any) (*TermRunCommandToolInput, error) {
 	result := &TermRunCommandToolInput{}
 
 	if input == nil {
-		return nil, fmt.Errorf("input is required")
+		return nil, fmt.Errorf("требуется входной параметр")
 	}
 
 	inputBytes, err := json.Marshal(input)
@@ -324,11 +324,11 @@ func parseTermRunCommandInput(input any) (*TermRunCommandToolInput, error) {
 	}
 
 	if result.WidgetId == "" {
-		return nil, fmt.Errorf("widget_id is required")
+		return nil, fmt.Errorf("требуется widget_id")
 	}
 
 	if result.Command == "" {
-		return nil, fmt.Errorf("command is required")
+		return nil, fmt.Errorf("требуется command")
 	}
 
 	return result, nil
@@ -411,7 +411,7 @@ func GetTermRunCommandToolDefinition(tabId string) uctypes.ToolDefinition {
 				Timeout: 5000,
 			})
 			if err != nil {
-				return nil, fmt.Errorf("failed to send command to terminal: %w", err)
+				return nil, fmt.Errorf("не удалось отправить команду в терминал: %w", err)
 			}
 
 			// Wait for command completion if shell integration is available
@@ -444,7 +444,7 @@ func GetTermRunCommandToolDefinition(tabId string) uctypes.ToolDefinition {
 				},
 			)
 			if err != nil {
-				return nil, fmt.Errorf("failed to get command output: %w", err)
+				return nil, fmt.Errorf("не удалось получить вывод команды: %w", err)
 			}
 
 			return output, nil

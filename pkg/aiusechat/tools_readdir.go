@@ -26,15 +26,15 @@ func parseReadDirInput(input any) (*readDirParams, error) {
 	result := &readDirParams{}
 
 	if input == nil {
-		return nil, fmt.Errorf("input is required")
+		return nil, fmt.Errorf("требуется входной параметр")
 	}
 
 	if err := utilfn.ReUnmarshal(result, input); err != nil {
-		return nil, fmt.Errorf("invalid input format: %w", err)
+		return nil, fmt.Errorf("неверный формат входных данных: %w", err)
 	}
 
 	if result.Path == "" {
-		return nil, fmt.Errorf("missing path parameter")
+		return nil, fmt.Errorf("отсутствует параметр path")
 	}
 
 	if result.MaxEntries == nil {
@@ -43,11 +43,11 @@ func parseReadDirInput(input any) (*readDirParams, error) {
 	}
 
 	if *result.MaxEntries < 1 {
-		return nil, fmt.Errorf("max_entries must be at least 1, got %d", *result.MaxEntries)
+		return nil, fmt.Errorf("max_entries должно быть минимум 1, получено %d", *result.MaxEntries)
 	}
 
 	if *result.MaxEntries > ReadDirHardMaxEntries {
-		return nil, fmt.Errorf("max_entries cannot exceed %d, got %d", ReadDirHardMaxEntries, *result.MaxEntries)
+		return nil, fmt.Errorf("max_entries не может превышать %d, получено %d", ReadDirHardMaxEntries, *result.MaxEntries)
 	}
 
 	return result, nil
@@ -61,20 +61,20 @@ func verifyReadDirInput(input any, toolUseData *uctypes.UIMessageDataToolUse) er
 
 	expandedPath, err := wavebase.ExpandHomeDir(params.Path)
 	if err != nil {
-		return fmt.Errorf("failed to expand path: %w", err)
+		return fmt.Errorf("не удалось развернуть путь: %w", err)
 	}
 
 	if !filepath.IsAbs(expandedPath) {
-		return fmt.Errorf("path must be absolute, got relative path: %s", params.Path)
+		return fmt.Errorf("путь должен быть абсолютным, получен относительный путь: %s", params.Path)
 	}
 
 	fileInfo, err := os.Stat(expandedPath)
 	if err != nil {
-		return fmt.Errorf("failed to stat path: %w", err)
+		return fmt.Errorf("не удалось получить информацию о пути: %w", err)
 	}
 
 	if !fileInfo.IsDir() {
-		return fmt.Errorf("path is not a directory, cannot be read with the read_dir tool. use the read_text_file tool if available to read files")
+		return fmt.Errorf("путь не является директорией, не может быть прочитан инструментом read_dir. используйте инструмент read_text_file для чтения файлов")
 	}
 
 	return nil
@@ -88,11 +88,11 @@ func readDirCallback(input any, toolUseData *uctypes.UIMessageDataToolUse) (any,
 
 	expandedPath, err := wavebase.ExpandHomeDir(params.Path)
 	if err != nil {
-		return nil, fmt.Errorf("failed to expand path: %w", err)
+		return nil, fmt.Errorf("не удалось развернуть путь: %w", err)
 	}
 
 	if !filepath.IsAbs(expandedPath) {
-		return nil, fmt.Errorf("path must be absolute, got relative path: %s", params.Path)
+		return nil, fmt.Errorf("путь должен быть абсолютным, получен относительный путь: %s", params.Path)
 	}
 
 	result, err := fileutil.ReadDir(params.Path, *params.MaxEntries)
@@ -160,9 +160,9 @@ func GetReadDirToolDefinition() uctypes.ToolDefinition {
 			}
 
 			if readFullDir {
-				return fmt.Sprintf("reading directory %q (entire directory)", parsed.Path)
+				return fmt.Sprintf("чтение директории %q (вся директория)", parsed.Path)
 			}
-			return fmt.Sprintf("reading directory %q (max_entries: %d)", parsed.Path, *parsed.MaxEntries)
+			return fmt.Sprintf("чтение директории %q (макс. записей: %d)", parsed.Path, *parsed.MaxEntries)
 		},
 		ToolAnyCallback: readDirCallback,
 		ToolApproval: func(input any) string {

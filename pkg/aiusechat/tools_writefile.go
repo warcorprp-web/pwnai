@@ -19,7 +19,7 @@ const MaxEditFileSize = 100 * 1024 // 100KB
 
 func validateTextFile(expandedPath string, verb string, mustExist bool) (os.FileInfo, error) {
 	if blocked, reason := isBlockedFile(expandedPath); blocked {
-		return nil, fmt.Errorf("access denied: potentially sensitive file: %s", reason)
+		return nil, fmt.Errorf("доступ запрещён: потенциально чувствительный файл: %s", reason)
 	}
 
 	fileInfo, err := os.Lstat(expandedPath)
@@ -30,7 +30,7 @@ func validateTextFile(expandedPath string, verb string, mustExist bool) (os.File
 			}
 			return nil, nil
 		}
-		return nil, fmt.Errorf("failed to stat file: %w", err)
+		return nil, fmt.Errorf("не удалось получить информацию о файле: %w", err)
 	}
 
 	if fileInfo.Mode()&os.ModeSymlink != 0 {
@@ -55,7 +55,7 @@ func validateTextFile(expandedPath string, verb string, mustExist bool) (os.File
 
 	fileData, err := os.ReadFile(expandedPath)
 	if err != nil {
-		return nil, fmt.Errorf("failed to read file: %w", err)
+		return nil, fmt.Errorf("не удалось прочитать файл: %w", err)
 	}
 
 	if utilfn.HasBinaryData(fileData) {
@@ -83,19 +83,19 @@ func parseWriteTextFileInput(input any) (*writeTextFileParams, error) {
 	result := &writeTextFileParams{}
 
 	if input == nil {
-		return nil, fmt.Errorf("input is required")
+		return nil, fmt.Errorf("требуется входной параметр")
 	}
 
 	if err := utilfn.ReUnmarshal(result, input); err != nil {
-		return nil, fmt.Errorf("invalid input format: %w", err)
+		return nil, fmt.Errorf("неверный формат входных данных: %w", err)
 	}
 
 	if result.Filename == "" {
-		return nil, fmt.Errorf("missing filename parameter")
+		return nil, fmt.Errorf("отсутствует параметр filename")
 	}
 
 	if result.Contents == "" {
-		return nil, fmt.Errorf("missing contents parameter")
+		return nil, fmt.Errorf("отсутствует параметр contents")
 	}
 
 	return result, nil
@@ -109,16 +109,16 @@ func verifyWriteTextFileInput(input any, toolUseData *uctypes.UIMessageDataToolU
 
 	expandedPath, err := wavebase.ExpandHomeDir(params.Filename)
 	if err != nil {
-		return fmt.Errorf("failed to expand path: %w", err)
+		return fmt.Errorf("не удалось развернуть путь: %w", err)
 	}
 
 	if !filepath.IsAbs(expandedPath) {
-		return fmt.Errorf("path must be absolute, got relative path: %s", params.Filename)
+		return fmt.Errorf("путь должен быть абсолютным, получен относительный путь: %s", params.Filename)
 	}
 
 	contentsBytes := []byte(params.Contents)
 	if utilfn.HasBinaryData(contentsBytes) {
-		return fmt.Errorf("contents appear to contain binary data")
+		return fmt.Errorf("содержимое содержит бинарные данные")
 	}
 
 	_, err = validateTextFile(expandedPath, "write to", false)
@@ -138,16 +138,16 @@ func writeTextFileCallback(input any, toolUseData *uctypes.UIMessageDataToolUse)
 
 	expandedPath, err := wavebase.ExpandHomeDir(params.Filename)
 	if err != nil {
-		return nil, fmt.Errorf("failed to expand path: %w", err)
+		return nil, fmt.Errorf("не удалось развернуть путь: %w", err)
 	}
 
 	if !filepath.IsAbs(expandedPath) {
-		return nil, fmt.Errorf("path must be absolute, got relative path: %s", params.Filename)
+		return nil, fmt.Errorf("путь должен быть абсолютным, получен относительный путь: %s", params.Filename)
 	}
 
 	contentsBytes := []byte(params.Contents)
 	if utilfn.HasBinaryData(contentsBytes) {
-		return nil, fmt.Errorf("contents appear to contain binary data")
+		return nil, fmt.Errorf("содержимое содержит бинарные данные")
 	}
 
 	fileInfo, err := validateTextFile(expandedPath, "write to", false)
@@ -158,20 +158,20 @@ func writeTextFileCallback(input any, toolUseData *uctypes.UIMessageDataToolUse)
 	dirPath := filepath.Dir(expandedPath)
 	err = os.MkdirAll(dirPath, 0755)
 	if err != nil {
-		return nil, fmt.Errorf("failed to create directory: %w", err)
+		return nil, fmt.Errorf("не удалось создать директорию: %w", err)
 	}
 
 	if fileInfo != nil {
 		backupPath, err := filebackup.MakeFileBackup(expandedPath)
 		if err != nil {
-			return nil, fmt.Errorf("failed to create backup: %w", err)
+			return nil, fmt.Errorf("не удалось создать резервную копию: %w", err)
 		}
 		toolUseData.WriteBackupFileName = backupPath
 	}
 
 	err = os.WriteFile(expandedPath, contentsBytes, 0644)
 	if err != nil {
-		return nil, fmt.Errorf("failed to write file: %w", err)
+		return nil, fmt.Errorf("не удалось записать файл: %w", err)
 	}
 
 	return map[string]any{
@@ -207,7 +207,7 @@ func GetWriteTextFileToolDefinition() uctypes.ToolDefinition {
 			if err != nil {
 				return fmt.Sprintf("error parsing input: %v", err)
 			}
-			return fmt.Sprintf("writing %q", params.Filename)
+			return fmt.Sprintf("запись %q", params.Filename)
 		},
 		ToolAnyCallback: writeTextFileCallback,
 		ToolApproval: func(input any) string {
@@ -226,19 +226,19 @@ func parseEditTextFileInput(input any) (*editTextFileParams, error) {
 	result := &editTextFileParams{}
 
 	if input == nil {
-		return nil, fmt.Errorf("input is required")
+		return nil, fmt.Errorf("требуется входной параметр")
 	}
 
 	if err := utilfn.ReUnmarshal(result, input); err != nil {
-		return nil, fmt.Errorf("invalid input format: %w", err)
+		return nil, fmt.Errorf("неверный формат входных данных: %w", err)
 	}
 
 	if result.Filename == "" {
-		return nil, fmt.Errorf("missing filename parameter")
+		return nil, fmt.Errorf("отсутствует параметр filename")
 	}
 
 	if len(result.Edits) == 0 {
-		return nil, fmt.Errorf("missing edits parameter")
+		return nil, fmt.Errorf("отсутствует параметр edits")
 	}
 
 	return result, nil
@@ -252,11 +252,11 @@ func verifyEditTextFileInput(input any, toolUseData *uctypes.UIMessageDataToolUs
 
 	expandedPath, err := wavebase.ExpandHomeDir(params.Filename)
 	if err != nil {
-		return fmt.Errorf("failed to expand path: %w", err)
+		return fmt.Errorf("не удалось развернуть путь: %w", err)
 	}
 
 	if !filepath.IsAbs(expandedPath) {
-		return fmt.Errorf("path must be absolute, got relative path: %s", params.Filename)
+		return fmt.Errorf("путь должен быть абсолютным, получен относительный путь: %s", params.Filename)
 	}
 
 	_, err = validateTextFile(expandedPath, "edit", true)
@@ -278,11 +278,11 @@ func EditTextFileDryRun(input any, fileOverride string) ([]byte, []byte, error) 
 
 	expandedPath, err := wavebase.ExpandHomeDir(params.Filename)
 	if err != nil {
-		return nil, nil, fmt.Errorf("failed to expand path: %w", err)
+		return nil, nil, fmt.Errorf("не удалось развернуть путь: %w", err)
 	}
 
 	if !filepath.IsAbs(expandedPath) {
-		return nil, nil, fmt.Errorf("path must be absolute, got relative path: %s", params.Filename)
+		return nil, nil, fmt.Errorf("путь должен быть абсолютным, получен относительный путь: %s", params.Filename)
 	}
 
 	_, err = validateTextFile(expandedPath, "edit", true)
@@ -297,7 +297,7 @@ func EditTextFileDryRun(input any, fileOverride string) ([]byte, []byte, error) 
 
 	originalContent, err := os.ReadFile(readPath)
 	if err != nil {
-		return nil, nil, fmt.Errorf("failed to read file: %w", err)
+		return nil, nil, fmt.Errorf("не удалось прочитать файл: %w", err)
 	}
 
 	modifiedContent, err := fileutil.ApplyEdits(originalContent, params.Edits)
@@ -316,11 +316,11 @@ func editTextFileCallback(input any, toolUseData *uctypes.UIMessageDataToolUse) 
 
 	expandedPath, err := wavebase.ExpandHomeDir(params.Filename)
 	if err != nil {
-		return nil, fmt.Errorf("failed to expand path: %w", err)
+		return nil, fmt.Errorf("не удалось развернуть путь: %w", err)
 	}
 
 	if !filepath.IsAbs(expandedPath) {
-		return nil, fmt.Errorf("path must be absolute, got relative path: %s", params.Filename)
+		return nil, fmt.Errorf("путь должен быть абсолютным, получен относительный путь: %s", params.Filename)
 	}
 
 	_, err = validateTextFile(expandedPath, "edit", true)
@@ -330,7 +330,7 @@ func editTextFileCallback(input any, toolUseData *uctypes.UIMessageDataToolUse) 
 
 	backupPath, err := filebackup.MakeFileBackup(expandedPath)
 	if err != nil {
-		return nil, fmt.Errorf("failed to create backup: %w", err)
+		return nil, fmt.Errorf("не удалось создать резервную копию: %w", err)
 	}
 	toolUseData.WriteBackupFileName = backupPath
 
@@ -399,7 +399,7 @@ func GetEditTextFileToolDefinition() uctypes.ToolDefinition {
 			if editCount == 1 {
 				editWord = "edit"
 			}
-			return fmt.Sprintf("editing %q (%d %s)", params.Filename, editCount, editWord)
+			return fmt.Sprintf("редактирование %q (%d %s)", params.Filename, editCount, editWord)
 		},
 		ToolAnyCallback: editTextFileCallback,
 		ToolApproval: func(input any) string {
@@ -417,15 +417,15 @@ func parseDeleteTextFileInput(input any) (*deleteTextFileParams, error) {
 	result := &deleteTextFileParams{}
 
 	if input == nil {
-		return nil, fmt.Errorf("input is required")
+		return nil, fmt.Errorf("требуется входной параметр")
 	}
 
 	if err := utilfn.ReUnmarshal(result, input); err != nil {
-		return nil, fmt.Errorf("invalid input format: %w", err)
+		return nil, fmt.Errorf("неверный формат входных данных: %w", err)
 	}
 
 	if result.Filename == "" {
-		return nil, fmt.Errorf("missing filename parameter")
+		return nil, fmt.Errorf("отсутствует параметр filename")
 	}
 
 	return result, nil
@@ -439,11 +439,11 @@ func verifyDeleteTextFileInput(input any, toolUseData *uctypes.UIMessageDataTool
 
 	expandedPath, err := wavebase.ExpandHomeDir(params.Filename)
 	if err != nil {
-		return fmt.Errorf("failed to expand path: %w", err)
+		return fmt.Errorf("не удалось развернуть путь: %w", err)
 	}
 
 	if !filepath.IsAbs(expandedPath) {
-		return fmt.Errorf("path must be absolute, got relative path: %s", params.Filename)
+		return fmt.Errorf("путь должен быть абсолютным, получен относительный путь: %s", params.Filename)
 	}
 
 	_, err = validateTextFile(expandedPath, "delete", true)
@@ -463,11 +463,11 @@ func deleteTextFileCallback(input any, toolUseData *uctypes.UIMessageDataToolUse
 
 	expandedPath, err := wavebase.ExpandHomeDir(params.Filename)
 	if err != nil {
-		return nil, fmt.Errorf("failed to expand path: %w", err)
+		return nil, fmt.Errorf("не удалось развернуть путь: %w", err)
 	}
 
 	if !filepath.IsAbs(expandedPath) {
-		return nil, fmt.Errorf("path must be absolute, got relative path: %s", params.Filename)
+		return nil, fmt.Errorf("путь должен быть абсолютным, получен относительный путь: %s", params.Filename)
 	}
 
 	_, err = validateTextFile(expandedPath, "delete", true)
@@ -477,7 +477,7 @@ func deleteTextFileCallback(input any, toolUseData *uctypes.UIMessageDataToolUse
 
 	backupPath, err := filebackup.MakeFileBackup(expandedPath)
 	if err != nil {
-		return nil, fmt.Errorf("failed to create backup: %w", err)
+		return nil, fmt.Errorf("не удалось создать резервную копию: %w", err)
 	}
 	toolUseData.WriteBackupFileName = backupPath
 
@@ -515,7 +515,7 @@ func GetDeleteTextFileToolDefinition() uctypes.ToolDefinition {
 			if err != nil {
 				return fmt.Sprintf("error parsing input: %v", err)
 			}
-			return fmt.Sprintf("deleting %q", params.Filename)
+			return fmt.Sprintf("удаление %q", params.Filename)
 		},
 		ToolAnyCallback: deleteTextFileCallback,
 		ToolApproval: func(input any) string {

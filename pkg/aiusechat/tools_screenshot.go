@@ -19,7 +19,7 @@ func makeTabCaptureBlockScreenshot(tabId string) func(any) (string, error) {
 	return func(input any) (string, error) {
 		inputMap, ok := input.(map[string]any)
 		if !ok {
-			return "", fmt.Errorf("invalid input format")
+			return "", fmt.Errorf("неверный формат входных данных")
 		}
 
 		blockIdPrefix, ok := inputMap["widget_id"].(string)
@@ -77,7 +77,7 @@ func GetCaptureScreenshotToolDefinition(tabId string) uctypes.ToolDefinition {
 			if !ok {
 				return "error parsing input: missing widget_id"
 			}
-			return fmt.Sprintf("capturing screenshot of widget %s", widgetId)
+			return fmt.Sprintf("создание скриншота виджета %s", widgetId)
 		},
 		ToolTextCallback: makeTabCaptureBlockScreenshot(tabId),
 	}

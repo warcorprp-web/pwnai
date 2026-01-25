@@ -60,15 +60,15 @@ func parseBuilderWriteAppFileInput(input any) (*builderWriteAppFileParams, error
 	result := &builderWriteAppFileParams{}
 
 	if input == nil {
-		return nil, fmt.Errorf("input is required")
+		return nil, fmt.Errorf("требуется входной параметр")
 	}
 
 	if err := utilfn.ReUnmarshal(result, input); err != nil {
-		return nil, fmt.Errorf("invalid input format: %w", err)
+		return nil, fmt.Errorf("неверный формат входных данных: %w", err)
 	}
 
 	if result.Contents == "" {
-		return nil, fmt.Errorf("missing contents parameter")
+		return nil, fmt.Errorf("отсутствует параметр contents")
 	}
 
 	return result, nil
@@ -77,7 +77,7 @@ func parseBuilderWriteAppFileInput(input any) (*builderWriteAppFileParams, error
 func GetBuilderWriteAppFileToolDefinition(appId string, builderId string) uctypes.ToolDefinition {
 	return uctypes.ToolDefinition{
 		Name:        "builder_write_app_file",
-		DisplayName: "Write App File",
+		DisplayName: "Запись файла приложения",
 		Description: fmt.Sprintf("Write the app.go file for app %s", appId),
 		ToolLogName: "builder:write_app",
 		Strict:      false,
@@ -104,7 +104,7 @@ func GetBuilderWriteAppFileToolDefinition(appId string, builderId string) uctype
 			if output != nil {
 				return fmt.Sprintf("wrote app.go (+%d lines)", lineCount)
 			}
-			return fmt.Sprintf("writing app.go (+%d lines)", lineCount)
+			return fmt.Sprintf("запись app.go (+%d строк)", lineCount)
 		},
 		ToolProgressDesc: func(input any) ([]string, error) {
 			params, err := parseBuilderWriteAppFileInput(input)
@@ -112,7 +112,7 @@ func GetBuilderWriteAppFileToolDefinition(appId string, builderId string) uctype
 				return nil, err
 			}
 			lineCount := len(strings.Split(params.Contents, "\n"))
-			return []string{fmt.Sprintf("writing app.go (+%d lines)", lineCount)}, nil
+			return []string{fmt.Sprintf("запись app.go (+%d строк)", lineCount)}, nil
 		},
 		ToolAnyCallback: func(input any, toolUseData *uctypes.UIMessageDataToolUse) (any, error) {
 			params, err := parseBuilderWriteAppFileInput(input)
@@ -156,15 +156,15 @@ func parseBuilderEditAppFileInput(input any) (*builderEditAppFileParams, error) 
 	result := &builderEditAppFileParams{}
 
 	if input == nil {
-		return nil, fmt.Errorf("input is required")
+		return nil, fmt.Errorf("требуется входной параметр")
 	}
 
 	if err := utilfn.ReUnmarshal(result, input); err != nil {
-		return nil, fmt.Errorf("invalid input format: %w", err)
+		return nil, fmt.Errorf("неверный формат входных данных: %w", err)
 	}
 
 	if len(result.Edits) == 0 {
-		return nil, fmt.Errorf("missing edits parameter")
+		return nil, fmt.Errorf("отсутствует параметр edits")
 	}
 
 	return result, nil
@@ -195,7 +195,7 @@ func formatEditDescriptions(edits []fileutil.EditSpec) []string {
 func GetBuilderEditAppFileToolDefinition(appId string, builderId string) uctypes.ToolDefinition {
 	return uctypes.ToolDefinition{
 		Name:        "builder_edit_app_file",
-		DisplayName: "Edit App File",
+		DisplayName: "Редактирование файла приложения",
 		Description: "Edit the app.go file for this app using precise search and replace. " +
 			"Each old_str must appear EXACTLY ONCE in the file or the edit will fail. " +
 			"Edits are applied sequentially - if an edit fails, all previous edits are kept and subsequent edits are skipped.",
@@ -282,7 +282,7 @@ func GetBuilderEditAppFileToolDefinition(appId string, builderId string) uctypes
 func GetBuilderListFilesToolDefinition(appId string) uctypes.ToolDefinition {
 	return uctypes.ToolDefinition{
 		Name:        "builder_list_files",
-		DisplayName: "List App Files",
+		DisplayName: "Список файлов приложения",
 		Description: fmt.Sprintf("List all files in app %s", appId),
 		ToolLogName: "builder:list_files",
 		Strict:      false,

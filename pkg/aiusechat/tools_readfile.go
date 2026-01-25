@@ -33,15 +33,15 @@ func parseReadTextFileInput(input any) (*readTextFileParams, error) {
 	result := &readTextFileParams{}
 
 	if input == nil {
-		return nil, fmt.Errorf("input is required")
+		return nil, fmt.Errorf("требуется входной параметр")
 	}
 
 	if err := utilfn.ReUnmarshal(result, input); err != nil {
-		return nil, fmt.Errorf("invalid input format: %w", err)
+		return nil, fmt.Errorf("неверный формат входных данных: %w", err)
 	}
 
 	if result.Filename == "" {
-		return nil, fmt.Errorf("missing filename parameter")
+		return nil, fmt.Errorf("отсутствует параметр filename")
 	}
 
 	if result.Origin == nil {
@@ -50,7 +50,7 @@ func parseReadTextFileInput(input any) (*readTextFileParams, error) {
 	}
 
 	if *result.Origin != "start" && *result.Origin != "end" {
-		return nil, fmt.Errorf("invalid origin value '%s': must be 'start' or 'end'", *result.Origin)
+		return nil, fmt.Errorf("неверное значение origin '%s': должно быть 'start' или 'end'", *result.Origin)
 	}
 
 	if result.Offset == nil {
@@ -59,7 +59,7 @@ func parseReadTextFileInput(input any) (*readTextFileParams, error) {
 	}
 
 	if *result.Offset < 0 {
-		return nil, fmt.Errorf("offset must be non-negative, got %d", *result.Offset)
+		return nil, fmt.Errorf("смещение должно быть неотрицательным, получено %d", *result.Offset)
 	}
 
 	if result.Count == nil {
@@ -68,7 +68,7 @@ func parseReadTextFileInput(input any) (*readTextFileParams, error) {
 	}
 
 	if *result.Count < 1 {
-		return nil, fmt.Errorf("count must be at least 1, got %d", *result.Count)
+		return nil, fmt.Errorf("количество должно быть минимум 1, получено %d", *result.Count)
 	}
 
 	if result.MaxBytes == nil {
@@ -205,24 +205,24 @@ func verifyReadTextFileInput(input any, toolUseData *uctypes.UIMessageDataToolUs
 
 	expandedPath, err := wavebase.ExpandHomeDir(params.Filename)
 	if err != nil {
-		return fmt.Errorf("failed to expand path: %w", err)
+		return fmt.Errorf("не удалось развернуть путь: %w", err)
 	}
 
 	if !filepath.IsAbs(expandedPath) {
-		return fmt.Errorf("path must be absolute, got relative path: %s", params.Filename)
+		return fmt.Errorf("путь должен быть абсолютным, получен относительный путь: %s", params.Filename)
 	}
 
 	if blocked, reason := isBlockedFile(expandedPath); blocked {
-		return fmt.Errorf("access denied: potentially sensitive file: %s", reason)
+		return fmt.Errorf("доступ запрещён: потенциально чувствительный файл: %s", reason)
 	}
 
 	fileInfo, err := os.Stat(expandedPath)
 	if err != nil {
-		return fmt.Errorf("failed to stat file: %w", err)
+		return fmt.Errorf("не удалось получить информацию о файле: %w", err)
 	}
 
 	if fileInfo.IsDir() {
-		return fmt.Errorf("path is a directory, cannot be read with the read_text_file tool. use the read_dir tool if available to read directories")
+		return fmt.Errorf("путь является директорией, не может быть прочитан инструментом read_text_file. используйте инструмент read_dir для чтения директорий")
 	}
 
 	return nil
@@ -238,29 +238,29 @@ func readTextFileCallback(input any, toolUseData *uctypes.UIMessageDataToolUse) 
 
 	expandedPath, err := wavebase.ExpandHomeDir(params.Filename)
 	if err != nil {
-		return nil, fmt.Errorf("failed to expand path: %w", err)
+		return nil, fmt.Errorf("не удалось развернуть путь: %w", err)
 	}
 
 	if !filepath.IsAbs(expandedPath) {
-		return nil, fmt.Errorf("path must be absolute, got relative path: %s", params.Filename)
+		return nil, fmt.Errorf("путь должен быть абсолютным, получен относительный путь: %s", params.Filename)
 	}
 
 	if blocked, reason := isBlockedFile(expandedPath); blocked {
-		return nil, fmt.Errorf("access denied: potentially sensitive file: %s", reason)
+		return nil, fmt.Errorf("доступ запрещён: потенциально чувствительный файл: %s", reason)
 	}
 
 	fileInfo, err := os.Stat(expandedPath)
 	if err != nil {
-		return nil, fmt.Errorf("failed to stat file: %w", err)
+		return nil, fmt.Errorf("не удалось получить информацию о файле: %w", err)
 	}
 
 	if fileInfo.IsDir() {
-		return nil, fmt.Errorf("path is a directory, cannot be read with the read_text_file tool. use the read_dir tool if available to read directories")
+		return nil, fmt.Errorf("путь является директорией, не может быть прочитан инструментом read_text_file. используйте инструмент read_dir для чтения директорий")
 	}
 
 	file, err := os.Open(expandedPath)
 	if err != nil {
-		return nil, fmt.Errorf("failed to open file: %w", err)
+		return nil, fmt.Errorf("не удалось открыть файл: %w", err)
 	}
 	defer file.Close()
 
@@ -270,12 +270,12 @@ func readTextFileCallback(input any, toolUseData *uctypes.UIMessageDataToolUse) 
 	initialBuf := make([]byte, min(8192, int(totalSize)))
 	n, err := file.Read(initialBuf)
 	if err != nil && err != io.EOF {
-		return nil, fmt.Errorf("failed to read file: %w", err)
+		return nil, fmt.Errorf("не удалось прочитать файл: %w", err)
 	}
 	initialBuf = initialBuf[:n]
 
 	if utilfn.IsBinaryContent(initialBuf) {
-		return nil, fmt.Errorf("file appears to be binary content")
+		return nil, fmt.Errorf("файл содержит бинарные данные")
 	}
 
 	origin := *params.Origin
@@ -386,20 +386,20 @@ func GetReadTextFileToolDefinition() uctypes.ToolDefinition {
 
 			if origin == "start" && offset == 0 {
 				if readFullFile {
-					return fmt.Sprintf("reading %q (entire file)", parsed.Filename)
+					return fmt.Sprintf("чтение %q (весь файл)", parsed.Filename)
 				}
-				return fmt.Sprintf("reading %q (first %d lines)", parsed.Filename, count)
+				return fmt.Sprintf("чтение %q (первые %d строк)", parsed.Filename, count)
 			}
 			if origin == "end" && offset == 0 {
 				if readFullFile {
-					return fmt.Sprintf("reading %q (entire file)", parsed.Filename)
+					return fmt.Sprintf("чтение %q (весь файл)", parsed.Filename)
 				}
-				return fmt.Sprintf("reading %q (last %d lines)", parsed.Filename, count)
+				return fmt.Sprintf("чтение %q (последние %d строк)", parsed.Filename, count)
 			}
 			if origin == "end" {
-				return fmt.Sprintf("reading %q (from end: offset %d lines, count %d lines)", parsed.Filename, offset, count)
+				return fmt.Sprintf("чтение %q (с конца: смещение %d строк, количество %d строк)", parsed.Filename, offset, count)
 			}
-			return fmt.Sprintf("reading %q (from start: offset %d lines, count %d lines)", parsed.Filename, offset, count)
+			return fmt.Sprintf("чтение %q (с начала: смещение %d строк, количество %d строк)", parsed.Filename, offset, count)
 		},
 		ToolAnyCallback: readTextFileCallback,
 		ToolApproval: func(input any) string {
