@@ -32,6 +32,13 @@ const SettingsContentComponent = ({ model }: SettingsContentProps) => {
     useEffect(() => {
         if (isAuthenticated && authToken) {
             loadKeyInfo();
+            
+            // Автообновление каждые 10 секунд
+            const interval = setInterval(() => {
+                loadKeyInfo();
+            }, 10000);
+            
+            return () => clearInterval(interval);
         }
     }, [isAuthenticated, authToken]);
 
@@ -285,6 +292,13 @@ const SettingsContentComponent = ({ model }: SettingsContentProps) => {
                         </div>
                         
                         <div className="space-y-2">
+                            <button 
+                                onClick={loadKeyInfo}
+                                className="w-full px-4 py-2.5 bg-zinc-700 hover:bg-zinc-600 text-white font-medium rounded transition-colors cursor-pointer flex items-center justify-center gap-2"
+                            >
+                                <i className="fa fa-refresh"></i>
+                                Обновить статистику
+                            </button>
                             {subscriptionTier === "trial" && (
                                 <button className="w-full px-4 py-2.5 bg-accent/20 hover:bg-accent/30 text-accent font-medium rounded transition-colors cursor-pointer">
                                     Перейти на Pro (2000 запросов/день)
