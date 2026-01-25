@@ -18,7 +18,6 @@ const config = {
     npmRebuild: false,
     nodeGypRebuild: false,
     electronCompile: false,
-    compression: "maximum", // Максимальная компрессия
     files: [
         {
             from: "./dist",
