@@ -66,49 +66,33 @@ const InitPage = ({ isCompact }: { isCompact: boolean }) => {
                 className="flex-1 overflow-y-auto min-h-0"
                 options={{ scrollbars: { autoHide: "never" } }}
             >
-                <div className="flex flex-col items-start gap-8 w-full mb-5 unselectable">
-                    <div className="flex w-full items-center gap-[18px]">
-                        <div>
-                            <i className="text-[32px] text-accent fa-solid fa-sparkles"></i>
-                        </div>
-                        <div className="flex flex-col items-start gap-1 flex-1">
-                            <div className="text-foreground text-base leading-[18px]">Встроенный AI ассистент</div>
-                            <div className="text-secondary leading-5">
-                                Искра AI помогает с командами, кодом и задачами прямо в терминале. Использует инструменты для работы с файлами и выполнения команд.
-                            </div>
+                <div className="grid grid-cols-2 gap-4 w-full mb-5 unselectable">
+                    <div className="flex flex-col items-center gap-3 p-5 rounded-lg border border-border/50 bg-background/50">
+                        <i className="text-[40px] text-accent fa-solid fa-sparkles"></i>
+                        <div className="text-foreground text-base font-medium">AI ассистент</div>
+                        <div className="text-secondary text-sm text-center leading-relaxed">
+                            Помощь с командами и кодом
                         </div>
                     </div>
-                    <div className="flex w-full items-center gap-[18px]">
-                        <div>
-                            <i className="text-[32px] text-accent fa-solid fa-terminal"></i>
-                        </div>
-                        <div className="flex flex-col items-start gap-1 flex-1">
-                            <div className="text-foreground text-base leading-[18px]">Умный терминал</div>
-                            <div className="text-secondary leading-5">
-                                Интеграция с shell, история команд, автодополнение. Работает с bash, zsh, fish и другими оболочками.
-                            </div>
+                    <div className="flex flex-col items-center gap-3 p-5 rounded-lg border border-border/50 bg-background/50">
+                        <i className="text-[40px] text-accent fa-solid fa-terminal"></i>
+                        <div className="text-foreground text-base font-medium">Умный терминал</div>
+                        <div className="text-secondary text-sm text-center leading-relaxed">
+                            История и автодополнение
                         </div>
                     </div>
-                    <div className="flex w-full items-center gap-[18px]">
-                        <div>
-                            <i className="text-[32px] text-accent fa-solid fa-browser"></i>
-                        </div>
-                        <div className="flex flex-col items-start gap-1 flex-1">
-                            <div className="text-foreground text-base leading-[18px]">Встроенный браузер</div>
-                            <div className="text-secondary leading-5">
-                                Просмотр веб-страниц, документации и файлов прямо в терминале. AI может открывать ссылки автоматически.
-                            </div>
+                    <div className="flex flex-col items-center gap-3 p-5 rounded-lg border border-border/50 bg-background/50">
+                        <i className="text-[40px] text-accent fa-solid fa-browser"></i>
+                        <div className="text-foreground text-base font-medium">Встроенный браузер</div>
+                        <div className="text-secondary text-sm text-center leading-relaxed">
+                            Просмотр веб-страниц и документации
                         </div>
                     </div>
-                    <div className="flex w-full items-center gap-[18px]">
-                        <div>
-                            <i className="text-[32px] text-accent fa-solid fa-code"></i>
-                        </div>
-                        <div className="flex flex-col items-start gap-1 flex-1">
-                            <div className="text-foreground text-base leading-[18px]">Редактор кода</div>
-                            <div className="text-secondary leading-5">
-                                Просмотр и редактирование файлов с подсветкой синтаксиса. AI может создавать и изменять файлы по вашей команде.
-                            </div>
+                    <div className="flex flex-col items-center gap-3 p-5 rounded-lg border border-border/50 bg-background/50">
+                        <i className="text-[40px] text-accent fa-solid fa-code"></i>
+                        <div className="text-foreground text-base font-medium">Редактор кода</div>
+                        <div className="text-secondary text-sm text-center leading-relaxed">
+                            Подсветка синтаксиса и редактирование
                         </div>
                     </div>
                 </div>
