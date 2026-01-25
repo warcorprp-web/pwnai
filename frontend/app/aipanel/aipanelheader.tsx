@@ -32,8 +32,8 @@ export const AIPanelHeader = memo(() => {
             <div className="flex items-center flex-shrink-0 whitespace-nowrap">
                 {!inBuilder && (
                     <div className="flex items-center text-sm whitespace-nowrap">
-                        <span className="text-gray-300 @xs:hidden mr-1 text-[12px]">Context</span>
-                        <span className="text-gray-300 hidden @xs:inline mr-2 text-[12px]">Widget Context</span>
+                        <span className="text-gray-300 @xs:hidden mr-1 text-[12px]">Контекст</span>
+                        <span className="text-gray-300 hidden @xs:inline mr-2 text-[12px]">Контекст виджетов</span>
                         <button
                             onClick={() => {
                                 model.setWidgetAccess(!widgetAccess);
@@ -44,7 +44,7 @@ export const AIPanelHeader = memo(() => {
                             className={`relative inline-flex h-6 w-14 items-center rounded-full transition-colors cursor-pointer ${
                                 widgetAccess ? "bg-accent-600" : "bg-zinc-600"
                             }`}
-                            title={`Widget Access ${widgetAccess ? "ON" : "OFF"}`}
+                            title={`Доступ к виджетам ${widgetAccess ? "ВКЛ" : "ВЫКЛ"}`}
                         >
                             <span
                                 className={`absolute inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${

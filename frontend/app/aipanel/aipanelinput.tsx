@@ -31,11 +31,11 @@ export const AIPanelInput = memo(({ onSubmit, status, model }: AIPanelInputProps
 
     let placeholder: string;
     if (!isChatEmpty) {
-        placeholder = "Continue...";
+        placeholder = "Продолжить...";
     } else if (model.inBuilder) {
-        placeholder = "What would you like to build...";
+        placeholder = "Что вы хотите создать...";
     } else {
-        placeholder = "Ask Wave AI anything...";
+        placeholder = "Спросите что угодно...";
     }
 
     const resizeTextarea = useCallback(() => {

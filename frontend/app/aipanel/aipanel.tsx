@@ -207,23 +207,23 @@ const AIWelcomeMessage = memo(() => {
                     </div>
                 ) : (
                 <div className="bg-accent/10 border border-accent/30 rounded-lg p-4">
-                    <div className="text-sm font-semibold mb-3 text-accent">Getting Started:</div>
+                    <div className="text-sm font-semibold mb-3 text-accent">Начало работы:</div>
                     <div className="space-y-3 text-sm">
                         <div className="flex items-start gap-3">
                             <div className="w-4 text-center flex-shrink-0">
                                 <i className="fa-solid fa-plug text-accent"></i>
                             </div>
                             <div>
-                                <span className="font-bold">Widget Context</span>
-                                <div className="">When ON, I can read your terminal and analyze widgets.</div>
-                                <div className="">When OFF, I'm sandboxed with no system access.</div>
+                                <span className="font-bold">Контекст виджетов</span>
+                                <div className="">Когда включено, я могу читать терминал и анализировать виджеты.</div>
+                                <div className="">Когда выключено, я изолирован без доступа к системе.</div>
                             </div>
                         </div>
                         <div className="flex items-start gap-3">
                             <div className="w-4 text-center flex-shrink-0">
                                 <i className="fa-solid fa-file-import text-accent"></i>
                             </div>
-                            <div>Drag & drop files or images for analysis</div>
+                            <div>Перетащите файлы или изображения для анализа</div>
                         </div>
                         <div className="flex items-start gap-3">
                             <div className="w-4 text-center flex-shrink-0">
@@ -233,7 +233,7 @@ const AIWelcomeMessage = memo(() => {
                                 <div>
                                     <KeyCap>{modKey}</KeyCap>
                                     <KeyCap className="ml-1">K</KeyCap>
-                                    <span className="ml-1.5">to start a new chat</span>
+                                    <span className="ml-1.5">начать новый чат</span>
                                 </div>
                                 <div>
                                     <KeyCap>{modKey}</KeyCap>
