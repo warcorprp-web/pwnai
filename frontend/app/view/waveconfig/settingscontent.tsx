@@ -27,6 +27,23 @@ const SettingsContentComponent = ({ model }: SettingsContentProps) => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
     const [keyInfo, setKeyInfo] = useState<any>(null);
+    const [showPaymentSuccess, setShowPaymentSuccess] = useState(false);
+
+    // Проверка параметра payment=success в URL
+    useEffect(() => {
+        const params = new URLSearchParams(window.location.search);
+        if (params.get('payment') === 'success') {
+            setShowPaymentSuccess(true);
+            // Убираем параметр из URL
+            window.history.replaceState({}, '', window.location.pathname);
+            // Перезагружаем данные пользователя
+            if (isAuthenticated && authToken) {
+                loadKeyInfo();
+            }
+            // Скрываем уведомление через 5 секунд
+            setTimeout(() => setShowPaymentSuccess(false), 5000);
+        }
+    }, []);
 
     // Загрузка информации о ключе при авторизации
     useEffect(() => {
@@ -271,6 +288,17 @@ const SettingsContentComponent = ({ model }: SettingsContentProps) => {
 
         return (
             <div className="flex flex-col h-full overflow-auto p-6">
+                {/* Уведомление об успешной оплате */}
+                {showPaymentSuccess && (
+                    <div className="fixed top-4 right-4 bg-green-600 text-white px-6 py-4 rounded-lg shadow-lg flex items-center gap-3 z-50 animate-fade-in">
+                        <i className="fa fa-check-circle text-2xl"></i>
+                        <div>
+                            <div className="font-semibold">Оплата успешна!</div>
+                            <div className="text-sm opacity-90">Подписка активирована</div>
+                        </div>
+                    </div>
+                )}
+                
                 <div className="max-w-md mx-auto w-full">
                     {/* Заголовок с кнопкой обновления */}
                     <div className="flex items-center justify-between mb-4">
