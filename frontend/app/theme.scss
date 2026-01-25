@@ -146,13 +146,13 @@
     --term-cursor-accent: #000000;
 
     // button colors
-    --button-text-color: #000000;
-    --button-green-bg: var(--term-green);
-    --button-green-border-color: #29f200;
-    --button-grey-bg: rgba(255, 255, 255, 0.04);
-    --button-grey-hover-bg: rgba(255, 255, 255, 0.09);
-    --button-grey-border-color: rgba(255, 255, 255, 0.1);
-    --button-grey-outlined-color: rgba(255, 255, 255, 0.6);
+    --button-text-color: #ffffff;
+    --button-green-bg: #ff6600;
+    --button-green-border-color: #ff6600;
+    --button-grey-bg: rgba(255, 102, 0, 0.1);
+    --button-grey-hover-bg: rgba(255, 102, 0, 0.2);
+    --button-grey-border-color: rgba(255, 102, 0, 0.3);
+    --button-grey-outlined-color: rgba(255, 102, 0, 0.8);
     --button-red-bg: #cc0000;
     --button-red-hover-bg: #f93939;
     --button-red-border-color: #fc3131;
