@@ -7,6 +7,7 @@ import { type WaveAIModel } from "@/app/aipanel/waveai-model";
 import { Tooltip } from "@/element/tooltip";
 import { modalsModel } from "@/app/store/modalmodel";
 import { isAuthenticatedAtom } from "@/app/store/authstate";
+import { createBlock } from "@/store/global";
 import { cn } from "@/util/util";
 import { useAtom, useAtomValue } from "jotai";
 import { memo, useCallback, useEffect, useRef, useState } from "react";
@@ -150,7 +151,14 @@ export const AIPanelInput = memo(({ onSubmit, status, model }: AIPanelInputProps
                             Зарегистрируйтесь и получите 100 бесплатных запросов в день на 3 дня
                         </div>
                         <button
-                            onClick={() => modalsModel.pushModal("settings")}
+                            onClick={() => {
+                                const blockDef: BlockDef = {
+                                    meta: {
+                                        view: "waveconfig",
+                                    },
+                                };
+                                createBlock(blockDef, false, true);
+                            }}
                             className={cn(
                                 "px-6 py-2 rounded-lg transition-all",
                                 "bg-accent/20 text-accent hover:bg-accent/30 cursor-pointer font-medium"
