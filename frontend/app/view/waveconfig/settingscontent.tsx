@@ -102,7 +102,7 @@ const SettingsContentComponent = ({ model }: SettingsContentProps) => {
                         },
                     });
                     const keyData = await keyResponse.json();
-                    console.log("Ответ key-info:", keyData);
+                    console.log("Ответ key-info:", JSON.stringify(keyData, null, 2));
                     
                     if (keyData.success && keyData.data?.apiKey) {
                         console.log("Сохранение ключа в SecretStore:", keyData.data.apiKey);
