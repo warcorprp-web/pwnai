@@ -88,7 +88,7 @@ KeyCap.displayName = "KeyCap";
 const AIWelcomeMessage = memo(() => {
     const modKey = isMacOS() ? "⌘" : "Alt";
     const aiModeConfigs = jotai.useAtomValue(atoms.waveaiModeConfigAtom);
-    const currentMode = jotai.useAtomValue(atoms.waveaiModeAtom);
+    const currentMode = jotai.useAtomValue(getSettingsKeyAtom("waveai:defaultmode")) ?? "waveai@balanced";
     const hasCustomModes = Object.keys(aiModeConfigs).some((key) => !key.startsWith("waveai@"));
     const isPwnAIMode = currentMode === "pwnai@default";
     
