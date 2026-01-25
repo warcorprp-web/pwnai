@@ -203,8 +203,9 @@ export const AIPanelInput = memo(({ onSubmit, status, model }: AIPanelInputProps
                                 </button>
                             </Tooltip>
                         )}
-                </div>
-            </form>
+                    </div>
+                </form>
+            </div>
         </div>
     );
 });
