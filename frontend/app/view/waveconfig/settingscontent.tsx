@@ -95,18 +95,24 @@ const SettingsContentComponent = ({ model }: SettingsContentProps) => {
                 
                 // Получаем API ключ из backend
                 try {
+                    console.log("Получение API ключа для пользователя...");
                     const keyResponse = await fetch("https://cli.cryptocatslab.ru/api/auth/key-info", {
                         headers: {
                             "Authorization": `Bearer ${result.token}`,
                         },
                     });
                     const keyData = await keyResponse.json();
+                    console.log("Ответ key-info:", keyData);
                     
                     if (keyData.success && keyData.data?.apiKey) {
+                        console.log("Сохранение ключа в SecretStore:", keyData.data.apiKey);
                         // Сохраняем ключ в secretstore
                         await RpcApi.SetSecretsCommand(TabRpcClient, {
                             "ISKRA_AI_KEY": keyData.data.apiKey
                         });
+                        console.log("Ключ успешно сохранен");
+                    } else {
+                        console.error("API ключ не найден в ответе");
                     }
                 } catch (keyError) {
                     console.error("Ошибка получения API ключа:", keyError);
