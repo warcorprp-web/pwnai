@@ -469,7 +469,7 @@ const ConnStatusOverlay = React.memo(
                             )}
                             {showWshError && (
                                 <Button className={reconClassName} onClick={handleDisableWsh}>
-                                    always disable wsh
+                                    всегда отключать ish
                                 </Button>
                             )}
                         </div>

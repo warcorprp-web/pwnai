@@ -109,7 +109,7 @@ func CpWshToRemote(ctx context.Context, client *ssh.Client, clientOs string, cli
 	}
 	input, err := os.Open(wshLocalPath)
 	if err != nil {
-		return fmt.Errorf("cannot open local file %s: %w", wshLocalPath, err)
+		return fmt.Errorf("не удается открыть локальный файл %s: %w", wshLocalPath, err)
 	}
 	defer input.Close()
 	installWords := map[string]string{

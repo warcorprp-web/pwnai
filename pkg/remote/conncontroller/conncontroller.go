@@ -453,7 +453,7 @@ func (conn *SSHConn) UpdateWsh(ctx context.Context, clientDisplayName string, re
 	}
 	err := remote.CpWshToRemote(ctx, client, remoteInfo.ClientOs, remoteInfo.ClientArch)
 	if err != nil {
-		return fmt.Errorf("error installing wsh to remote: %w", err)
+		return fmt.Errorf("ошибка установки ish на удаленный сервер: %w", err)
 	}
 	conn.Infof(ctx, "successfully updated wsh on %s\n", conn.GetName())
 	return nil
@@ -726,9 +726,9 @@ func (conn *SSHConn) tryEnableWsh(ctx context.Context, clientDisplayName string)
 		conn.Infof(ctx, "connserver needs to be (re)installed\n")
 		err = conn.InstallWsh(ctx, osArchStr)
 		if err != nil {
-			conn.Infof(ctx, "ERROR installing wsh: %v\n", err)
-			err = fmt.Errorf("error installing wsh: %w", err)
-			return WshCheckResult{NoWshReason: "error installing wsh/connserver", NoWshCode: NoWshCode_InstallError, WshError: err}
+			conn.Infof(ctx, "ОШИБКА установки ish: %v\n", err)
+			err = fmt.Errorf("ошибка установки ish: %w", err)
+			return WshCheckResult{NoWshReason: "ошибка установки ish/connserver", NoWshCode: NoWshCode_InstallError, WshError: err}
 		}
 		needsInstall, clientVersion, _, err = conn.StartConnServer(ctx, true, false)
 		if err != nil {
