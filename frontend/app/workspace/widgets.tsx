@@ -154,7 +154,7 @@ const AppsFloatingWindow = memo(
                             <i className="fa fa-solid fa-spinner fa-spin text-2xl text-muted"></i>
                         </div>
                     ) : apps.length === 0 ? (
-                        <div className="text-muted text-sm p-4 text-center">No local apps found</div>
+                        <div className="text-muted text-sm p-4 text-center">Локальные приложения не найдены</div>
                     ) : (
                         <div
                             className="grid gap-3"
@@ -419,7 +419,7 @@ const Widgets = memo(() => {
                                     className="flex flex-col justify-center items-center w-full py-1.5 pr-0.5 text-secondary text-sm overflow-hidden rounded-sm hover:bg-hoverbg hover:text-white cursor-pointer"
                                     onClick={() => setIsAppsOpen(!isAppsOpen)}
                                 >
-                                    <Tooltip content="Local WaveApps" placement="left" disable={isAppsOpen}>
+                                    <Tooltip content="Локальные WaveApps" placement="left" disable={isAppsOpen}>
                                         <div>
                                             <i className={makeIconClass("cube", true)}></i>
                                         </div>
@@ -431,7 +431,7 @@ const Widgets = memo(() => {
                                 className="flex flex-col justify-center items-center w-full py-1.5 pr-0.5 text-secondary text-sm overflow-hidden rounded-sm hover:bg-hoverbg hover:text-white cursor-pointer"
                                 onClick={() => setIsSettingsOpen(!isSettingsOpen)}
                             >
-                                <Tooltip content="Settings & Help" placement="left" disable={isSettingsOpen}>
+                                <Tooltip content="Настройки и справка" placement="left" disable={isSettingsOpen}>
                                     <div>
                                         <i className={makeIconClass("gear", true)}></i>
                                     </div>
@@ -470,7 +470,7 @@ const Widgets = memo(() => {
                             className="flex flex-col justify-center items-center w-full py-1.5 pr-0.5 text-secondary text-lg overflow-hidden rounded-sm hover:bg-hoverbg hover:text-white cursor-pointer"
                             onClick={() => setIsSettingsOpen(!isSettingsOpen)}
                         >
-                            <Tooltip content="Settings & Help" placement="left" disable={isSettingsOpen}>
+                            <Tooltip content="Настройки и справка" placement="left" disable={isSettingsOpen}>
                                 <div>
                                     <i className={makeIconClass("gear", true)}></i>
                                 </div>

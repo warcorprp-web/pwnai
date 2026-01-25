@@ -186,7 +186,7 @@ const WaveConfigView = memo(({ blockId, model }: ViewComponentProps<WaveConfigVi
                                     {selectedFile.name}
                                 </div>
                                 {selectedFile.docsUrl && (
-                                    <Tooltip content="View documentation">
+                                    <Tooltip content="Посмотреть документацию">
                                         <a
                                             href={`${selectedFile.docsUrl}?ref=waveconfig`}
                                             target="_blank"
@@ -206,7 +206,7 @@ const WaveConfigView = memo(({ blockId, model }: ViewComponentProps<WaveConfigVi
                                     <>
                                         {hasChanges && (
                                             <span className="text-xs text-warning pb-0.5 @max-w450:hidden">
-                                                Unsaved changes
+                                                Несохраненные изменения
                                             </span>
                                         )}
                                         <Tooltip content={saveTooltip} placement="bottom" divClassName="shrink-0">

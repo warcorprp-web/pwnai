@@ -307,7 +307,7 @@ class SysinfoViewModel implements ViewModel {
         }
 
         fullMenu.push({
-            label: "Plot Type",
+            label: "Тип графика",
             submenu: submenu,
         });
         fullMenu.push({ type: "separator" });

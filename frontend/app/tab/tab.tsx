@@ -212,7 +212,7 @@ const Tab = memo(
                             className="ghost grey close"
                             onClick={onClose}
                             onMouseDown={handleMouseDownOnClose}
-                            title="Close Tab"
+                            title="Закрыть вкладку"
                         >
                             <i className="fa fa-solid fa-xmark" />
                         </Button>
