@@ -108,8 +108,8 @@ func RunAICommand(ctx context.Context, request wshrpc.WaveAIStreamRequest) chan 
 	telemetry.GoRecordTEventWrap(&telemetrydata.TEvent{
 		Event: "action:runaicmd",
 		Props: telemetrydata.TEventProps{
-			AiBackendType: backendType,
-			AiLocal:       aiLocal,
+			telemetrydata.AiBackendType: backendType,
+			telemetrydata.AiLocal:       aiLocal,
 		},
 	})
 

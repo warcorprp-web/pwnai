@@ -122,8 +122,8 @@ func recordBlockCreationTelemetry(blockView string, blockController string) {
 	telemetry.RecordTEvent(tctx, &telemetrydata.TEvent{
 		Event: "action:createblock",
 		Props: telemetrydata.TEventProps{
-			BlockView:       blockView,
-			BlockController: blockController,
+			telemetrydata.BlockView:       blockView,
+			telemetrydata.BlockController: blockController,
 		},
 	})
 }
