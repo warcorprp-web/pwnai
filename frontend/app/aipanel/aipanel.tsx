@@ -156,14 +156,50 @@ const AIWelcomeMessage = memo(() => {
     return (
         <div className="text-secondary py-8">
             <div className="text-center">
-                <i className="fa fa-sparkles text-4xl text-accent mb-2 block"></i>
-                <p className="text-lg font-bold text-primary">Wave AI</p>
+                <i className={`fa ${welcomeIcon} text-4xl text-accent mb-2 block`}></i>
+                <p className="text-lg font-bold text-primary">{welcomeTitle}</p>
             </div>
             <div className="mt-4 text-left max-w-md mx-auto">
                 <p className="text-sm mb-6">
-                    Wave AI - ваш терминальный ассистент с контекстом. Может читать вывод терминала, анализировать виджеты,
-                    работать с файлами и помогать решать задачи быстрее.
+                    {welcomeDescription}
                 </p>
+                {isPwnAIMode ? (
+                    <div className="bg-accent/10 border border-accent/30 rounded-lg p-4">
+                        <div className="text-sm font-semibold mb-3 text-accent">Возможности:</div>
+                        <div className="space-y-3 text-sm">
+                            <div className="flex items-start gap-3">
+                                <div className="w-4 text-center flex-shrink-0">
+                                    <i className="fa-solid fa-radar text-accent"></i>
+                                </div>
+                                <div>
+                                    <span className="font-bold">Сканирование</span>
+                                    <div>Автоматическое сканирование целей через nmap и анализ уязвимостей</div>
+                                </div>
+                            </div>
+                            <div className="flex items-start gap-3">
+                                <div className="w-4 text-center flex-shrink-0">
+                                    <i className="fa-solid fa-bug text-accent"></i>
+                                </div>
+                                <div>
+                                    <span className="font-bold">Эксплуатация</span>
+                                    <div>Поиск и запуск эксплойтов из базы Metasploit Framework</div>
+                                </div>
+                            </div>
+                            <div className="flex items-start gap-3">
+                                <div className="w-4 text-center flex-shrink-0">
+                                    <i className="fa-solid fa-terminal text-accent"></i>
+                                </div>
+                                <div>
+                                    <span className="font-bold">Post-Exploitation</span>
+                                    <div>Управление сессиями и выполнение команд на скомпрометированных системах</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="mt-4 pt-4 border-t border-accent/20 text-xs text-warning">
+                            ⚠️ Используйте только на системах, на которые у вас есть разрешение!
+                        </div>
+                    </div>
+                ) : (
                 <div className="bg-accent/10 border border-accent/30 rounded-lg p-4">
                     <div className="text-sm font-semibold mb-3 text-accent">Getting Started:</div>
                     <div className="space-y-3 text-sm">
@@ -235,6 +271,7 @@ const AIWelcomeMessage = memo(() => {
                         </div>
                     </div>
                 </div>
+                )}
                 {!hasCustomModes && isPwnAIMode && (
                     <div className="mt-4 text-center text-[12px] text-accent">
                         🚀 PwnAI v1.0 - AI для пентестинга
@@ -330,6 +367,14 @@ const AIPanelComponentInner = memo(() => {
     const isPanelVisible = jotai.useAtomValue(model.getPanelVisibleAtom());
     const tabModel = maybeUseTabModel();
     const defaultMode = jotai.useAtomValue(getSettingsKeyAtom("waveai:defaultmode")) ?? "waveai@balanced";
+    const isPwnAIMode = defaultMode === "pwnai@default";
+    
+    const welcomeTitle = isPwnAIMode ? "PwnAI" : "Wave AI";
+    const welcomeDescription = isPwnAIMode 
+        ? "Профессиональный AI-ассистент для пентестинга. Интегрирован с Metasploit Framework для автоматизации тестирования на проникновение."
+        : "Wave AI - ваш терминальный ассистент с контекстом. Может читать вывод терминала, анализировать виджеты, работать с файлами и помогать решать задачи быстрее.";
+    
+    const welcomeIcon = isPwnAIMode ? "fa-shield" : "fa-sparkles";
     const aiModeConfigs = jotai.useAtomValue(model.aiModeConfigs);
 
     const hasCustomModes = Object.keys(aiModeConfigs).some((key) => !key.startsWith("waveai@"));
