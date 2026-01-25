@@ -5,11 +5,13 @@ package telemetry
 
 import (
 	"context"
+
+	"github.com/wavetermdev/waveterm/pkg/telemetry/telemetrydata"
 )
 
 // Telemetry disabled - all functions are no-ops
 
-type ActivityType string
+type ActivityType struct{}
 
 func IsTelemetryEnabled() bool {
 	return false
@@ -35,23 +37,23 @@ func GoUpdateActivityWrap(activity interface{}, args ...interface{}) {
 	// no-op
 }
 
-func GetNonUploadedTEvents() ([]interface{}, error) {
+func GetNonUploadedTEvents(ctx context.Context, limit int) ([]*telemetrydata.TEvent, error) {
 	return nil, nil
 }
 
-func MarkTEventsAsUploaded(ids []string) error {
+func MarkTEventsAsUploaded(ctx context.Context, ids []interface{}) error {
 	return nil
 }
 
-func CleanOldTEvents() error {
+func CleanOldTEvents(ctx context.Context) error {
 	return nil
 }
 
-func GetNonUploadedActivity() ([]interface{}, error) {
+func GetNonUploadedActivity(ctx context.Context) ([]*ActivityType, error) {
 	return nil, nil
 }
 
-func MarkActivityAsUploaded(ids []string) error {
+func MarkActivityAsUploaded(ctx context.Context, ids []interface{}) error {
 	return nil
 }
 

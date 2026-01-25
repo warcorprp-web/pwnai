@@ -595,7 +595,7 @@ func (conn *SSHConn) Connect(ctx context.Context, connFlags *wconfig.ConnKeyword
 			telemetry.GoRecordTEventWrap(&telemetrydata.TEvent{
 				Event: "conn:connecterror",
 				Props: telemetrydata.TEventProps{
-					ConnType: "ssh",
+					telemetrydata.ConnType: "ssh",
 				},
 			})
 		} else {
@@ -611,7 +611,7 @@ func (conn *SSHConn) Connect(ctx context.Context, connFlags *wconfig.ConnKeyword
 			telemetry.GoRecordTEventWrap(&telemetrydata.TEvent{
 				Event: "conn:connect",
 				Props: telemetrydata.TEventProps{
-					ConnType: "ssh",
+					telemetrydata.ConnType: "ssh",
 				},
 			})
 		}
@@ -809,8 +809,8 @@ func (conn *SSHConn) connectInternal(ctx context.Context, connFlags *wconfig.Con
 		telemetry.GoRecordTEventWrap(&telemetrydata.TEvent{
 			Event: "conn:nowsh",
 			Props: telemetrydata.TEventProps{
-				ConnType:         "ssh",
-				ConnWshErrorCode: wshResult.NoWshCode,
+				telemetrydata.ConnType:         "ssh",
+				telemetrydata.ConnWshErrorCode: wshResult.NoWshCode,
 			},
 		})
 	}

@@ -13,7 +13,8 @@ type TEvent struct {
 
 type TEventProps map[string]interface{}
 
+// Exported constants for use in other packages
 const (
-	ConnType          = "conn:type"
-	ConnWshErrorCode  = "conn:wsherrorcode"
+	ConnType         = "conn:type"
+	ConnWshErrorCode = "conn:wsherrorcode"
 )
