@@ -60,6 +60,12 @@ const (
 	CountWSLConn               = "count:wslconn"
 	CountViews                 = "count:views"
 	UserSet                    = "user:set"
+	SettingsCustomWidgets      = "settings:customwidgets"
+	SettingsCustomAIPresets    = "settings:customaipresets"
+	SettingsCustomSettings     = "settings:customsettings"
+	SettingsCustomAIModes      = "settings:customaimodes"
+	SettingsSecretsCount       = "settings:secretscount"
+	ClientInitialVersion       = "client:initialversion"
 )
 
 func MakeTEvent(eventType string, props ...TEventProps) *TEvent {

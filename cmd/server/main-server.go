@@ -256,15 +256,15 @@ func updateTelemetryCounts(lastCounts telemetrydata.TEventProps) telemetrydata.T
 	customAIModes := fullConfig.CountCustomAIModes()
 
 	props[telemetrydata.UserSet] = &telemetrydata.TEventUserProps{
-		SettingsCustomWidgets:   customWidgets,
-		SettingsCustomAIPresets: customAIPresets,
-		SettingsCustomSettings:  customSettings,
-		SettingsCustomAIModes:   customAIModes,
+		telemetrydata.SettingsCustomWidgets:   customWidgets,
+		telemetrydata.SettingsCustomAIPresets: customAIPresets,
+		telemetrydata.SettingsCustomSettings:  customSettings,
+		telemetrydata.SettingsCustomAIModes:   customAIModes,
 	}
 
 	secretsCount, err := secretstore.CountSecrets()
 	if err == nil {
-		props[telemetrydata.UserSet].SettingsSecretsCount = secretsCount
+		if userSet, ok := props[telemetrydata.UserSet].(telemetrydata.TEventUserProps); ok { userSet[telemetrydata.SettingsSecretsCount] = secretsCount }
 	}
 
 	if utilfn.CompareAsMarshaledJson(props, lastCounts) {
@@ -328,7 +328,7 @@ func startupActivityUpdate(firstLaunch bool) {
 		shellVersion = ""
 	}
 	userSetOnce := &telemetrydata.TEventUserProps{
-		ClientInitialVersion: "v" + WaveVersion,
+		telemetrydata.ClientInitialVersion: "v" + WaveVersion,
 	}
 	tosTs := telemetry.GetTosAgreedTs()
 	var cohortTime time.Time
