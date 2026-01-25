@@ -133,71 +133,76 @@ export const AIPanelInput = memo(({ onSubmit, status, model }: AIPanelInputProps
     };
 
     return (
-        <div className={cn("border-t", isFocused ? "border-accent/50" : "border-gray-600")}>
-            <input
-                ref={fileInputRef}
-                type="file"
-                multiple
-                accept="image/*,.pdf,.txt,.md,.js,.jsx,.ts,.tsx,.go,.py,.java,.c,.cpp,.h,.hpp,.html,.css,.scss,.sass,.json,.xml,.yaml,.yml,.sh,.bat,.sql"
-                onChange={handleFileChange}
-                className="hidden"
-            />
-            <form onSubmit={onSubmit}>
-                <div className="relative">
-                    <textarea
-                        ref={textareaRef}
-                        value={input}
-                        onChange={(e) => setInput(e.target.value)}
-                        onKeyDown={handleKeyDown}
-                        onFocus={handleFocus}
-                        onBlur={handleBlur}
-                        placeholder={placeholder}
-                        className={cn(
-                            "w-full  text-white px-2 py-2 pr-5 focus:outline-none resize-none overflow-auto bg-zinc-800/50"
-                        )}
-                        style={{ fontSize: "13px" }}
-                        rows={2}
-                    />
-                    <Tooltip content="Прикрепить файлы" placement="top" divClassName="absolute bottom-6.5 right-1">
-                        <button
-                            type="button"
-                            onClick={handleUploadClick}
+        <div className={cn("px-3 pb-3 pt-2")}>
+            <div className={cn(
+                "border rounded-xl transition-all",
+                isFocused ? "border-accent/50 shadow-lg shadow-accent/10" : "border-gray-600"
+            )}>
+                <input
+                    ref={fileInputRef}
+                    type="file"
+                    multiple
+                    accept="image/*,.pdf,.txt,.md,.js,.jsx,.ts,.tsx,.go,.py,.java,.c,.cpp,.h,.hpp,.html,.css,.scss,.sass,.json,.xml,.yaml,.yml,.sh,.bat,.sql"
+                    onChange={handleFileChange}
+                    className="hidden"
+                />
+                <form onSubmit={onSubmit}>
+                    <div className="relative">
+                        <textarea
+                            ref={textareaRef}
+                            value={input}
+                            onChange={(e) => setInput(e.target.value)}
+                            onKeyDown={handleKeyDown}
+                            onFocus={handleFocus}
+                            onBlur={handleBlur}
+                            placeholder={placeholder}
                             className={cn(
-                                "w-5 h-5 transition-colors flex items-center justify-center text-gray-400 hover:text-accent cursor-pointer"
+                                "w-full text-white px-4 py-3 pr-14 focus:outline-none resize-none overflow-auto bg-transparent"
                             )}
-                        >
-                            <i className="fa fa-paperclip text-sm"></i>
-                        </button>
-                    </Tooltip>
-                    {status === "streaming" ? (
-                        <Tooltip content="Остановить ответ" placement="top" divClassName="absolute bottom-1.5 right-1">
+                            style={{ fontSize: "14px", minHeight: "52px" }}
+                            rows={2}
+                        />
+                        <Tooltip content="Прикрепить файлы" placement="top" divClassName="absolute bottom-8 right-12">
                             <button
                                 type="button"
-                                onClick={() => model.stopResponse()}
+                                onClick={handleUploadClick}
                                 className={cn(
-                                    "w-5 h-5 transition-colors flex items-center justify-center",
-                                    "text-green-500 hover:text-green-400 cursor-pointer"
+                                    "w-8 h-8 rounded-lg transition-all flex items-center justify-center",
+                                    "text-gray-400 hover:text-accent hover:bg-accent/10 cursor-pointer"
                                 )}
                             >
-                                <i className="fa fa-square text-sm"></i>
+                                <i className="fa fa-paperclip text-base"></i>
                             </button>
                         </Tooltip>
-                    ) : (
-                        <Tooltip content="Отправить сообщение (Enter)" placement="top" divClassName="absolute bottom-1.5 right-1">
-                            <button
-                                type="submit"
-                                disabled={status !== "ready" || !input.trim()}
-                                className={cn(
-                                    "w-5 h-5 transition-colors flex items-center justify-center",
-                                    status !== "ready" || !input.trim()
-                                        ? "text-gray-400"
-                                        : "text-accent/80 hover:text-accent cursor-pointer"
-                                )}
-                            >
-                                <i className="fa fa-paper-plane text-sm"></i>
-                            </button>
-                        </Tooltip>
-                    )}
+                        {status === "streaming" ? (
+                            <Tooltip content="Остановить ответ" placement="top" divClassName="absolute bottom-2.5 right-2">
+                                <button
+                                    type="button"
+                                    onClick={() => model.stopResponse()}
+                                    className={cn(
+                                        "w-9 h-9 rounded-lg transition-all flex items-center justify-center",
+                                        "bg-red-500/20 text-red-400 hover:bg-red-500/30 hover:text-red-300 cursor-pointer"
+                                    )}
+                                >
+                                    <i className="fa fa-square text-base"></i>
+                                </button>
+                            </Tooltip>
+                        ) : (
+                            <Tooltip content="Отправить сообщение (Enter)" placement="top" divClassName="absolute bottom-2.5 right-2">
+                                <button
+                                    type="submit"
+                                    disabled={status !== "ready" || !input.trim()}
+                                    className={cn(
+                                        "w-9 h-9 rounded-lg transition-all flex items-center justify-center",
+                                        status !== "ready" || !input.trim()
+                                            ? "text-gray-500 bg-gray-700/30 cursor-not-allowed"
+                                            : "bg-accent/20 text-accent hover:bg-accent/30 hover:text-accent cursor-pointer"
+                                    )}
+                                >
+                                    <i className="fa fa-paper-plane text-base"></i>
+                                </button>
+                            </Tooltip>
+                        )}
                 </div>
             </form>
         </div>
