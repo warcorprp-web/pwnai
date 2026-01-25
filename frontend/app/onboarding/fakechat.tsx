@@ -25,7 +25,7 @@ const chatConfigs: ChatConfig[] = [
 ## Архитектура
 - **Electron main process:** \`emain/*.ts\` настраивает окна, меню, preload скрипты, обновления и связывается с Go бэкендом через локальный RPC. (\`emain/\`)
 - **Renderer UI:** React/TS собирается с Vite, Tailwind. (\`frontend/\`, \`index.html\`)
-- **Go backend:** запускает сервисы, web и websocket слушатели, телеметрию, конфиг watcher, локальный RPC, filestore и SQLite-backed object store. (\`cmd/server/main-server.go\`, \`pkg/*\`)
+- **Go backend:** запускает сервисы, web и websocket слушатели, конфиг watcher, локальный RPC, filestore и SQLite-backed object store. (\`cmd/server/main-server.go\`, \`pkg/*\`)
 - **CLI helper ("ish"):** собирается для разных OS/arch; используется для shell интеграции и удалённых операций. (\`cmd/ish/\`)
 
 ## Ключевые директории
