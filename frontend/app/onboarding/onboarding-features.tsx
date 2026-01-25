@@ -32,18 +32,18 @@ const OnboardingFooter = ({
     onSkip?: () => void;
 }) => {
     const isLastStep = currentStep === totalSteps;
-    const buttonText = isLastStep ? "Get Started" : "Next";
+    const buttonText = isLastStep ? "Начать работу" : "Далее";
 
     return (
         <footer className="unselectable flex-shrink-0 mt-5 relative">
             <div className="absolute left-0 top-1/2 -translate-y-1/2 flex items-center gap-2">
                 {currentStep > 1 && onPrev && (
                     <button className="text-muted cursor-pointer hover:text-foreground text-[13px]" onClick={onPrev}>
-                        &lt; Prev
+                        &lt; Назад
                     </button>
                 )}
                 <span className="text-muted text-[13px]">
-                    {currentStep} of {totalSteps}
+                    {currentStep} из {totalSteps}
                 </span>
             </div>
             <div className="flex flex-row items-center justify-center [&>button]:!px-5 [&>button]:!py-2 [&>button]:text-sm">
@@ -56,7 +56,7 @@ const OnboardingFooter = ({
                     className="absolute right-0 top-1/2 -translate-y-1/2 text-muted cursor-pointer hover:text-muted-hover text-[13px]"
                     onClick={onSkip}
                 >
-                    Skip Feature Tour &gt;
+                    Пропустить тур &gt;
                 </button>
             )}
         </footer>
@@ -99,38 +99,36 @@ const WaveAIPage = ({ onNext, onSkip }: { onNext: () => void; onSkip: () => void
 
                         <div className="flex flex-col items-start gap-4 text-secondary">
                             <p>
-                                Искра AI is your terminal assistant with context. I can read your terminal output,
-                                analyze widgets, read/write files, and help you solve problems faster.
+                                Искра AI — ваш терминальный ассистент с контекстом. Читает вывод терминала, анализирует виджеты, работает с файлами и помогает решать задачи быстрее.
                             </p>
 
                             <div className="flex items-start gap-3 w-full">
                                 <i className="fa fa-sparkles text-accent text-lg mt-1 flex-shrink-0" />
                                 <p>
-                                    Toggle the Искра AI panel with the{" "}
+                                    Открывайте панель Искра AI кнопкой{" "}
                                     <span className="inline-flex h-[26px] px-1.5 items-center rounded-md box-border bg-hover text-accent text-[12px] align-middle">
                                         <i className="fa fa-sparkles" />
                                         <span className="font-bold ml-1 font-mono">AI</span>
                                     </span>{" "}
-                                    button in the header (top left)
+                                    в заголовке (слева вверху)
                                 </p>
                             </div>
 
                             <div className="flex items-start gap-3 w-full">
                                 <i className="fa fa-keyboard text-accent text-lg mt-1 flex-shrink-0" />
                                 <p>
-                                    Or use the keyboard shortcut{" "}
+                                    Или используйте сочетание клавиш{" "}
                                     <span className="font-mono font-semibold text-foreground whitespace-nowrap">
                                         {shortcutKey}
                                     </span>{" "}
-                                    to quickly toggle
+                                    для быстрого переключения
                                 </p>
                             </div>
 
                             <div className="flex items-start gap-3 w-full">
                                 <i className="fa fa-key text-accent text-lg mt-1 flex-shrink-0" />
                                 <p>
-                                    Bring your own API keys or run local models with Ollama, LM Studio, and other
-                                    OpenAI-compatible providers
+                                    Используйте свои API ключи или локальные модели через Ollama, LM Studio и другие OpenAI-совместимые провайдеры
                                 </p>
                             </div>
 
@@ -182,26 +180,25 @@ const MagnifyBlocksPage = ({
                 <div>
                     <Logo />
                 </div>
-                <div className="text-[25px] font-normal text-foreground">Magnify Blocks</div>
+                <div className="text-[25px] font-normal text-foreground">Увеличение блоков</div>
             </header>
             <div className="flex-1 flex flex-row gap-0 min-h-0">
                 <div className="flex-1 flex flex-col items-center justify-center gap-8 pr-6 unselectable">
                     <div className="text-6xl font-semibold text-foreground">{shortcutKey}-M</div>
                     <div className="flex flex-col items-start gap-4 text-secondary max-w-md">
                         <p>
-                            Magnify any block to focus on what matters. Expand terminals, editors, and previews for a
-                            better view.
+                            Увеличивайте любой блок для фокусировки на важном. Разворачивайте терминалы, редакторы и превью для лучшего обзора.
                         </p>
-                        <p>Use the magnify feature to work with complex outputs and large files more efficiently.</p>
+                        <p>Используйте увеличение для эффективной работы со сложным выводом и большими файлами.</p>
                         <p>
-                            You can also magnify a block by clicking on the{" "}
+                            Также можно увеличить блок, нажав на иконку{" "}
                             <span className="inline-block align-middle [&_svg_path]:!fill-foreground">
                                 <MagnifyIcon enabled={false} />
                             </span>{" "}
-                            icon in the block header.
+                            в заголовке блока.
                         </p>
                         <p>
-                            A quick {shortcutKey}-M to magnify and another {shortcutKey}-M to unmagnify
+                            Быстро: {shortcutKey}-M для увеличения и снова {shortcutKey}-M для возврата
                         </p>
                         <EmojiButton emoji="🔥" isClicked={fireClicked} onClick={handleFireClick} />
                     </div>
@@ -254,26 +251,25 @@ const FilesPage = ({ onFinish, onPrev }: { onFinish: () => void; onPrev?: () => 
                 <div>
                     <Logo />
                 </div>
-                <div className="text-[25px] font-normal text-foreground">Viewing/Editing Files</div>
+                <div className="text-[25px] font-normal text-foreground">Просмотр и редактирование файлов</div>
             </header>
             <div className="flex-1 flex flex-row gap-0 min-h-0">
                 <div className="flex-1 flex flex-col items-center justify-center gap-8 pr-6 unselectable">
                     <div className="flex flex-col items-start gap-6 max-w-md">
                         <div className="flex flex-col items-start gap-4 text-secondary">
                             <p>
-                                Wave can preview markdown, images, and video files on both local <i>and remote</i>{" "}
-                                machines.
+                                Искра может показывать markdown, изображения и видео как на локальной, так и на <i>удалённой</i> машине.
                             </p>
 
                             <div className="flex items-start gap-3 w-full">
                                 <i className="fa fa-eye text-accent text-lg mt-1 flex-shrink-0" />
                                 <div>
                                     <p className="mb-2">
-                                        Use{" "}
+                                        Используйте{" "}
                                         <span className="font-mono font-semibold text-foreground">
-                                            wsh view [filename]
+                                            ish view [имя_файла]
                                         </span>{" "}
-                                        to preview files in Wave's graphical viewer
+                                        для просмотра файлов в графическом просмотрщике
                                     </p>
                                 </div>
                             </div>
@@ -282,18 +278,17 @@ const FilesPage = ({ onFinish, onPrev }: { onFinish: () => void; onPrev?: () => 
                                 <i className="fa fa-pen-to-square text-accent text-lg mt-1 flex-shrink-0" />
                                 <div>
                                     <p className="mb-2">
-                                        Use{" "}
+                                        Используйте{" "}
                                         <span className="font-mono font-semibold text-foreground">
-                                            wsh edit [filename]
+                                            ish edit [имя_файла]
                                         </span>{" "}
-                                        to open config files or code files in Wave's graphical editor
+                                        для открытия конфигов или кода в графическом редакторе
                                     </p>
                                 </div>
                             </div>
 
                             <p>
-                                These commands work seamlessly on both local and remote machines, making it easy to view
-                                and edit files wherever they are.
+                                Эти команды работают одинаково на локальных и удалённых машинах, упрощая просмотр и редактирование файлов где угодно.
                             </p>
 
                             <EmojiButton emoji="🔥" isClicked={fireClicked} onClick={handleFireClick} />

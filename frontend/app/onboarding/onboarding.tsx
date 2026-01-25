@@ -38,10 +38,8 @@ const InitPage = ({ isCompact }: { isCompact: boolean }) => {
         if (!clientData.tosagreed) {
             fireAndForget(services.ClientService.AgreeTos);
         }
-        if (telemetryEnabled) {
-            WorkspaceLayoutModel.getInstance().setAIPanelVisible(true);
-        }
-        setPageName(telemetryEnabled ? "features" : "notelemetrystar");
+        WorkspaceLayoutModel.getInstance().setAIPanelVisible(true);
+        setPageName("features");
     };
 
     const setTelemetry = (value: boolean) => {
@@ -62,7 +60,7 @@ const InitPage = ({ isCompact }: { isCompact: boolean }) => {
                 <div className={`${isCompact ? "" : "mb-2.5"} flex justify-center`}>
                     <Logo />
                 </div>
-                <div className="text-center text-[25px] font-normal text-foreground">Welcome to Wave Terminal</div>
+                <div className="text-center text-[25px] font-normal text-foreground">Добро пожаловать в Искра Терминал</div>
             </header>
             <OverlayScrollbarsComponent
                 className="flex-1 overflow-y-auto min-h-0"
@@ -71,73 +69,46 @@ const InitPage = ({ isCompact }: { isCompact: boolean }) => {
                 <div className="flex flex-col items-start gap-8 w-full mb-5 unselectable">
                     <div className="flex w-full items-center gap-[18px]">
                         <div>
-                            <a
-                                target="_blank"
-                                href="https://github.com/wavetermdev/waveterm?ref=install"
-                                rel={"noopener"}
-                            >
-                                <i className="text-[32px] text-white/50 fa-brands fa-github"></i>
-                            </a>
+                            <i className="text-[32px] text-accent fa-solid fa-sparkles"></i>
                         </div>
                         <div className="flex flex-col items-start gap-1 flex-1">
-                            <div className="text-foreground text-base leading-[18px]">Support us on GitHub</div>
+                            <div className="text-foreground text-base leading-[18px]">Встроенный AI ассистент</div>
                             <div className="text-secondary leading-5">
-                                We're <i>open source</i> and committed to providing a free terminal for individual
-                                users. Please show your support by giving us a star on{" "}
-                                <a
-                                    target="_blank"
-                                    href="https://github.com/wavetermdev/waveterm?ref=install"
-                                    rel={"noopener"}
-                                >
-                                    Github&nbsp;(wavetermdev/waveterm)
-                                </a>
+                                Искра AI помогает с командами, кодом и задачами прямо в терминале. Использует инструменты для работы с файлами и выполнения команд.
                             </div>
                         </div>
                     </div>
                     <div className="flex w-full items-center gap-[18px]">
                         <div>
-                            <a target="_blank" href="https://discord.gg/XfvZ334gwU" rel={"noopener"}>
-                                <i className="text-[25px] text-white/50 fa-solid fa-people-group"></i>
-                            </a>
+                            <i className="text-[32px] text-accent fa-solid fa-terminal"></i>
                         </div>
                         <div className="flex flex-col items-start gap-1 flex-1">
-                            <div className="text-foreground text-base leading-[18px]">Join our Community</div>
+                            <div className="text-foreground text-base leading-[18px]">Умный терминал</div>
                             <div className="text-secondary leading-5">
-                                Get help, submit feature requests, report bugs, or just chat with fellow terminal
-                                enthusiasts.
-                                <br />
-                                <a target="_blank" href="https://discord.gg/XfvZ334gwU" rel={"noopener"}>
-                                    Join the Wave&nbsp;Discord&nbsp;Channel
-                                </a>
+                                Интеграция с shell, история команд, автодополнение. Работает с bash, zsh, fish и другими оболочками.
                             </div>
                         </div>
                     </div>
                     <div className="flex w-full items-center gap-[18px]">
                         <div>
-                            <i className="text-[32px] text-white/50 fa-solid fa-chart-line"></i>
+                            <i className="text-[32px] text-accent fa-solid fa-browser"></i>
                         </div>
                         <div className="flex flex-col items-start gap-1 flex-1">
+                            <div className="text-foreground text-base leading-[18px]">Встроенный браузер</div>
                             <div className="text-secondary leading-5">
-                                Anonymous usage data helps us improve features you use.
-                                <br />
-                                <a
-                                    className="plain-link"
-                                    target="_blank"
-                                    href="https://waveterm.dev/privacy"
-                                    rel="noopener"
-                                >
-                                    Privacy Policy
-                                </a>
+                                Просмотр веб-страниц, документации и файлов прямо в терминале. AI может открывать ссылки автоматически.
                             </div>
-                            <label className="flex items-center gap-2 cursor-pointer text-secondary">
-                                <input
-                                    type="checkbox"
-                                    checked={telemetryEnabled}
-                                    onChange={(e) => setTelemetry(e.target.checked)}
-                                    className="cursor-pointer accent-gray-500"
-                                />
-                                <span>{label}</span>
-                            </label>
+                        </div>
+                    </div>
+                    <div className="flex w-full items-center gap-[18px]">
+                        <div>
+                            <i className="text-[32px] text-accent fa-solid fa-code"></i>
+                        </div>
+                        <div className="flex flex-col items-start gap-1 flex-1">
+                            <div className="text-foreground text-base leading-[18px]">Редактор кода</div>
+                            <div className="text-secondary leading-5">
+                                Просмотр и редактирование файлов с подсветкой синтаксиса. AI может создавать и изменять файлы по вашей команде.
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -145,7 +116,7 @@ const InitPage = ({ isCompact }: { isCompact: boolean }) => {
             <footer className={`unselectable flex-shrink-0 ${isCompact ? "mt-2" : "mt-5"}`}>
                 <div className="flex flex-row items-center justify-center [&>button]:!px-5 [&>button]:!py-2 [&>button]:text-sm [&>button:not(:first-child)]:ml-2.5">
                     <Button className="font-[600]" onClick={acceptTos}>
-                        Continue
+                        Продолжить
                     </Button>
                 </div>
             </footer>
