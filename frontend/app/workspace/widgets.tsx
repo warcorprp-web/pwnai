@@ -425,20 +425,7 @@ const Widgets = memo(() => {
                             ))}
                         </div>
                         <div className="flex-grow" />
-                        <div className="grid grid-cols-2 gap-0 w-full">
-                            {isDev() || featureWaveAppBuilder ? (
-                                <div
-                                    ref={appsButtonRef}
-                                    className="flex flex-col justify-center items-center w-full py-1.5 pr-0.5 text-secondary text-sm overflow-hidden rounded-sm hover:bg-hoverbg hover:text-white cursor-pointer"
-                                    onClick={() => setIsAppsOpen(!isAppsOpen)}
-                                >
-                                    <Tooltip content="Локальные WaveApps" placement="left" disable={isAppsOpen}>
-                                        <div>
-                                            <i className={makeIconClass("cube", true)}></i>
-                                        </div>
-                                    </Tooltip>
-                                </div>
-                            ) : null}
+                        <div className="grid grid-cols-1 gap-0 w-full">
                             <div
                                 ref={settingsButtonRef}
                                 className="flex flex-col justify-center items-center w-full py-1.5 pr-0.5 text-secondary text-sm overflow-hidden rounded-sm hover:bg-hoverbg hover:text-white cursor-pointer"
@@ -458,26 +445,6 @@ const Widgets = memo(() => {
                             <Widget key={`widget-${idx}`} widget={data} mode={mode} />
                         ))}
                         <div className="flex-grow" />
-                        {isDev() || featureWaveAppBuilder ? (
-                            <div
-                                ref={appsButtonRef}
-                                className="flex flex-col justify-center items-center w-full py-1.5 pr-0.5 text-secondary text-lg overflow-hidden rounded-sm hover:bg-hoverbg hover:text-white cursor-pointer"
-                                onClick={() => setIsAppsOpen(!isAppsOpen)}
-                            >
-                                <Tooltip content="Local WaveApps" placement="left" disable={isAppsOpen}>
-                                    <div className="flex flex-col items-center w-full">
-                                        <div>
-                                            <i className={makeIconClass("cube", true)}></i>
-                                        </div>
-                                        {mode === "normal" && (
-                                            <div className="text-xxs mt-0.5 w-full px-0.5 text-center whitespace-nowrap overflow-hidden text-ellipsis">
-                                                apps
-                                            </div>
-                                        )}
-                                    </div>
-                                </Tooltip>
-                            </div>
-                        ) : null}
                         <div
                             ref={settingsButtonRef}
                             className="flex flex-col justify-center items-center w-full py-1.5 pr-0.5 text-secondary text-lg overflow-hidden rounded-sm hover:bg-hoverbg hover:text-white cursor-pointer"
@@ -529,14 +496,6 @@ const Widgets = memo(() => {
                     </div>
                     <div className="text-xxs mt-0.5 w-full px-0.5 text-center">настройки</div>
                 </div>
-                {isDev() ? (
-                    <div className="flex flex-col justify-center items-center w-full py-1.5 pr-0.5 text-lg">
-                        <div>
-                            <i className={makeIconClass("cube", true)}></i>
-                        </div>
-                        <div className="text-xxs mt-0.5 w-full px-0.5 text-center">приложения</div>
-                    </div>
-                ) : null}
                 {isDev() ? (
                     <div
                         className="flex justify-center items-center w-full py-1 text-accent text-[30px]"
