@@ -78,7 +78,7 @@ const config = {
     linux: {
         artifactName: "${name}-${platform}-${arch}-${version}.${ext}",
         category: "TerminalEmulator",
-        executableName: pkg.name,
+        executableName: "iskra-terminal",
         target: ["zip", "deb", "rpm", "snap", "AppImage", "pacman"],
         synopsis: pkg.description,
         description: null,
