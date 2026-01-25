@@ -328,6 +328,10 @@ async function appMain() {
         console.log("disabling hardware acceleration, per launch settings");
         electronApp.disableHardwareAcceleration();
     }
+    
+    // Use ANGLE for better GPU compatibility and to avoid EGL errors
+    electronApp.commandLine.appendSwitch("use-angle", "default");
+    
     const startTs = Date.now();
     const instanceLock = electronApp.requestSingleInstanceLock();
     if (!instanceLock) {
