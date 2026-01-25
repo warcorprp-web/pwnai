@@ -12,7 +12,7 @@ func GetPwnAIToolDefinitions() []uctypes.ToolDefinition {
 	return []uctypes.ToolDefinition{
 		// MSF Pentest tools
 		{
-			ToolName:    "pwnai_scan_target",
+			Name:        "pwnai_scan_target",
 			DisplayName: "Scan Target",
 			Description: "Сканирование цели через nmap (Metasploit). Автоматически анализирует уязвимости.",
 			InputSchema: map[string]any{
@@ -32,7 +32,7 @@ func GetPwnAIToolDefinitions() []uctypes.ToolDefinition {
 			},
 		},
 		{
-			ToolName:    "pwnai_search_exploits",
+			Name:    "pwnai_search_exploits",
 			DisplayName: "Search Exploits",
 			Description: "Поиск эксплойтов в базе Metasploit по названию сервиса, CVE или ключевым словам.",
 			InputSchema: map[string]any{
@@ -47,7 +47,7 @@ func GetPwnAIToolDefinitions() []uctypes.ToolDefinition {
 			},
 		},
 		{
-			ToolName:    "pwnai_exploit_target",
+			Name:    "pwnai_exploit_target",
 			DisplayName: "Exploit Target",
 			Description: "Эксплуатация уязвимости через Metasploit. Создаёт meterpreter сессию.",
 			InputSchema: map[string]any{
@@ -74,7 +74,7 @@ func GetPwnAIToolDefinitions() []uctypes.ToolDefinition {
 			},
 		},
 		{
-			ToolName:    "pwnai_list_sessions",
+			Name:    "pwnai_list_sessions",
 			DisplayName: "List Sessions",
 			Description: "Список активных meterpreter/shell сессий в Metasploit.",
 			InputSchema: map[string]any{
@@ -83,7 +83,7 @@ func GetPwnAIToolDefinitions() []uctypes.ToolDefinition {
 			},
 		},
 		{
-			ToolName:    "pwnai_run_session_command",
+			Name:    "pwnai_run_session_command",
 			DisplayName: "Run Session Command",
 			Description: "Выполнение команды в активной сессии (sysinfo, hashdump, screenshot, shell).",
 			InputSchema: map[string]any{
@@ -102,7 +102,7 @@ func GetPwnAIToolDefinitions() []uctypes.ToolDefinition {
 			},
 		},
 		{
-			ToolName:    "pwnai_msf_rpc_call",
+			Name:    "pwnai_msf_rpc_call",
 			DisplayName: "MSF RPC Call",
 			Description: "Прямой вызов Metasploit RPC API для продвинутых операций.",
 			InputSchema: map[string]any{
