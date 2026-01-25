@@ -220,7 +220,7 @@ export class PreviewModel implements ViewModel {
             const blockData = get(this.blockAtom);
             return blockData?.meta?.edit ?? false;
         });
-        this.viewName = atom("Preview");
+        this.viewName = atom("Просмотр");
         this.viewText = atom((get) => {
             let headerPath = get(this.metaFilePath);
             const connStatus = get(this.connStatus);
@@ -277,7 +277,7 @@ export class PreviewModel implements ViewModel {
                 } else {
                     viewTextChildren.push({
                         elemtype: "textbutton",
-                        text: "Save",
+                        text: "Сохранить",
                         className: clsx(`${saveClassName} rounded-[4px] !py-[2px] !px-[10px] text-[11px] font-[500]`),
                         onClick: () => fireAndForget(this.handleFileSave.bind(this)),
                     });

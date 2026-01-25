@@ -93,7 +93,7 @@ function StreamingPreview({ model }: SpecializedViewProps) {
     if (fileInfo.mimetype.startsWith("image/")) {
         return <StreamingImagePreview url={streamingUrl} />;
     }
-    return <CenteredDiv>Preview Not Supported</CenteredDiv>;
+    return <CenteredDiv>Просмотр не поддерживается</CenteredDiv>;
 }
 
 export { StreamingPreview };
