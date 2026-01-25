@@ -149,7 +149,7 @@ const MagnifyBlocksPage = ({
                 <div>
                     <Logo />
                 </div>
-                <div className="text-[25px] font-normal text-foreground">Увеличение блоков</div>
+                <div className="text-[25px] font-normal text-foreground">Терминал и браузер</div>
             </header>
             <div className="flex-1 flex flex-row gap-0 min-h-0">
                 <div className="flex-1 flex flex-col items-center justify-center gap-8 pr-6 unselectable">
