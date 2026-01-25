@@ -40,18 +40,31 @@ const Widget = memo(({ widget, mode }: { widget: WidgetConfigType; mode: "normal
     const [isTruncated, setIsTruncated] = useState(false);
     const labelRef = useRef<HTMLDivElement>(null);
 
+    // Маппинг английских названий на русские
+    const labelMap: Record<string, string> = {
+        "terminal": "терминал",
+        "files": "файлы",
+        "web": "веб",
+        "ai": "искра",
+        "sysinfo": "системная информация",
+        "settings": "настройки",
+        "apps": "приложения"
+    };
+
+    const displayLabel = labelMap[widget.label?.toLowerCase()] || widget.label;
+
     useEffect(() => {
         if (mode === "normal" && labelRef.current) {
             const element = labelRef.current;
             setIsTruncated(element.scrollWidth > element.clientWidth);
         }
-    }, [mode, widget.label]);
+    }, [mode, displayLabel]);
 
     const shouldDisableTooltip = mode !== "normal" ? false : !isTruncated;
 
     return (
         <Tooltip
-            content={widget.description || widget.label}
+            content={widget.description || displayLabel}
             placement="left"
             disable={shouldDisableTooltip}
             divClassName={clsx(
@@ -64,12 +77,12 @@ const Widget = memo(({ widget, mode }: { widget: WidgetConfigType; mode: "normal
             <div style={{ color: widget.color }}>
                 <i className={makeIconClass(widget.icon, true, { defaultIcon: "browser" })}></i>
             </div>
-            {mode === "normal" && !isBlank(widget.label) ? (
+            {mode === "normal" && !isBlank(displayLabel) ? (
                 <div
                     ref={labelRef}
                     className="text-xxs mt-0.5 w-full px-0.5 text-center whitespace-nowrap overflow-hidden text-ellipsis"
                 >
-                    {widget.label}
+                    {displayLabel}
                 </div>
             ) : null}
         </Tooltip>
@@ -514,14 +527,14 @@ const Widgets = memo(() => {
                     <div>
                         <i className={makeIconClass("gear", true)}></i>
                     </div>
-                    <div className="text-xxs mt-0.5 w-full px-0.5 text-center">settings</div>
+                    <div className="text-xxs mt-0.5 w-full px-0.5 text-center">настройки</div>
                 </div>
                 {isDev() ? (
                     <div className="flex flex-col justify-center items-center w-full py-1.5 pr-0.5 text-lg">
                         <div>
                             <i className={makeIconClass("cube", true)}></i>
                         </div>
-                        <div className="text-xxs mt-0.5 w-full px-0.5 text-center">apps</div>
+                        <div className="text-xxs mt-0.5 w-full px-0.5 text-center">приложения</div>
                     </div>
                 ) : null}
                 {isDev() ? (
