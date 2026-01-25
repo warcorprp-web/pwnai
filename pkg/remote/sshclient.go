@@ -243,14 +243,14 @@ func createPasswordCallbackPrompt(connCtx context.Context, remoteDisplayName str
 		ctx, cancelFn := context.WithTimeout(connCtx, 60*time.Second)
 		defer cancelFn()
 		queryText := fmt.Sprintf(
-			"Password Authentication requested from connection  \n"+
+			"Запрошена аутентификация по паролю для подключения  \n"+
 				"%s\n\n"+
-				"Password:", remoteDisplayName)
+				"Пароль:", remoteDisplayName)
 		request := &userinput.UserInputRequest{
 			ResponseType: "text",
 			QueryText:    queryText,
 			Markdown:     true,
-			Title:        "Password Authentication",
+			Title:        "Аутентификация по паролю",
 		}
 		response, err := userinput.GetUserInput(ctx, request)
 		if err != nil {
