@@ -30,6 +30,17 @@ const (
 	WaveAINativeWebSearchCount = "waveai:nativewebsearchcount"
 	WaveAIRequestCount         = "waveai:requestcount"
 	WaveAIToolUseCount         = "waveai:toolusecount"
+	WaveAIToolUseErrorCount    = "waveai:tooluseerrorcount"
+	WaveAIToolDetail           = "waveai:tooldetail"
+	WaveAIPremiumReq           = "waveai:premiumreq"
+	WaveAIProxyReq             = "waveai:proxyreq"
+	WaveAIHadError             = "waveai:haderror"
+	WaveAIImageCount           = "waveai:imagecount"
+	WaveAIPDFCount             = "waveai:pdfcount"
+	WaveAITextDocCount         = "waveai:textdoccount"
+	WaveAITextLen              = "waveai:textlen"
+	WaveAIFirstByteMs          = "waveai:firstbytems"
+	WaveAITotalMs              = "waveai:totalms"
 )
 
 func MakeTEvent(eventType string) *TEvent {
