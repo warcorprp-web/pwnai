@@ -75,39 +75,6 @@ const configFiles: ConfigFile[] = [
         hasJsonView: true,
     },
     {
-        name: "Соединения",
-        path: "connections.json",
-        language: "json",
-        docsUrl: "https://docs.waveterm.dev/connections",
-        description: isWindows() ? "SSH хосты и WSL дистрибутивы" : "SSH хосты",
-        hasJsonView: true,
-    },
-    {
-        name: "Виджеты боковой панели",
-        path: "widgets.json",
-        language: "json",
-        docsUrl: "https://docs.waveterm.dev/customwidgets",
-        hasJsonView: true,
-    },
-    {
-        name: "Режимы Искра AI",
-        path: "waveai.json",
-        language: "json",
-        description: "Локальные модели и BYOK",
-        docsUrl: "https://docs.waveterm.dev/waveai-modes",
-        validator: validateWaveAiJson,
-        hasJsonView: true,
-        // visualComponent: WaveAIVisualContent,
-    },
-    {
-        name: "Фоны вкладок",
-        path: "presets/bg.json",
-        language: "json",
-        docsUrl: "https://docs.waveterm.dev/presets#background-configurations",
-        validator: validateBgJson,
-        hasJsonView: true,
-    },
-    {
         name: "Секреты",
         path: "secrets",
         isSecrets: true,
@@ -116,24 +83,7 @@ const configFiles: ConfigFile[] = [
     },
 ];
 
-const deprecatedConfigFiles: ConfigFile[] = [
-    {
-        name: "Пресеты",
-        path: "presets.json",
-        language: "json",
-        deprecated: true,
-        hasJsonView: true,
-    },
-    {
-        name: "AI Пресеты",
-        path: "presets/ai.json",
-        language: "json",
-        deprecated: true,
-        docsUrl: "https://docs.waveterm.dev/ai-presets",
-        validator: validateAiJson,
-        hasJsonView: true,
-    },
-];
+const deprecatedConfigFiles: ConfigFile[] = [];
 
 export class WaveConfigViewModel implements ViewModel {
     blockId: string;
