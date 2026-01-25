@@ -518,7 +518,7 @@ func (conn *WslConn) Connect(ctx context.Context) error {
 			telemetry.GoRecordTEventWrap(&telemetrydata.TEvent{
 				Event: "conn:connecterror",
 				Props: telemetrydata.TEventProps{
-					ConnType: "wsl",
+					telemetrydata.ConnType: "wsl",
 				},
 			})
 		} else {
@@ -534,7 +534,7 @@ func (conn *WslConn) Connect(ctx context.Context) error {
 			telemetry.GoRecordTEventWrap(&telemetrydata.TEvent{
 				Event: "conn:connect",
 				Props: telemetrydata.TEventProps{
-					ConnType: "wsl",
+					telemetrydata.ConnType: "wsl",
 				},
 			})
 		}

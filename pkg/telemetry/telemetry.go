@@ -41,7 +41,7 @@ func GetNonUploadedTEvents(ctx context.Context, limit int) ([]*telemetrydata.TEv
 	return nil, nil
 }
 
-func MarkTEventsAsUploaded(ctx context.Context, ids []interface{}) error {
+func MarkTEventsAsUploaded(ctx context.Context, events []*telemetrydata.TEvent) error {
 	return nil
 }
 
@@ -53,7 +53,7 @@ func GetNonUploadedActivity(ctx context.Context) ([]*ActivityType, error) {
 	return nil, nil
 }
 
-func MarkActivityAsUploaded(ctx context.Context, ids []interface{}) error {
+func MarkActivityAsUploaded(ctx context.Context, activity []*ActivityType) error {
 	return nil
 }
 
