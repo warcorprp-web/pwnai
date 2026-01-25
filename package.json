@@ -1,16 +1,16 @@
 {
-    "name": "pwnai",
+    "name": "iskra-terminal",
     "author": {
-        "name": "PwnAI Team",
-        "email": "info@pwnai.dev"
+        "name": "Iskra Terminal Team",
+        "email": "info@iskra-terminal.dev"
     },
-    "productName": "PwnAI",
-    "description": "AI-Powered Penetration Testing Terminal",
+    "productName": "Искра Терминал",
+    "description": "AI-Powered Terminal with Penetration Testing Tools",
     "license": "Apache-2.0",
     "version": "1.0.0",
-    "homepage": "https://pwnai.dev",
+    "homepage": "https://iskra-terminal.dev",
     "build": {
-        "appId": "dev.pwnai.terminal"
+        "appId": "dev.iskra-terminal.app"
     },
     "private": true,
     "main": "./dist/main/index.js",
