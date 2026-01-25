@@ -94,6 +94,9 @@ const AIWelcomeMessage = memo(() => {
     
     const welcomeIcon = isPwnAIMode ? "fa-shield-halved" : "fa-sparkles";
     const welcomeTitle = isPwnAIMode ? "Добро пожаловать в PwnAI" : "Wave AI";
+    const welcomeDescription = isPwnAIMode 
+        ? "Профессиональный AI-ассистент для пентестинга с интеграцией Metasploit Framework"
+        : "Wave AI - ваш терминальный ассистент с контекстом";
     
     if (isPwnAIMode) {
         return (
