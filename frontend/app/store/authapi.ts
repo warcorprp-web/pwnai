@@ -1,6 +1,8 @@
 // API клиент для Искра Backend
 
-const API_BASE_URL = "https://cli.cryptocatslab.ru/api";
+const API_BASE_URL = import.meta.env.DEV 
+    ? "http://localhost:3540/api" 
+    : "https://cli.cryptocatslab.ru/api";
 
 export interface AuthResponse {
     success: boolean;
