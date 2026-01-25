@@ -807,9 +807,13 @@ func CreateWriteTextFileDiff(ctx context.Context, chatId string, toolCallId stri
 		// Search for ToolUseData in UIChat messages
 		for _, uiMsg := range uiChat.Messages {
 			for _, part := range uiMsg.Parts {
-				if part.Type == "data-tooluse" && part.Data != nil && part.Data.ToolCallId == toolCallId {
-					backupFileName = part.Data.WriteBackupFileName
-					break
+				if part.Type == "data-tooluse" && part.Data != nil {
+					if toolUseData, ok := part.Data.(*uctypes.UIMessageDataToolUse); ok {
+						if toolUseData.ToolCallId == toolCallId {
+							backupFileName = toolUseData.WriteBackupFileName
+							break
+						}
+					}
 				}
 			}
 			if backupFileName != "" {
