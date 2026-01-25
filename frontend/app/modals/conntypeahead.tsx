@@ -273,8 +273,8 @@ function getConnectionsEditItem(
         status: "disconnected",
         icon: "gear",
         iconColor: "var(--grey-text-color)",
-        value: "Edit Connections",
-        label: "Edit Connections",
+        value: "Редактировать соединения",
+        label: "Редактировать соединения",
         onSelect: () => {
             util.fireAndForget(async () => {
                 globalStore.set(changeConnModalAtom, false);

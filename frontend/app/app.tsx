@@ -99,18 +99,18 @@ async function handleContextMenu(e: React.MouseEvent<HTMLDivElement>) {
     }
     let menu: ContextMenuItem[] = [];
     if (canCut) {
-        menu.push({ label: "Cut", role: "cut" });
+        menu.push({ label: "Вырезать", role: "cut" });
     }
     if (canCopy) {
-        menu.push({ label: "Copy", role: "copy" });
+        menu.push({ label: "Копировать", role: "copy" });
     }
     if (canPaste) {
-        menu.push({ label: "Paste", role: "paste" });
+        menu.push({ label: "Вставить", role: "paste" });
     }
     if (clipboardURL) {
         menu.push({ type: "separator" });
         menu.push({
-            label: "Open Clipboard URL (" + clipboardURL.hostname + ")",
+            label: "Открыть URL из буфера обмена (" + clipboardURL.hostname + ")",
             click: () => {
                 createBlock({
                     meta: {

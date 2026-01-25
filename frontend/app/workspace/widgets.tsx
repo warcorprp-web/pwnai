@@ -231,7 +231,7 @@ const SettingsFloatingWindow = memo(
         const menuItems = [
             {
                 icon: "gear",
-                label: "Settings",
+                label: "Настройки",
                 onClick: () => {
                     const blockDef: BlockDef = {
                         meta: {
@@ -244,7 +244,7 @@ const SettingsFloatingWindow = memo(
             },
             {
                 icon: "lightbulb",
-                label: "Tips",
+                label: "Подсказки",
                 onClick: () => {
                     const blockDef: BlockDef = {
                         meta: {
@@ -257,7 +257,7 @@ const SettingsFloatingWindow = memo(
             },
             {
                 icon: "lock",
-                label: "Secrets",
+                label: "Секреты",
                 onClick: () => {
                     const blockDef: BlockDef = {
                         meta: {
@@ -271,7 +271,7 @@ const SettingsFloatingWindow = memo(
             },
             {
                 icon: "circle-question",
-                label: "Help",
+                label: "Справка",
                 onClick: () => {
                     const blockDef: BlockDef = {
                         meta: {
@@ -380,7 +380,7 @@ const Widgets = memo(() => {
         e.preventDefault();
         const menu: ContextMenuItem[] = [
             {
-                label: "Edit widgets.json",
+                label: "Редактировать widgets.json",
                 click: () => {
                     fireAndForget(async () => {
                         const blockDef: BlockDef = {

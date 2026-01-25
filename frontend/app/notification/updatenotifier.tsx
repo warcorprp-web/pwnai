@@ -17,12 +17,12 @@ export const useUpdateNotifier = () => {
                     id: "update-notification",
                     icon: "arrows-rotate",
                     title: "Update Available",
-                    message: "A new update is available and ready to be installed.",
+                    message: "Доступно новое обновление, готовое к установке.",
                     timestamp: new Date().toLocaleString(),
                     type: "update",
                     actions: [
                         {
-                            label: "Install Now",
+                            label: "Установить сейчас",
                             actionKey: "installUpdate",
                             color: "green",
                             disabled: false,
@@ -35,13 +35,13 @@ export const useUpdateNotifier = () => {
                 notification = {
                     id: "update-notification",
                     icon: "arrows-rotate",
-                    title: "Downloading Update",
-                    message: "The update is currently being downloaded.",
+                    title: "Загрузка обновления",
+                    message: "Обновление загружается.",
                     timestamp: new Date().toLocaleString(),
                     type: "update",
                     actions: [
                         {
-                            label: "Downloading...",
+                            label: "Загрузка...",
                             actionKey: "",
                             color: "green",
                             disabled: true,
@@ -54,13 +54,13 @@ export const useUpdateNotifier = () => {
                 notification = {
                     id: "update-notification",
                     icon: "arrows-rotate",
-                    title: "Installing Update",
-                    message: "The update is currently being installed.",
+                    title: "Установка обновления",
+                    message: "Обновление устанавливается.",
                     timestamp: new Date().toLocaleString(),
                     type: "update",
                     actions: [
                         {
-                            label: "Installing...",
+                            label: "Установка...",
                             actionKey: "",
                             color: "green",
                             disabled: true,
@@ -73,13 +73,13 @@ export const useUpdateNotifier = () => {
                 notification = {
                     id: "update-notification",
                     icon: "circle-exclamation",
-                    title: "Update Error",
-                    message: "An error occurred during the update process.",
+                    title: "Ошибка обновления",
+                    message: "Произошла ошибка в процессе обновления.",
                     timestamp: new Date().toLocaleString(),
                     type: "update",
                     actions: [
                         {
-                            label: "Retry Update",
+                            label: "Повторить обновление",
                             actionKey: "retryUpdate",
                             color: "green",
                             disabled: false,

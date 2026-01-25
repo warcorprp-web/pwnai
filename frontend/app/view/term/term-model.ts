@@ -1017,10 +1017,10 @@ export class TermViewModel implements ViewModel {
         });
         const debugConn = blockData?.meta?.["term:conndebug"];
         advancedSubmenu.push({
-            label: "Debug Connection",
+            label: "Отладка соединения",
             submenu: [
                 {
-                    label: "Off",
+                    label: "Выкл",
                     type: "checkbox",
                     checked: !debugConn,
                     click: () => {
@@ -1031,7 +1031,7 @@ export class TermViewModel implements ViewModel {
                     },
                 },
                 {
-                    label: "Info",
+                    label: "Инфо",
                     type: "checkbox",
                     checked: debugConn == "info",
                     click: () => {
@@ -1042,7 +1042,7 @@ export class TermViewModel implements ViewModel {
                     },
                 },
                 {
-                    label: "Verbose",
+                    label: "Подробно",
                     type: "checkbox",
                     checked: debugConn == "debug",
                     click: () => {
@@ -1055,13 +1055,13 @@ export class TermViewModel implements ViewModel {
             ],
         });
         fullMenu.push({
-            label: "Advanced",
+            label: "Дополнительно",
             submenu: advancedSubmenu,
         });
         if (blockData?.meta?.["term:vdomtoolbarblockid"]) {
             fullMenu.push({ type: "separator" });
             fullMenu.push({
-                label: "Close Toolbar",
+                label: "Закрыть панель инструментов",
                 click: () => {
                     RpcApi.DeleteSubBlockCommand(TabRpcClient, { blockid: blockData.meta["term:vdomtoolbarblockid"] });
                 },
