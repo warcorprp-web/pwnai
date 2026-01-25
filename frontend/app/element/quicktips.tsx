@@ -221,13 +221,13 @@ const QuickTips = () => {
             <div className="flex flex-col gap-4 p-5 bg-gradient-to-br from-highlightbg/30 to-transparent hover:from-accent-400/5 rounded-lg border border-white/10 hover:border-accent-400/20 transition-all duration-300">
                 <div className="flex items-center gap-2 text-xl font-bold">
                     <div className="w-1 h-6 bg-accent-400 rounded-full"></div>
-                    <span className="text-foreground">Команды wsh</span>
+                    <span className="text-foreground">Команды ish</span>
                 </div>
                 <div className="grid grid-cols-1 @md:grid-cols-2 gap-4">
                     <div className="flex flex-col gap-2 p-4 bg-black/20 rounded-lg border border-accent-400/30 hover:border-accent-400/50 transition-colors">
                         <code className="font-mono text-sm">
                             <span className="text-secondary">&gt; </span>
-                            <span className="text-accent-400 font-semibold">wsh view</span>
+                            <span className="text-accent-400 font-semibold">ish view</span>
                             <span className="text-muted"> [filename|url]</span>
                         </code>
                         <div className="text-secondary text-sm mt-1">Просмотр файлов, директорий или веб-URL</div>
@@ -235,7 +235,7 @@ const QuickTips = () => {
                     <div className="flex flex-col gap-2 p-4 bg-black/20 rounded-lg border border-accent-400/30 hover:border-accent-400/50 transition-colors">
                         <code className="font-mono text-sm">
                             <span className="text-secondary">&gt; </span>
-                            <span className="text-accent-400 font-semibold">wsh edit</span>
+                            <span className="text-accent-400 font-semibold">ish edit</span>
                             <span className="text-muted"> [filename]</span>
                         </code>
                         <div className="text-secondary text-sm mt-1">Редактирование конфигурационных и кодовых файлов</div>
