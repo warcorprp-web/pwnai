@@ -26,6 +26,8 @@ import { WaveUIMessage } from "./aitypes";
 import { BYOKAnnouncement } from "./byokannouncement";
 import { TelemetryRequiredMessage } from "./telemetryrequired";
 import { WaveAIModel } from "./waveai-model";
+import { usePwnAIChat } from "./use-pwnai-chat";
+import { PwnAIClient } from "@/app/store/pwnai-client";
 
 const AIBlockMask = memo(() => {
     return (
@@ -86,17 +88,81 @@ KeyCap.displayName = "KeyCap";
 const AIWelcomeMessage = memo(() => {
     const modKey = isMacOS() ? "⌘" : "Alt";
     const aiModeConfigs = jotai.useAtomValue(atoms.waveaiModeConfigAtom);
+    const currentMode = jotai.useAtomValue(atoms.waveaiModeAtom);
     const hasCustomModes = Object.keys(aiModeConfigs).some((key) => !key.startsWith("waveai@"));
+    const isPwnAIMode = currentMode === "pwnai@default";
+    
+    if (isPwnAIMode) {
+        return (
+            <div className="text-secondary py-8">
+                <div className="text-center">
+                    <i className="fa fa-shield-halved text-4xl text-accent mb-2 block"></i>
+                    <p className="text-lg font-bold text-primary">Добро пожаловать в PwnAI</p>
+                    <p className="text-sm text-muted mt-1">AI-ассистент для пентестинга</p>
+                </div>
+                <div className="mt-4 text-left max-w-md mx-auto">
+                    <p className="text-sm mb-6">
+                        PwnAI - это AI ассистент с интеграцией Metasploit Framework. Я могу помочь вам с:
+                    </p>
+                    <div className="bg-accent/10 border border-accent/30 rounded-lg p-4">
+                        <div className="text-sm font-semibold mb-3 text-accent">Возможности:</div>
+                        <div className="space-y-3 text-sm">
+                            <div className="flex items-start gap-3">
+                                <div className="w-4 text-center flex-shrink-0">
+                                    <i className="fa-solid fa-radar text-accent"></i>
+                                </div>
+                                <div>
+                                    <span className="font-bold">Сканирование</span>
+                                    <div className="">Nmap сканирование через Metasploit</div>
+                                </div>
+                            </div>
+                            <div className="flex items-start gap-3">
+                                <div className="w-4 text-center flex-shrink-0">
+                                    <i className="fa-solid fa-bug text-accent"></i>
+                                </div>
+                                <div>
+                                    <span className="font-bold">Эксплуатация</span>
+                                    <div className="">Поиск и использование эксплойтов</div>
+                                </div>
+                            </div>
+                            <div className="flex items-start gap-3">
+                                <div className="w-4 text-center flex-shrink-0">
+                                    <i className="fa-solid fa-terminal text-accent"></i>
+                                </div>
+                                <div>
+                                    <span className="font-bold">Сессии</span>
+                                    <div className="">Управление meterpreter сессиями</div>
+                                </div>
+                            </div>
+                            <div className="flex items-start gap-3">
+                                <div className="w-4 text-center flex-shrink-0">
+                                    <i className="fa-solid fa-code text-accent"></i>
+                                </div>
+                                <div>
+                                    <span className="font-bold">MSF RPC</span>
+                                    <div className="">Прямой доступ к Metasploit API</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="mt-4 text-center text-[12px] text-muted">
+                        ⚠️ Используйте только в легальных целях с разрешением владельца системы
+                    </div>
+                </div>
+            </div>
+        );
+    }
+    
     return (
         <div className="text-secondary py-8">
             <div className="text-center">
                 <i className="fa fa-sparkles text-4xl text-accent mb-2 block"></i>
-                <p className="text-lg font-bold text-primary">Welcome to Wave AI</p>
+                <p className="text-lg font-bold text-primary">Wave AI</p>
             </div>
             <div className="mt-4 text-left max-w-md mx-auto">
                 <p className="text-sm mb-6">
-                    Wave AI is your terminal assistant with context. I can read your terminal output, analyze widgets,
-                    access files, and help you solve problems faster.
+                    Wave AI - ваш терминальный ассистент с контекстом. Может читать вывод терминала, анализировать виджеты,
+                    работать с файлами и помогать решать задачи быстрее.
                 </p>
                 <div className="bg-accent/10 border border-accent/30 rounded-lg p-4">
                     <div className="text-sm font-semibold mb-3 text-accent">Getting Started:</div>
@@ -131,21 +197,21 @@ const AIWelcomeMessage = memo(() => {
                                     <KeyCap>{modKey}</KeyCap>
                                     <KeyCap className="ml-1">Shift</KeyCap>
                                     <KeyCap className="ml-1">A</KeyCap>
-                                    <span className="ml-1.5">to toggle panel</span>
+                                    <span className="ml-1.5">переключить панель</span>
                                 </div>
                                 <div>
                                     {isWindows() ? (
                                         <>
                                             <KeyCap>Alt</KeyCap>
                                             <KeyCap className="ml-1">0</KeyCap>
-                                            <span className="ml-1.5">to focus</span>
+                                            <span className="ml-1.5">фокус</span>
                                         </>
                                     ) : (
                                         <>
                                             <KeyCap>Ctrl</KeyCap>
                                             <KeyCap className="ml-1">Shift</KeyCap>
                                             <KeyCap className="ml-1">0</KeyCap>
-                                            <span className="ml-1.5">to focus</span>
+                                            <span className="ml-1.5">фокус</span>
                                         </>
                                     )}
                                 </div>
@@ -153,26 +219,33 @@ const AIWelcomeMessage = memo(() => {
                         </div>
                         <div className="flex items-start gap-3">
                             <div className="w-4 text-center flex-shrink-0">
-                                <i className="fa-brands fa-discord text-accent"></i>
+                                <i className="fa-brands fa-github text-accent"></i>
                             </div>
                             <div>
-                                Questions or feedback?{" "}
+                                Вопросы или предложения?{" "}
                                 <a
                                     target="_blank"
-                                    href="https://discord.gg/XfvZ334gwU"
+                                    href="https://github.com/pwnai/pwnai"
                                     rel="noopener"
                                     className="text-accent hover:underline cursor-pointer"
                                 >
-                                    Join our Discord
+                                    GitHub
                                 </a>
                             </div>
                         </div>
                     </div>
                 </div>
-                {!hasCustomModes && <BYOKAnnouncement />}
-                <div className="mt-4 text-center text-[12px] text-muted">
-                    BETA: Free to use. Daily limits keep our costs in check.
-                </div>
+                {!hasCustomModes && isPwnAIMode && (
+                    <div className="mt-4 text-center text-[12px] text-accent">
+                        🚀 PwnAI v1.0 - AI для пентестинга
+                    </div>
+                )}
+                {!isPwnAIMode && !hasCustomModes && <BYOKAnnouncement />}
+                {!isPwnAIMode && (
+                    <div className="mt-4 text-center text-[12px] text-muted">
+                        BETA: Free to use. Daily limits keep our costs in check.
+                    </div>
+                )}
             </div>
         </div>
     );
@@ -263,7 +336,38 @@ const AIPanelComponentInner = memo(() => {
     const isUsingCustomMode = !defaultMode.startsWith("waveai@");
     const allowAccess = telemetryEnabled || (hasCustomModes && isUsingCustomMode);
 
-    const { messages, sendMessage, status, setMessages, error, stop } = useChat<WaveUIMessage>({
+    // PwnAI: Используем наш хук вместо useChat
+    const isPwnAIMode = defaultMode === "pwnai@default";
+    
+    // Обработчик вызова инструментов
+    const handleToolCall = useCallback(async (toolCall: any) => {
+        console.log("🔧 Executing tool:", toolCall.name);
+        
+        try {
+            const params = JSON.parse(toolCall.args);
+            const result = await PwnAIClient.executeToolResult(
+                toolCall.id,
+                toolCall.name,
+                params.input || params
+            );
+            
+            console.log("✅ Tool result:", result);
+            return result;
+        } catch (error) {
+            console.error("❌ Tool execution failed:", error);
+            throw error;
+        }
+    }, []);
+
+    const pwnaiChat = usePwnAIChat({
+        onError: (error) => {
+            console.error("PwnAI Chat error:", error);
+            model.setError(error || "An error occurred");
+        },
+        onToolCall: handleToolCall,
+    });
+
+    const waveChat = useChat<WaveUIMessage>({
         transport: new DefaultChatTransport({
             api: model.getUseChatEndpointUrl(),
             prepareSendMessagesRequest: (opts) => {
@@ -289,6 +393,9 @@ const AIPanelComponentInner = memo(() => {
             model.setError(error.message || "An error occurred");
         },
     });
+
+    // Выбираем какой чат использовать
+    const { messages, sendMessage, status, setMessages, error, stop } = isPwnAIMode ? pwnaiChat : waveChat;
 
     model.registerUseChatData(sendMessage, setMessages, status, stop);
 

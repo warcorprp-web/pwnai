@@ -1497,3 +1497,99 @@ func (ws *WshServer) JobControllerAttachJobCommand(ctx context.Context, data wsh
 func (ws *WshServer) JobControllerDetachJobCommand(ctx context.Context, jobId string) error {
 	return jobcontroller.DetachJobFromBlock(ctx, jobId, true)
 }
+
+
+// PwnAI Pentest Commands
+
+func (ws *WshServer) PentestScanCommand(ctx context.Context, data wshrpc.CommandData) (interface{}, error) {
+	return ScanTargetCommand(ctx, data)
+}
+
+func (ws *WshServer) PentestExploitCommand(ctx context.Context, data wshrpc.CommandData) (interface{}, error) {
+	return ExploitTargetCommand(ctx, data)
+}
+
+func (ws *WshServer) PentestSessionsCommand(ctx context.Context, data wshrpc.CommandData) (interface{}, error) {
+	return ListSessionsCommand(ctx, data)
+}
+
+func (ws *WshServer) PentestCommandCommand(ctx context.Context, data wshrpc.CommandData) (interface{}, error) {
+	return RunSessionCommandCommand(ctx, data)
+}
+
+func (ws *WshServer) PentestMsfRpcCommand(ctx context.Context, data wshrpc.CommandData) (interface{}, error) {
+	return MsfRpcCallCommand(ctx, data)
+}
+
+func (ws *WshServer) PentestToolResultCommand(ctx context.Context, data wshrpc.CommandData) (interface{}, error) {
+	return PentestToolResultCommand(ctx, data)
+}
+
+
+// PentestAIStreamCommand - стриминг AI ответов для PwnAI
+func (ws *WshServer) PentestAIStreamCommand(ctx context.Context, request wshrpc.WaveAIStreamRequest) chan wshrpc.RespOrErrorUnion[wshrpc.WaveAIPacketType] {
+	respChan := make(chan wshrpc.RespOrErrorUnion[wshrpc.WaveAIPacketType])
+
+	go func() {
+		defer close(respChan)
+
+		// Используем PwnAI backend
+		backend, err := aiusechat.GetBackendByName("pwnai")
+		if err != nil {
+			respChan <- wshrpc.RespOrErrorUnion[wshrpc.WaveAIPacketType]{
+				Error: err,
+			}
+			return
+		}
+
+		// Конвертируем запрос
+		ucRequest := uctypes.UseChatRequest{
+			Messages: make([]uctypes.Message, 0, len(request.Messages)),
+		}
+
+		for _, msg := range request.Messages {
+			ucRequest.Messages = append(ucRequest.Messages, uctypes.Message{
+				Role:    msg.Role,
+				Content: msg.Content,
+				Parts:   msg.Parts,
+			})
+		}
+
+		// Получаем стрим от backend
+		streamChan := backend.StreamCompletion(ctx, ucRequest)
+
+		// Пересылаем ответы
+		for response := range streamChan {
+			packet := wshrpc.WaveAIPacketType{}
+
+			switch response.Type {
+			case uctypes.ResponseTypeContent:
+				packet.Type = "text"
+				packet.Text = response.Text
+
+			case uctypes.ResponseTypeToolCall:
+				packet.Type = "tool_use"
+				packet.ToolCall = &wshrpc.ToolCallType{
+					ID:   response.ToolCall.ID,
+					Name: response.ToolCall.Name,
+					Args: response.ToolCall.Args,
+				}
+
+			case uctypes.ResponseTypeError:
+				respChan <- wshrpc.RespOrErrorUnion[wshrpc.WaveAIPacketType]{
+					Error: fmt.Errorf(response.Error),
+				}
+				return
+
+			case uctypes.ResponseTypeDone:
+				packet.Type = "done"
+			}
+
+			respChan <- wshrpc.RespOrErrorUnion[wshrpc.WaveAIPacketType]{
+				Response: packet,
+			}
+		}
+	}()
+
+	return respChan
+}

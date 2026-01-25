@@ -574,6 +574,18 @@ func main() {
 	go startupActivityUpdate(firstLaunch) // must be after startConfigWatcher()
 	blocklogger.InitBlockLogger()
 	jobcontroller.InitJobController()
+	
+	// PwnAI: Инициализация Pentest сервиса
+	go func() {
+		defer func() {
+			panichandler.PanicHandler("InitPentestService", recover())
+		}()
+		err := wshserver.InitPentestService()
+		if err != nil {
+			log.Printf("⚠️  PwnAI Pentest Service initialization failed: %v\n", err)
+		}
+	}()
+	
 	go func() {
 		defer func() {
 			panichandler.PanicHandler("GetSystemSummary", recover())

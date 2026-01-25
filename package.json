@@ -1,16 +1,16 @@
 {
-    "name": "waveterm",
+    "name": "pwnai",
     "author": {
-        "name": "Command Line Inc",
-        "email": "info@commandline.dev"
+        "name": "PwnAI Team",
+        "email": "info@pwnai.dev"
     },
-    "productName": "Wave",
-    "description": "Open-Source AI-Native Terminal Built for Seamless Workflows",
+    "productName": "PwnAI",
+    "description": "AI-Powered Penetration Testing Terminal",
     "license": "Apache-2.0",
-    "version": "0.13.2-alpha.0",
-    "homepage": "https://waveterm.dev",
+    "version": "1.0.0",
+    "homepage": "https://pwnai.dev",
     "build": {
-        "appId": "dev.commandline.waveterm"
+        "appId": "dev.pwnai.terminal"
     },
     "private": true,
     "main": "./dist/main/index.js",
