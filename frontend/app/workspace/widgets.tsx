@@ -426,17 +426,19 @@ const Widgets = memo(() => {
                         </div>
                         <div className="flex-grow" />
                         <div className="grid grid-cols-1 gap-0 w-full">
-                            <Tooltip 
-                                content="Настройки и справка" 
-                                placement="left" 
-                                disable={isSettingsOpen}
-                                divClassName="flex flex-col justify-center items-center w-full py-1.5 pr-0.5 text-secondary text-sm overflow-hidden rounded-sm hover:bg-hoverbg hover:text-white cursor-pointer"
-                                divOnClick={() => setIsSettingsOpen(!isSettingsOpen)}
-                            >
-                                <div ref={settingsButtonRef}>
-                                    <i className={makeIconClass("gear", true)}></i>
-                                </div>
-                            </Tooltip>
+                            <div ref={settingsButtonRef}>
+                                <Tooltip 
+                                    content="Настройки и справка" 
+                                    placement="left" 
+                                    disable={isSettingsOpen}
+                                    divClassName="flex flex-col justify-center items-center w-full py-1.5 pr-0.5 text-secondary text-sm overflow-hidden rounded-sm hover:bg-hoverbg hover:text-white cursor-pointer"
+                                    divOnClick={() => setIsSettingsOpen(!isSettingsOpen)}
+                                >
+                                    <div>
+                                        <i className={makeIconClass("gear", true)}></i>
+                                    </div>
+                                </Tooltip>
+                            </div>
                         </div>
                     </>
                 ) : (
@@ -445,17 +447,19 @@ const Widgets = memo(() => {
                             <Widget key={`widget-${idx}`} widget={data} mode={mode} />
                         ))}
                         <div className="flex-grow" />
-                        <Tooltip 
-                            content="Настройки и справка" 
-                            placement="left" 
-                            disable={isSettingsOpen}
-                            divClassName="flex flex-col justify-center items-center w-full py-1.5 pr-0.5 text-secondary text-lg overflow-hidden rounded-sm hover:bg-hoverbg hover:text-white cursor-pointer"
-                            divOnClick={() => setIsSettingsOpen(!isSettingsOpen)}
-                        >
-                            <div ref={settingsButtonRef}>
-                                <i className={makeIconClass("gear", true)}></i>
-                            </div>
-                        </Tooltip>
+                        <div ref={settingsButtonRef}>
+                            <Tooltip 
+                                content="Настройки и справка" 
+                                placement="left" 
+                                disable={isSettingsOpen}
+                                divClassName="flex flex-col justify-center items-center w-full py-1.5 pr-0.5 text-secondary text-lg overflow-hidden rounded-sm hover:bg-hoverbg hover:text-white cursor-pointer"
+                                divOnClick={() => setIsSettingsOpen(!isSettingsOpen)}
+                            >
+                                <div>
+                                    <i className={makeIconClass("gear", true)}></i>
+                                </div>
+                            </Tooltip>
+                        </div>
                     </>
                 )}
                 {isDev() ? (
