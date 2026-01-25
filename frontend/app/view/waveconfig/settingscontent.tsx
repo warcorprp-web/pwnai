@@ -73,16 +73,6 @@ const SettingsContentComponent = ({ model }: SettingsContentProps) => {
                         </select>
                     </div>
 
-                    <div className="flex items-center gap-2 mt-2">
-                        <input
-                            type="checkbox"
-                            checked={settings["telemetry:enabled"] !== false}
-                            onChange={(e) => updateSetting("telemetry:enabled", e.target.checked)}
-                            className="w-4 h-4"
-                        />
-                        <label className="text-sm text-secondary">Отправлять анонимную телеметрию</label>
-                    </div>
-
                     <div className="flex gap-2 mt-4">
                         <Button onClick={handleSave} className="bg-accent hover:bg-accenthover text-white">
                             Сохранить изменения
