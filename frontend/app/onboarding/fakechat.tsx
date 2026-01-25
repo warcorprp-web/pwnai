@@ -20,7 +20,6 @@ const chatConfigs: ChatConfig[] = [
 
 ## Что это
 - Electron + React фронтенд с Go бэкендом. Предоставляет терминал с GUI виджетами, превью, веб-браузером и AI. (README.md)
-- Лицензия Apache-2.0. (LICENSE)
 
 ## Архитектура
 - **Electron main process:** \`emain/*.ts\` настраивает окна, меню, preload скрипты, обновления и связывается с Go бэкендом через локальный RPC. (\`emain/\`)
