@@ -67,6 +67,7 @@ export async function createBuilderWindow(appId: string): Promise<BuilderWindowT
         webPreferences: {
             preload: path.join(getElectronAppBasePath(), "preload", "index.cjs"),
             webviewTag: true,
+            devTools: false, // Отключить инструменты разработчика
         },
     });
 

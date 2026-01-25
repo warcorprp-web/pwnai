@@ -77,7 +77,8 @@ function handleWindowsMenuAccelerators(waveEvent: WaveKeyboardEvent, tabView: Wa
     }
 
     if (checkKeyPressed(waveEvent, "Alt:Shift:i")) {
-        tabView.webContents.toggleDevTools();
+        // DevTools отключены
+        // tabView.webContents.toggleDevTools();
         return true;
     }
 
@@ -127,6 +128,7 @@ export class WaveTabView extends WebContentsView {
             webPreferences: {
                 preload: path.join(getElectronAppBasePath(), "preload", "index.cjs"),
                 webviewTag: true,
+                devTools: false, // Отключить инструменты разработчика
             },
         });
         this.createdTs = Date.now();

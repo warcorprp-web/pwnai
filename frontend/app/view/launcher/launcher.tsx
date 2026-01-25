@@ -224,8 +224,22 @@ const LauncherView: React.FC<ViewComponentProps<LauncherViewModel>> = ({ blockId
 
             {/* Logo */}
             {showLogo && (
-                <div className="mb-6" style={{ width: logoWidth, maxWidth: 300 }}>
+                <div className="mb-6 flex flex-col items-center" style={{ width: logoWidth, maxWidth: 300 }}>
                     <img src={logoUrl} className="w-full h-auto filter grayscale brightness-70 opacity-70" alt="Logo" />
+                    <div className="mt-3 text-center text-sm">
+                        <span className="text-white">
+                            <span style={{ color: '#ff6600' }}>Искра</span> Терминал от{' '}
+                        </span>
+                        <span style={{
+                            background: 'linear-gradient(to right, #00bfff, #ff6600)',
+                            WebkitBackgroundClip: 'text',
+                            WebkitTextFillColor: 'transparent',
+                            backgroundClip: 'text',
+                            fontWeight: 'bold'
+                        }}>
+                            CryptoCat's Lab
+                        </span>
+                    </div>
                 </div>
             )}
 
@@ -272,11 +286,11 @@ const LauncherView: React.FC<ViewComponentProps<LauncherViewModel>> = ({ blockId
             {/* Search instructions */}
             <div className="mt-4 text-secondary text-xs">
                 {filteredWidgets.length === 0 ? (
-                    <span>No widgets found. Press Escape to clear search.</span>
+                    <span>Виджеты не найдены. Нажмите Escape для очистки поиска.</span>
                 ) : (
                     <span>
-                        {searchTerm == "" ? "Type to Filter" : "Searching " + '"' + searchTerm + '"'}, Enter to Launch,
-                        {searchTerm == "" ? "Arrow Keys to Navigate" : null}
+                        {searchTerm == "" ? "Введите для фильтрации" : "Поиск " + '"' + searchTerm + '"'}, Enter для запуска,
+                        {searchTerm == "" ? "Стрелки для навигации" : null}
                     </span>
                 )}
             </div>

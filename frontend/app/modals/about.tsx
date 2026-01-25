@@ -23,45 +23,42 @@ const AboutModal = ({}: AboutModalProps) => {
                     <Logo />
                     <div className="text-[25px]">Искра Терминал</div>
                     <div className="leading-5">
-                        Open-Source AI-Native Terminal
-                        <br />
-                        Built for Seamless Workflows
+                        AI-терминал, который видит всё ваше рабочее пространство
                     </div>
                 </div>
                 <div className="items-center gap-4 self-stretch w-full text-center">
-                    Client Version {details.version} ({isDev() ? "dev-" : ""}
+                    Версия {details.version} ({isDev() ? "dev-" : ""}
                     {details.buildTime})
-                    <br />
-                    Update Channel: {updaterChannel}
                 </div>
-                <div className="flex items-start gap-[10px] self-stretch w-full text-center">
+                <div className="flex items-center justify-center gap-[10px] self-stretch w-full text-center">
                     <a
-                        href="https://github.com/wavetermdev/waveterm?ref=about"
+                        href="https://cryptocatslab.ru"
                         target="_blank"
                         rel="noopener"
                         className="inline-flex items-center px-4 py-2 rounded border border-border hover:bg-hoverbg transition-colors duration-200"
                     >
-                        <i className="fa-brands fa-github mr-2"></i>Github
+                        <i className="fa-sharp fa-light fa-globe mr-2"></i>Вебсайт
                     </a>
                     <a
-                        href="https://www.waveterm.dev/?ref=about"
+                        href="https://t.me/deya_vocals"
                         target="_blank"
                         rel="noopener"
                         className="inline-flex items-center px-4 py-2 rounded border border-border hover:bg-hoverbg transition-colors duration-200"
                     >
-                        <i className="fa-sharp fa-light fa-globe mr-2"></i>Website
-                    </a>
-                    <a
-                        href="https://github.com/wavetermdev/waveterm/blob/main/ACKNOWLEDGEMENTS.md"
-                        target="_blank"
-                        rel="noopener"
-                        className="inline-flex items-center px-4 py-2 rounded border border-border hover:bg-hoverbg transition-colors duration-200"
-                    >
-                        <i className="fa-sharp fa-light fa-heart mr-2"></i>Acknowledgements
+                        <i className="fa-brands fa-telegram mr-2"></i>Поддержка
                     </a>
                 </div>
                 <div className="items-center gap-4 self-stretch w-full text-center">
-                    &copy; {currentDate.getFullYear()} Command Line Inc.
+                    &copy; {currentDate.getFullYear()}{" "}
+                    <span style={{
+                        background: 'linear-gradient(to right, #00bfff, #ff6600)',
+                        WebkitBackgroundClip: 'text',
+                        WebkitTextFillColor: 'transparent',
+                        backgroundClip: 'text',
+                        fontWeight: 'bold'
+                    }}>
+                        CryptoCat's Lab
+                    </span>
                 </div>
             </div>
         </Modal>

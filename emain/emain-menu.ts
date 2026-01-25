@@ -181,15 +181,9 @@ function makeFileMenu(
 function makeAppMenuItems(webContents: electron.WebContents): Electron.MenuItemConstructorOptions[] {
     const appMenuItems: Electron.MenuItemConstructorOptions[] = [
         {
-            label: "О программе PwnAI",
+            label: "О программе Искра Терминал",
             click: (_, window) => {
                 (getWindowWebContents(window) ?? webContents)?.send("menu-item-about");
-            },
-        },
-        {
-            label: "Проверить обновления",
-            click: () => {
-                fireAndForget(() => updater?.checkForUpdates(true));
             },
         },
         { type: "separator" },
@@ -198,12 +192,12 @@ function makeAppMenuItems(webContents: electron.WebContents): Electron.MenuItemC
         appMenuItems.push(
             { label: "Службы", role: "services" },
             { type: "separator" },
-            { label: "Скрыть PwnAI", role: "hide" },
+            { label: "Скрыть Искра Терминал", role: "hide" },
             { label: "Скрыть остальные", role: "hideOthers" },
             { type: "separator" }
         );
     }
-    appMenuItems.push({ label: "Выйти из PwnAI", role: "quit" });
+    appMenuItems.push({ label: "Выйти из Искра Терминал", role: "quit" });
     return appMenuItems;
 }
 
@@ -213,7 +207,6 @@ function makeViewMenu(
     isBuilderWindowFocused: boolean,
     fullscreenOnLaunch: boolean
 ): Electron.MenuItemConstructorOptions[] {
-    const devToolsAccel = unamePlatform === "darwin" ? "Option+Command+I" : "Alt+Shift+I";
     return [
         {
             label: isBuilderWindowFocused ? "Перезагрузить окно" : "Перезагрузить вкладку",
@@ -229,14 +222,6 @@ function makeViewMenu(
         {
             label: "Очистить кэш вкладки",
             click: () => clearTabCache(),
-        },
-        {
-            label: "Инструменты разработчика",
-            accelerator: devToolsAccel,
-            click: (_, window) => {
-                let wc = getWindowWebContents(window) ?? webContents;
-                wc?.toggleDevTools();
-            },
         },
         { type: "separator" },
         {
@@ -353,7 +338,7 @@ async function makeFullAppMenu(callbacks: AppMenuCallbacks, workspaceOrBuilderId
         { label: "На передний план", role: "front" },
     ];
     const menuTemplate: Electron.MenuItemConstructorOptions[] = [
-        { label: "PwnAI", role: "appMenu", submenu: appMenuItems },
+        { label: "Искра Терминал", role: "appMenu", submenu: appMenuItems },
         { label: "Файл", role: "fileMenu", submenu: fileMenu },
         { label: "Правка", role: "editMenu", submenu: editMenu },
         { label: "Вид", role: "viewMenu", submenu: viewMenu },

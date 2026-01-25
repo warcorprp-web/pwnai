@@ -33,6 +33,7 @@
     },
     "defwidget@ai": {
         "display:order": -2,
+        "display:hidden": true,
         "icon": "sparkles",
         "label": "искра",
         "blockdef": {
