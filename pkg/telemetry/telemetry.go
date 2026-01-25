@@ -65,8 +65,8 @@ func GetTosAgreedTs() int64 {
 	return 0
 }
 
-func TruncateActivityTEventForShutdown(event interface{}) {
-	// no-op
+func TruncateActivityTEventForShutdown(event interface{}) interface{} {
+	return nil
 }
 
 func Shutdown() {
