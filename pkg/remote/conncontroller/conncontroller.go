@@ -437,7 +437,7 @@ type WshInstallOpts struct {
 }
 
 var queryTextTemplate = strings.TrimSpace(`
-Wave требует установки расширений Wave Shell
+Искра требует установки расширений Искра Shell
 на %q
 для обеспечения бесшовной работы.
 
@@ -464,15 +464,15 @@ func (conn *SSHConn) UpdateWsh(ctx context.Context, clientDisplayName string, re
 func (conn *SSHConn) getPermissionToInstallWsh(ctx context.Context, clientDisplayName string) (bool, error) {
 	conn.Infof(ctx, "running getPermissionToInstallWsh...\n")
 	queryText := fmt.Sprintf(queryTextTemplate, clientDisplayName)
-	title := "Установка расширений Wave Shell"
+	title := "Установка расширений Искра Shell"
 	request := &userinput.UserInputRequest{
 		ResponseType: "confirm",
 		QueryText:    queryText,
 		Title:        title,
 		Markdown:     true,
 		CheckBoxMsg:  "Автоматически устанавливать для всех подключений",
-		OkLabel:      "Установить wsh",
-		CancelLabel:  "Без wsh",
+		OkLabel:      "Установить ish",
+		CancelLabel:  "Без ish",
 	}
 	conn.Infof(ctx, "requesting user confirmation...\n")
 	response, err := userinput.GetUserInput(ctx, request)
