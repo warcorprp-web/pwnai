@@ -8,7 +8,7 @@ import { authApi } from "@/app/store/authapi";
 import { RpcApi } from "@/app/store/wshclientapi";
 import { TabRpcClient } from "@/app/store/wshrpcutil";
 import { useAtom } from "jotai";
-import { memo, useState } from "react";
+import { memo, useState, useEffect } from "react";
 
 interface SettingsContentProps {
     model: WaveConfigViewModel;
@@ -16,8 +16,8 @@ interface SettingsContentProps {
 
 const SettingsContentComponent = ({ model }: SettingsContentProps) => {
     const [isAuthenticated] = useAtom(isAuthenticatedAtom);
-    const [, setAuthToken] = useAtom(authTokenAtom);
-    const [, setUserData] = useAtom(userDataAtom);
+    const [authToken, setAuthToken] = useAtom(authTokenAtom);
+    const [userData, setUserData] = useAtom(userDataAtom);
     const [isLogin, setIsLogin] = useState(true);
     const [step, setStep] = useState<"email" | "otp" | "password">("email");
     const [email, setEmail] = useState("");
@@ -26,6 +26,30 @@ const SettingsContentComponent = ({ model }: SettingsContentProps) => {
     const [confirmPassword, setConfirmPassword] = useState("");
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
+    const [keyInfo, setKeyInfo] = useState<any>(null);
+
+    // Загрузка информации о ключе при авторизации
+    useEffect(() => {
+        if (isAuthenticated && authToken) {
+            loadKeyInfo();
+        }
+    }, [isAuthenticated, authToken]);
+
+    const loadKeyInfo = async () => {
+        try {
+            const response = await fetch("https://cli.cryptocatslab.ru/api/auth/key-info", {
+                headers: {
+                    "Authorization": `Bearer ${authToken}`,
+                },
+            });
+            const data = await response.json();
+            if (data.success) {
+                setKeyInfo(data.data);
+            }
+        } catch (err) {
+            console.error("Ошибка загрузки информации о ключе:", err);
+        }
+    };
 
     const handleSendCode = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -184,6 +208,14 @@ const SettingsContentComponent = ({ model }: SettingsContentProps) => {
     };
 
     if (isAuthenticated) {
+        const subscriptionTier = userData?.subscription_tier || "trial";
+        const subscriptionExpires = userData?.subscription_expires 
+            ? new Date(userData.subscription_expires).toLocaleDateString("ru-RU")
+            : "—";
+        const dailyLimit = keyInfo?.dailyLimit || 100;
+        const todayUsage = keyInfo?.usage?.today || 0;
+        const remaining = keyInfo?.usage?.remaining || dailyLimit;
+
         return (
             <div className="flex flex-col h-full overflow-auto p-6">
                 <div className="max-w-md mx-auto w-full">
@@ -193,30 +225,46 @@ const SettingsContentComponent = ({ model }: SettingsContentProps) => {
                                 <i className="fa fa-user text-accent text-xl"></i>
                             </div>
                             <div>
-                                <h3 className="text-lg font-semibold text-white">{email || "Пользователь"}</h3>
-                                <p className="text-sm text-gray-400">Активная подписка</p>
+                                <h3 className="text-lg font-semibold text-white">{userData?.email || "Пользователь"}</h3>
+                                <p className="text-sm text-gray-400">
+                                    {subscriptionTier === "trial" ? "Пробный период" : "Активная подписка"}
+                                </p>
                             </div>
                         </div>
                         
                         <div className="space-y-3 mb-6">
                             <div className="flex justify-between py-2 border-b border-zinc-700">
                                 <span className="text-gray-400">Подписка</span>
-                                <span className="text-white font-medium">Pro</span>
+                                <span className="text-white font-medium">
+                                    {subscriptionTier === "trial" ? "Trial" : subscriptionTier === "pro" ? "Pro" : "Basic"}
+                                </span>
                             </div>
                             <div className="flex justify-between py-2 border-b border-zinc-700">
                                 <span className="text-gray-400">Действует до</span>
-                                <span className="text-white">01.02.2026</span>
+                                <span className="text-white">{subscriptionExpires}</span>
+                            </div>
+                            <div className="flex justify-between py-2 border-b border-zinc-700">
+                                <span className="text-gray-400">Лимит в день</span>
+                                <span className="text-white">{dailyLimit} запросов</span>
                             </div>
                             <div className="flex justify-between py-2">
-                                <span className="text-gray-400">Запросов сегодня</span>
-                                <span className="text-white">45 / 1000</span>
+                                <span className="text-gray-400">Использовано сегодня</span>
+                                <span className="text-white">{todayUsage} / {dailyLimit}</span>
+                            </div>
+                            <div className="flex justify-between py-2">
+                                <span className="text-gray-400">Осталось</span>
+                                <span className={remaining > 10 ? "text-green-400" : "text-red-400"}>
+                                    {remaining} запросов
+                                </span>
                             </div>
                         </div>
                         
                         <div className="space-y-2">
-                            <button className="w-full px-4 py-2.5 bg-accent/20 hover:bg-accent/30 text-accent font-medium rounded transition-colors cursor-pointer">
-                                Управление подпиской
-                            </button>
+                            {subscriptionTier === "trial" && (
+                                <button className="w-full px-4 py-2.5 bg-accent/20 hover:bg-accent/30 text-accent font-medium rounded transition-colors cursor-pointer">
+                                    Перейти на Pro (2000 запросов/день)
+                                </button>
+                            )}
                             <button 
                                 onClick={handleLogout}
                                 className="w-full px-4 py-2.5 bg-zinc-700 hover:bg-zinc-600 text-white font-medium rounded transition-colors cursor-pointer"
