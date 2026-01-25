@@ -424,7 +424,7 @@ func InitRcFiles(waveHome string, absWshBinDir string) error {
 }
 
 func initCustomShellStartupFilesInternal() error {
-	log.Printf("initializing wsh and shell startup files\n")
+	log.Printf("initializing ish and shell startup files\n")
 	waveDataHome := wavebase.GetWaveDataDir()
 	binDir := filepath.Join(waveDataHome, WaveHomeBinDir)
 	err := InitRcFiles(waveDataHome, binDir)
@@ -438,24 +438,24 @@ func initCustomShellStartupFilesInternal() error {
 	}
 
 	// copy the correct binary to bin
-	wshFullPath, err := GetLocalWshBinaryPath(wavebase.WaveVersion, runtime.GOOS, runtime.GOARCH)
+	ishFullPath, err := GetLocalWshBinaryPath(wavebase.WaveVersion, runtime.GOOS, runtime.GOARCH)
 	if err != nil {
 		log.Printf("error (non-fatal), could not resolve ish binary path: %v\n", err)
 	}
-	if _, err := os.Stat(wshFullPath); err != nil {
-		log.Printf("error (non-fatal), could not resolve ish binary %q: %v\n", wshFullPath, err)
+	if _, err := os.Stat(ishFullPath); err != nil {
+		log.Printf("error (non-fatal), could not resolve ish binary %q: %v\n", ishFullPath, err)
 		return nil
 	}
-	wshDstPath := filepath.Join(binDir, "ish")
+	ishDstPath := filepath.Join(binDir, "ish")
 	if runtime.GOOS == "windows" {
-		wshDstPath = wshDstPath + ".exe"
+		ishDstPath = ishDstPath + ".exe"
 	}
-	err = utilfn.AtomicRenameCopy(wshDstPath, wshFullPath, 0755)
+	err = utilfn.AtomicRenameCopy(ishDstPath, ishFullPath, 0755)
 	if err != nil {
 		return fmt.Errorf("error copying ish binary to bin: %v", err)
 	}
-	wshBaseName := filepath.Base(wshFullPath)
-	log.Printf("ish binary successfully copied from %q to %q\n", wshBaseName, wshDstPath)
+	ishBaseName := filepath.Base(ishFullPath)
+	log.Printf("ish binary successfully copied from %q to %q\n", ishBaseName, ishDstPath)
 	return nil
 }
 
