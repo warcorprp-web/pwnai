@@ -166,11 +166,47 @@ export const AIPanelInput = memo(({ onSubmit, status, model }: AIPanelInputProps
                             onBlur={handleBlur}
                             placeholder={placeholder}
                             className={cn(
-                                "w-full text-white px-4 py-3 pr-24 focus:outline-none resize-none overflow-auto bg-transparent"
+                                "w-full text-white px-4 py-3 pr-24 focus:outline-none resize-none overflow-auto bg-transparent",
+                                !isAuthenticated && "blur-sm pointer-events-none"
                             )}
                             style={{ fontSize: "14px", minHeight: "52px" }}
                             rows={2}
+                            disabled={!isAuthenticated}
                         />
+                        
+                        {/* Login overlay - только над textarea */}
+                        {!isAuthenticated && (
+                            <div 
+                                className="absolute inset-0 flex items-center justify-center cursor-pointer"
+                                onClick={handleLogin}
+                                onMouseEnter={() => setShowLoginOverlay(true)}
+                                onMouseLeave={() => setShowLoginOverlay(false)}
+                            >
+                                <div className={cn(
+                                    "bg-zinc-800/95 border border-accent/30 rounded-lg p-4 shadow-xl transition-all",
+                                    showLoginOverlay ? "scale-100 opacity-100" : "scale-95 opacity-90"
+                                )}>
+                                    <div className="flex items-center gap-3">
+                                        <i className="fa fa-lock text-2xl text-accent"></i>
+                                        <div>
+                                            <div className="text-sm font-semibold text-white mb-1">
+                                                Требуется авторизация
+                                            </div>
+                                            <div className="text-xs text-gray-400 mb-2">
+                                                3 дня бесплатно для новых пользователей
+                                            </div>
+                                            <button
+                                                onClick={handleLogin}
+                                                className="px-3 py-1.5 bg-accent hover:bg-accent/90 text-white text-sm font-medium rounded transition-colors"
+                                            >
+                                                Войти
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+                        
                         <div className="absolute bottom-2.5 right-2 flex gap-1.5">
                             <Tooltip content="Прикрепить файлы" placement="top">
                                 <button
@@ -216,39 +252,6 @@ export const AIPanelInput = memo(({ onSubmit, status, model }: AIPanelInputProps
                         </div>
                     </div>
                 </form>
-                
-                {/* Login overlay */}
-                {!isAuthenticated && (
-                    <div 
-                        className="absolute inset-0 backdrop-blur-sm bg-black/30 flex items-center justify-center rounded-lg cursor-pointer transition-all"
-                        onClick={handleLogin}
-                        onMouseEnter={() => setShowLoginOverlay(true)}
-                        onMouseLeave={() => setShowLoginOverlay(false)}
-                    >
-                        <div className={cn(
-                            "bg-zinc-800/95 border border-accent/30 rounded-lg p-4 shadow-xl transition-all",
-                            showLoginOverlay ? "scale-100 opacity-100" : "scale-95 opacity-90"
-                        )}>
-                            <div className="flex items-center gap-3">
-                                <i className="fa fa-lock text-2xl text-accent"></i>
-                                <div>
-                                    <div className="text-sm font-semibold text-white mb-1">
-                                        Требуется авторизация
-                                    </div>
-                                    <div className="text-xs text-gray-400 mb-2">
-                                        3 дня бесплатно для новых пользователей
-                                    </div>
-                                    <button
-                                        onClick={handleLogin}
-                                        className="px-3 py-1.5 bg-accent hover:bg-accent/90 text-white text-sm font-medium rounded transition-colors"
-                                    >
-                                        Войти
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                )}
             </div>
         </div>
     );
