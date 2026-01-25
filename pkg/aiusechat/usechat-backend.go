@@ -210,7 +210,7 @@ func (b *anthropicBackend) ConvertAIMessageToNativeChatMessage(message uctypes.A
 }
 
 func (b *anthropicBackend) GetFunctionCallInputByToolCallId(aiChat uctypes.AIChat, toolCallId string) *uctypes.AIFunctionCallInput {
-	return nil
+	return anthropic.GetFunctionCallInputByToolCallId(aiChat, toolCallId)
 }
 
 func (b *anthropicBackend) ConvertAIChatToUIChat(aiChat uctypes.AIChat) (*uctypes.UIChat, error) {

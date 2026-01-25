@@ -827,3 +827,51 @@ func ConvertAIChatToUIChat(aiChat uctypes.AIChat) (*uctypes.UIChat, error) {
 		Messages:   uiMessages,
 	}, nil
 }
+
+
+// GetFunctionCallInputByToolCallId returns the AIFunctionCallInput associated with the given ToolCallId,
+// or nil if not found in the AIChat
+func GetFunctionCallInputByToolCallId(aiChat uctypes.AIChat, toolCallId string) *uctypes.AIFunctionCallInput {
+	// First, try to find ToolUseData from UIChat
+	var toolUseData *uctypes.UIMessageDataToolUse
+	for _, uiMsg := range aiChat.UIMessages {
+		for _, part := range uiMsg.Parts {
+			if part.Type == "data-tooluse" && part.Data != nil {
+				if part.Data.ToolCallId == toolCallId {
+					toolUseData = part.Data
+					break
+				}
+			}
+		}
+		if toolUseData != nil {
+			break
+		}
+	}
+	
+	// Search through native messages for tool_use block
+	for _, nativeMsg := range aiChat.NativeMessages {
+		anthropicMsg, ok := nativeMsg.(*anthropicChatMessage)
+		if !ok {
+			continue
+		}
+		
+		// Search through content blocks for tool_use with matching ID
+		for _, block := range anthropicMsg.Content {
+			if block.Type == "tool_use" && block.ID == toolCallId {
+				// Convert Input to JSON string for Arguments
+				inputBytes, err := json.Marshal(block.Input)
+				if err != nil {
+					continue
+				}
+				
+				return &uctypes.AIFunctionCallInput{
+					CallId:      block.ID,
+					Name:        block.Name,
+					Arguments:   string(inputBytes),
+					ToolUseData: toolUseData,
+				}
+			}
+		}
+	}
+	return nil
+}
