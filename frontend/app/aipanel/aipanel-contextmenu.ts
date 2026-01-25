@@ -148,7 +148,7 @@ export async function handleWaveAIContextMenu(e: React.MouseEvent, showCopy: boo
         menu.push({ type: "separator" });
 
         menu.push({
-            label: "Скрыть Wave AI",
+            label: "Скрыть Искра AI",
             click: () => {
                 model.closeWaveAIPanel();
             },

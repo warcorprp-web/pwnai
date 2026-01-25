@@ -90,7 +90,7 @@ const configFiles: ConfigFile[] = [
         hasJsonView: true,
     },
     {
-        name: "Wave AI Modes",
+        name: "Искра AI Modes",
         path: "waveai.json",
         language: "json",
         description: "Local models and BYOK",

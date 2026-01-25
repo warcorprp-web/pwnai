@@ -93,10 +93,10 @@ const AIWelcomeMessage = memo(() => {
     const isPwnAIMode = currentMode === "pwnai@default";
     
     const welcomeIcon = isPwnAIMode ? "fa-shield-halved" : "fa-sparkles";
-    const welcomeTitle = isPwnAIMode ? "Добро пожаловать в PwnAI" : "Wave AI";
+    const welcomeTitle = isPwnAIMode ? "Добро пожаловать в PwnAI" : "Искра AI";
     const welcomeDescription = isPwnAIMode 
         ? "Профессиональный AI-ассистент для пентестинга с интеграцией Metasploit Framework"
-        : "Wave AI - ваш терминальный ассистент с контекстом";
+        : "Искра AI - ваш терминальный ассистент с контекстом";
     
     if (isPwnAIMode) {
         return (
@@ -375,10 +375,10 @@ const AIPanelComponentInner = memo(() => {
     const defaultMode = jotai.useAtomValue(getSettingsKeyAtom("waveai:defaultmode")) ?? "waveai@balanced";
     const isPwnAIMode = defaultMode === "pwnai@default";
     
-    const welcomeTitle = isPwnAIMode ? "PwnAI" : "Wave AI";
+    const welcomeTitle = isPwnAIMode ? "PwnAI" : "Искра AI";
     const welcomeDescription = isPwnAIMode 
         ? "Профессиональный AI-ассистент для пентестинга. Интегрирован с Metasploit Framework для автоматизации тестирования на проникновение."
-        : "Wave AI - ваш терминальный ассистент с контекстом. Может читать вывод терминала, анализировать виджеты, работать с файлами и помогать решать задачи быстрее.";
+        : "Искра AI - ваш терминальный ассистент с контекстом. Может читать вывод терминала, анализировать виджеты, работать с файлами и помогать решать задачи быстрее.";
     
     const welcomeIcon = isPwnAIMode ? "fa-shield" : "fa-sparkles";
     const aiModeConfigs = jotai.useAtomValue(model.aiModeConfigs);
@@ -662,7 +662,7 @@ const AIPanelComponentInner = memo(() => {
 
     const handleFocusCapture = useCallback(
         (event: React.FocusEvent) => {
-            // console.log("Wave AI focus capture", getElemAsStr(event.target));
+            // console.log("Искра AI focus capture", getElemAsStr(event.target));
             model.requestWaveAIFocus();
         },
         [model]
