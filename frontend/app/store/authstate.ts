@@ -19,6 +19,9 @@ export const isFreeLimitReachedAtom = atom((get) => {
 // Состояние авторизации (TODO: заменить на реальную проверку)
 export const isAuthenticatedAtom = atom<boolean>(false);
 
+// Флаг попытки превышения лимита (показывать баннер)
+export const showLimitBannerAtom = atom<boolean>(false);
+
 // Device ID для анонимных пользователей
 export const deviceIdAtom = atomWithStorage<string>("iskra:device-id", () => {
     return crypto.randomUUID();

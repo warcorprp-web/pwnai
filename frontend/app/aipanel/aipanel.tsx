@@ -29,7 +29,7 @@ import { BYOKAnnouncement } from "./byokannouncement";
 import { WaveAIModel } from "./waveai-model";
 import { usePwnAIChat } from "./use-pwnai-chat";
 import { PwnAIClient } from "@/app/store/pwnai-client";
-import { freeRequestCountAtom, isFreeLimitReachedAtom, isAuthenticatedAtom } from "@/app/store/authstate";
+import { freeRequestCountAtom, isFreeLimitReachedAtom, isAuthenticatedAtom, showLimitBannerAtom } from "@/app/store/authstate";
 
 const AIBlockMask = memo(() => {
     return (
@@ -378,6 +378,7 @@ const AIPanelComponentInner = memo(() => {
     const isPwnAIMode = defaultMode === "pwnai@default";
     const isFreeLimitReached = jotai.useAtomValue(isFreeLimitReachedAtom);
     const isAuthenticated = jotai.useAtomValue(isAuthenticatedAtom);
+    const showLimitBanner = jotai.useAtomValue(showLimitBannerAtom);
     
     const welcomeTitle = isPwnAIMode ? "PwnAI" : "Искра AI";
     const welcomeDescription = isPwnAIMode 
@@ -518,7 +519,8 @@ const AIPanelComponentInner = memo(() => {
         const isLimitReached = globalStore.get(isFreeLimitReachedAtom);
         
         if (!isAuthenticated && isLimitReached) {
-            // Не отправляем запрос, баннер уже показан в чате
+            // Показываем баннер при попытке 4-го запроса
+            globalStore.set(showLimitBannerAtom, true);
             return;
         }
         
@@ -760,7 +762,7 @@ const AIPanelComponentInner = memo(() => {
                             />
                         )}
                         <AIErrorMessage />
-                        {!isAuthenticated && isFreeLimitReached && <AILimitReachedBanner />}
+                        {!isAuthenticated && showLimitBanner && <AILimitReachedBanner />}
                         <AIDroppedFiles model={model} />
                         <AIPanelInput onSubmit={handleSubmit} status={status} model={model} />
                 </>
