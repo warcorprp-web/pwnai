@@ -1501,27 +1501,27 @@ func (ws *WshServer) JobControllerDetachJobCommand(ctx context.Context, jobId st
 
 // PwnAI Pentest Commands
 
-func (ws *WshServer) PentestScanCommand(ctx context.Context, data wshrpc.CommandData) (interface{}, error) {
+func (ws *WshServer) PentestScanCommand(ctx context.Context, data map[string]interface{}) (interface{}, error) {
 	return ScanTargetCommand(ctx, data)
 }
 
-func (ws *WshServer) PentestExploitCommand(ctx context.Context, data wshrpc.CommandData) (interface{}, error) {
+func (ws *WshServer) PentestExploitCommand(ctx context.Context, data map[string]interface{}) (interface{}, error) {
 	return ExploitTargetCommand(ctx, data)
 }
 
-func (ws *WshServer) PentestSessionsCommand(ctx context.Context, data wshrpc.CommandData) (interface{}, error) {
+func (ws *WshServer) PentestSessionsCommand(ctx context.Context, data map[string]interface{}) (interface{}, error) {
 	return ListSessionsCommand(ctx, data)
 }
 
-func (ws *WshServer) PentestCommandCommand(ctx context.Context, data wshrpc.CommandData) (interface{}, error) {
+func (ws *WshServer) PentestCommandCommand(ctx context.Context, data map[string]interface{}) (interface{}, error) {
 	return RunSessionCommandCommand(ctx, data)
 }
 
-func (ws *WshServer) PentestMsfRpcCommand(ctx context.Context, data wshrpc.CommandData) (interface{}, error) {
+func (ws *WshServer) PentestMsfRpcCommand(ctx context.Context, data map[string]interface{}) (interface{}, error) {
 	return MsfRpcCallCommand(ctx, data)
 }
 
-func (ws *WshServer) PentestToolResultCommand(ctx context.Context, data wshrpc.CommandData) (interface{}, error) {
+func (ws *WshServer) PentestToolResultCommand(ctx context.Context, data map[string]interface{}) (interface{}, error) {
 	return PentestToolResultCommand(ctx, data)
 }
 
