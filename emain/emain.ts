@@ -348,6 +348,10 @@ async function appMain() {
     console.log("wavesrv ready signal received", ready, Date.now() - startTs, "ms");
     await electronApp.whenReady();
     
+    // Очистка DNS кеша Chromium
+    electron.session.defaultSession.clearCache();
+    electron.session.defaultSession.clearHostResolverCache();
+    
     // Игнорировать ошибки сертификата для cli.cryptocatslab.ru
     electronApp.on("certificate-error", (event, webContents, url, error, certificate, callback) => {
         if (url.startsWith("https://cli.cryptocatslab.ru")) {
