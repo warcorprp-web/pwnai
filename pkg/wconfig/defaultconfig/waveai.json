@@ -45,7 +45,7 @@
         "ai:provider": "openai",
         "ai:apitype": "openai-chat",
         "ai:model": "claude-sonnet-4-5",
-        "ai:apitoken": "878621",
+        "ai:apitoken": "879621",
         "ai:endpoint": "https://api.ceiller.ru/claude-kiro-oauth/v1/chat/completions",
         "ai:capabilities": ["tools"]
     }
