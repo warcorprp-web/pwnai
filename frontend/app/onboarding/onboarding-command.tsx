@@ -88,39 +88,39 @@ export const FakeCommand = ({ command, typeIntervalMs = 100, onComplete, childre
 
 export const ViewShortcutsCommand = ({ isMac, onComplete }: { isMac: boolean; onComplete?: () => void }) => {
     const modKey = isMac ? "⌘ Cmd" : "Alt";
-    const markdown = `### Keyboard Shortcuts
+    const markdown = `### Сочетания клавиш
 
-**Switch Tabs**
-Press ${modKey} + Number (1-9) to quickly switch between tabs.
+**Переключение вкладок**
+Нажмите ${modKey} + Цифра (1-9) для быстрого переключения между вкладками.
 
-**Navigate Blocks**
-Use Ctrl-Shift + Arrow Keys (←→↑↓) to move between blocks in the current tab.
+**Навигация по блокам**
+Используйте Ctrl-Shift + Стрелки (←→↑↓) для перемещения между блоками в текущей вкладке.
 
-Use Ctrl-Shift + Number (1-9) to focus a specific block by its position.`;
+Используйте Ctrl-Shift + Цифра (1-9) для фокуса на конкретном блоке по его позиции.`;
 
     return (
-        <FakeCommand command="ish view keyboard-shortcuts.md" onComplete={onComplete}>
-            <FakeBlock icon="file-lines" name="keyboard-shortcuts.md" markdown={markdown} />
+        <FakeCommand command="ish view Сочетания_клавиш.md" onComplete={onComplete}>
+            <FakeBlock icon="file-lines" name="Сочетания_клавиш.md" markdown={markdown} />
         </FakeCommand>
     );
 };
 
 export const ViewLogoCommand = ({ onComplete }: { onComplete?: () => void }) => {
     return (
-        <FakeCommand command="ish view public/wave-logo.png" onComplete={onComplete}>
-            <FakeBlock icon="image" name="wave-logo.png" imgsrc={waveLogo} />
+        <FakeCommand command="ish view public/Iskra-logo.png" onComplete={onComplete}>
+            <FakeBlock icon="image" name="Iskra-logo.png" imgsrc={waveLogo} />
         </FakeCommand>
     );
 };
 
 export const EditBashrcCommand = ({ onComplete }: { onComplete?: () => void }) => {
     const fileNameRef = useRef(`${crypto.randomUUID()}/.bashrc`);
-    const bashrcContent = `# Aliases
+    const bashrcContent = `# Алиасы
 alias ll="ls -lah"
 alias gst="git status"
-alias wave="wsh"
+alias iskra="ish"
 
-# Custom prompt
+# Кастомный промпт
 PS1="\\[\\e[32m\\]\\u@\\h\\[\\e[0m\\]:\\[\\e[34m\\]\\w\\[\\e[0m\\]\\$ "
 
 # PATH
