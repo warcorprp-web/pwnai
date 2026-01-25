@@ -29,7 +29,7 @@ export const AILimitReachedBanner = memo(() => {
                     </div>
                     <button
                         onClick={handleLogin}
-                        className="px-4 py-2 bg-accent hover:bg-accent/90 text-white text-sm font-medium rounded transition-colors flex-shrink-0"
+                        className="px-4 py-2 bg-accent hover:bg-accent/90 text-white text-sm font-medium rounded transition-colors flex-shrink-0 cursor-pointer"
                     >
                         Войти
                     </button>
