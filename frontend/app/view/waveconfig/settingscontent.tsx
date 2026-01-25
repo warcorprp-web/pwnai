@@ -251,6 +251,18 @@ const SettingsContentComponent = ({ model }: SettingsContentProps) => {
         return (
             <div className="flex flex-col h-full overflow-auto p-6">
                 <div className="max-w-md mx-auto w-full">
+                    {/* Заголовок с кнопкой обновления */}
+                    <div className="flex items-center justify-between mb-4">
+                        <h2 className="text-xl font-semibold text-white">Общее</h2>
+                        <button 
+                            onClick={loadKeyInfo}
+                            className="px-3 py-1.5 bg-zinc-700 hover:bg-zinc-600 text-white text-sm rounded transition-colors cursor-pointer flex items-center gap-2"
+                        >
+                            <i className="fa fa-refresh text-xs"></i>
+                            Обновить
+                        </button>
+                    </div>
+                    
                     <div className="bg-zinc-800/50 border border-zinc-700 rounded-lg p-6">
                         <div className="flex items-center gap-3 mb-6">
                             <div className="w-12 h-12 rounded-full bg-accent/20 flex items-center justify-center">
@@ -292,17 +304,15 @@ const SettingsContentComponent = ({ model }: SettingsContentProps) => {
                         </div>
                         
                         <div className="space-y-2">
-                            <button 
-                                onClick={loadKeyInfo}
-                                className="w-full px-4 py-2.5 bg-zinc-700 hover:bg-zinc-600 text-white font-medium rounded transition-colors cursor-pointer flex items-center justify-center gap-2"
-                            >
-                                <i className="fa fa-refresh"></i>
-                                Обновить статистику
-                            </button>
                             {subscriptionTier === "trial" && (
-                                <button className="w-full px-4 py-2.5 bg-accent/20 hover:bg-accent/30 text-accent font-medium rounded transition-colors cursor-pointer">
-                                    Перейти на Pro (2000 запросов/день)
-                                </button>
+                                <>
+                                    <button className="w-full px-4 py-2.5 bg-accent/20 hover:bg-accent/30 text-accent font-medium rounded transition-colors cursor-pointer">
+                                        Pro - 500 запросов/день (990₽/мес)
+                                    </button>
+                                    <button className="w-full px-4 py-2.5 bg-accent hover:bg-accent/90 text-white font-medium rounded transition-colors cursor-pointer">
+                                        Pro Plus - 2000 запросов/день (1990₽/мес)
+                                    </button>
+                                </>
                             )}
                             <button 
                                 onClick={handleLogout}
