@@ -26,14 +26,14 @@
     --color-warning: rgb(224, 185, 86);
     --color-success: rgb(78, 154, 6);
     --color-panel: rgba(31, 33, 31, 0.5);
-    --color-hover: rgba(255, 255, 255, 0.1);
-    --color-border: rgba(255, 255, 255, 0.16);
+    --color-hover: rgba(255, 102, 0, 0.1);
+    --color-border: rgba(255, 102, 0, 0.3);
     --color-modalbg: #232323;
     --color-accentbg: rgba(255, 102, 0, 0.5);
-    --color-hoverbg: rgba(255, 255, 255, 0.2);
-    --color-highlightbg: rgba(255, 255, 255, 0.2);
+    --color-hoverbg: rgba(255, 102, 0, 0.2);
+    --color-highlightbg: rgba(255, 102, 0, 0.2);
     --color-accent: rgb(255, 102, 0);
-    --color-accenthover: rgb(255, 128, 26);
+    --color-accenthover: rgb(255, 133, 51);
 
     --font-sans: "Inter", sans-serif;
     --font-mono: "Hack", monospace;

@@ -84,10 +84,7 @@ const SettingsContentComponent = ({ model }: SettingsContentProps) => {
                     </div>
 
                     <div className="flex gap-2 mt-4">
-                        <Button 
-                            onClick={handleSave} 
-                            className="bg-[#ff6600] hover:bg-[#ff8533] text-white border-[#ff6600] hover:border-[#ff8533]"
-                        >
+                        <Button onClick={handleSave} className="bg-accent hover:bg-accenthover text-white">
                             Сохранить изменения
                         </Button>
                     </div>
