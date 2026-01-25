@@ -68,39 +68,39 @@ function validateWaveAiJson(parsed: any): ValidationResult {
 
 const configFiles: ConfigFile[] = [
     {
-        name: "General",
+        name: "Общие",
         path: "settings.json",
         language: "json",
         docsUrl: "https://docs.waveterm.dev/config",
         hasJsonView: true,
     },
     {
-        name: "Connections",
+        name: "Соединения",
         path: "connections.json",
         language: "json",
         docsUrl: "https://docs.waveterm.dev/connections",
-        description: isWindows() ? "SSH hosts and WSL distros" : "SSH hosts",
+        description: isWindows() ? "SSH хосты и WSL дистрибутивы" : "SSH хосты",
         hasJsonView: true,
     },
     {
-        name: "Sidebar Widgets",
+        name: "Виджеты боковой панели",
         path: "widgets.json",
         language: "json",
         docsUrl: "https://docs.waveterm.dev/customwidgets",
         hasJsonView: true,
     },
     {
-        name: "Искра AI Modes",
+        name: "Режимы Искра AI",
         path: "waveai.json",
         language: "json",
-        description: "Local models and BYOK",
+        description: "Локальные модели и BYOK",
         docsUrl: "https://docs.waveterm.dev/waveai-modes",
         validator: validateWaveAiJson,
         hasJsonView: true,
         // visualComponent: WaveAIVisualContent,
     },
     {
-        name: "Tab Backgrounds",
+        name: "Фоны вкладок",
         path: "presets/bg.json",
         language: "json",
         docsUrl: "https://docs.waveterm.dev/presets#background-configurations",
@@ -108,7 +108,7 @@ const configFiles: ConfigFile[] = [
         hasJsonView: true,
     },
     {
-        name: "Secrets",
+        name: "Секреты",
         path: "secrets",
         isSecrets: true,
         hasJsonView: false,
@@ -118,14 +118,14 @@ const configFiles: ConfigFile[] = [
 
 const deprecatedConfigFiles: ConfigFile[] = [
     {
-        name: "Presets",
+        name: "Пресеты",
         path: "presets.json",
         language: "json",
         deprecated: true,
         hasJsonView: true,
     },
     {
-        name: "AI Presets",
+        name: "AI Пресеты",
         path: "presets/ai.json",
         language: "json",
         deprecated: true,
@@ -139,7 +139,7 @@ export class WaveConfigViewModel implements ViewModel {
     blockId: string;
     viewType = "waveconfig";
     viewIcon = atom("gear");
-    viewName = atom("Wave Config");
+    viewName = atom("Конфигурация Искра");
     viewComponent = WaveConfigView;
     noPadding = atom(true);
     nodeModel: BlockNodeModel;

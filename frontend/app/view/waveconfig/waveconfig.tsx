@@ -219,7 +219,7 @@ const WaveConfigView = memo(({ blockId, model }: ViewComponentProps<WaveConfigVi
                                                         : "bg-accent/80 text-primary hover:bg-accent cursor-pointer"
                                                 }`}
                                             >
-                                                {isSaving ? "Saving..." : "Save"}
+                                                {isSaving ? "Сохранение..." : "Сохранить"}
                                             </button>
                                         </Tooltip>
                                     </>
