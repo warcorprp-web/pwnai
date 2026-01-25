@@ -12,7 +12,7 @@ import { WaveAIModel } from "./waveai-model";
 
 const AIThinking = memo(
     ({
-        message = "AI is thinking...",
+        message = "AI думает...",
         reasoningText,
         isWaitingApproval = false,
     }: {
@@ -197,7 +197,7 @@ const getThinkingMessage = (
 
     if (lastPart?.type === "reasoning") {
         const reasoningContent = lastPart.text || "";
-        return { message: "AI is thinking...", reasoningText: reasoningContent };
+        return { message: "AI думает...", reasoningText: reasoningContent };
     }
 
     if (lastPart?.type === "text" && lastPart.text) {
