@@ -261,17 +261,17 @@ const AIWelcomeMessage = memo(() => {
                         </div>
                         <div className="flex items-start gap-3">
                             <div className="w-4 text-center flex-shrink-0">
-                                <i className="fa-brands fa-github text-accent"></i>
+                                <i className="fa-brands fa-telegram text-accent"></i>
                             </div>
                             <div>
                                 Вопросы или предложения?{" "}
                                 <a
                                     target="_blank"
-                                    href="https://github.com/pwnai/pwnai"
+                                    href="https://t.me/deya_vocals"
                                     rel="noopener"
                                     className="text-accent hover:underline cursor-pointer"
                                 >
-                                    GitHub
+                                    Telegram
                                 </a>
                             </div>
                         </div>
@@ -286,7 +286,7 @@ const AIWelcomeMessage = memo(() => {
                 {!isPwnAIMode && !hasCustomModes && <BYOKAnnouncement />}
                 {!isPwnAIMode && (
                     <div className="mt-4 text-center text-[12px] text-muted">
-                        BETA: Free to use. Daily limits keep our costs in check.
+                        Искра AI находится в стадии Бета, возможны неточности
                     </div>
                 )}
             </div>
