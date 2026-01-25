@@ -26,10 +26,10 @@ var WaveVersion = "0.0.0"
 var BuildTime = "0"
 
 const (
-	WaveConfigHomeEnvVar           = "WAVETERM_CONFIG_HOME"
-	WaveDataHomeEnvVar             = "WAVETERM_DATA_HOME"
-	WaveAppPathVarName             = "WAVETERM_APP_PATH"
-	WaveAppResourcesPathVarName    = "WAVETERM_RESOURCES_PATH"
+	WaveConfigHomeEnvVar           = "ISKRA_CONFIG_HOME"
+	WaveDataHomeEnvVar             = "ISKRA_DATA_HOME"
+	WaveAppPathVarName             = "ISKRA_APP_PATH"
+	WaveAppResourcesPathVarName    = "ISKRA_RESOURCES_PATH"
 	WaveAppElectronExecPathVarName = "WAVETERM_ELECTRONEXECPATH"
 	WaveDevVarName                 = "WAVETERM_DEV"
 	WaveDevViteVarName             = "WAVETERM_DEV_VITE"
@@ -48,12 +48,12 @@ const (
 
 const NeedJwtConst = "NEED-JWT"
 
-var ConfigHome_VarCache string          // caches WAVETERM_CONFIG_HOME
-var DataHome_VarCache string            // caches WAVETERM_DATA_HOME
-var AppPath_VarCache string             // caches WAVETERM_APP_PATH
-var AppResourcesPath_VarCache string    // caches WAVETERM_RESOURCES_PATH
-var AppElectronExecPath_VarCache string // caches WAVETERM_ELECTRONEXECPATH
-var Dev_VarCache string                 // caches WAVETERM_DEV
+var ConfigHome_VarCache string          // caches ISKRA_CONFIG_HOME
+var DataHome_VarCache string            // caches ISKRA_DATA_HOME
+var AppPath_VarCache string             // caches ISKRA_APP_PATH
+var AppResourcesPath_VarCache string    // caches ISKRA_RESOURCES_PATH
+var AppElectronExecPath_VarCache string // caches ISKRA_ELECTRONEXECPATH
+var Dev_VarCache string                 // caches ISKRA_DEV
 
 const WaveLockFile = "wave.lock"
 const DomainSocketBaseName = "wave.sock"
