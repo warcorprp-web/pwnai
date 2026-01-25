@@ -32,11 +32,11 @@ var WorkspaceColors = [...]string{
 }
 
 var WorkspaceIcons = [...]string{
-	"custom@wave-logo-solid",
+	"bolt",
 	"triangle",
 	"star",
 	"heart",
-	"bolt",
+	"sparkles",
 	"solid@cloud",
 	"moon",
 	"layer-group",
