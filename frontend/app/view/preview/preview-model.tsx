@@ -708,7 +708,7 @@ export class PreviewModel implements ViewModel {
         const overrideFontSize = blockData?.meta?.["editor:fontsize"];
         const menuItems: ContextMenuItem[] = [];
         menuItems.push({
-            label: "Copy Full Path",
+            label: "Копировать полный путь",
             click: () =>
                 fireAndForget(async () => {
                     const filePath = await globalStore.get(this.statFilePath);
@@ -726,7 +726,7 @@ export class PreviewModel implements ViewModel {
                 }),
         });
         menuItems.push({
-            label: "Copy File Name",
+            label: "Копировать имя файла",
             click: () =>
                 fireAndForget(async () => {
                     const fileInfo = await globalStore.get(this.statFile);
@@ -753,7 +753,7 @@ export class PreviewModel implements ViewModel {
             }
         );
         fontSizeSubMenu.unshift({
-            label: "Default (" + defaultFontSize + "px)",
+            label: "По умолчанию (" + defaultFontSize + "px)",
             type: "checkbox",
             checked: overrideFontSize == null,
             click: () => {
@@ -764,7 +764,7 @@ export class PreviewModel implements ViewModel {
             },
         });
         menuItems.push({
-            label: "Editor Font Size",
+            label: "Размер шрифта редактора",
             submenu: fontSizeSubMenu,
         });
         const finfo = jotaiLoadableValue(globalStore.get(this.loadableFileInfo), null);
@@ -777,17 +777,17 @@ export class PreviewModel implements ViewModel {
                 if (globalStore.get(this.newFileContent) != null) {
                     menuItems.push({ type: "separator" });
                     menuItems.push({
-                        label: "Save File",
+                        label: "Сохранить файл",
                         click: () => fireAndForget(this.handleFileSave.bind(this)),
                     });
                     menuItems.push({
-                        label: "Revert File",
+                        label: "Отменить изменения",
                         click: () => fireAndForget(this.handleFileRevert.bind(this)),
                     });
                 }
                 menuItems.push({ type: "separator" });
                 menuItems.push({
-                    label: "Word Wrap",
+                    label: "Перенос слов",
                     type: "checkbox",
                     checked: wordWrap,
                     click: () =>

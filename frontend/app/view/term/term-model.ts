@@ -674,7 +674,7 @@ export class TermViewModel implements ViewModel {
 
         if (hasSelection) {
             menu.push({
-                label: "Copy",
+                label: "Копировать",
                 click: () => {
                     if (selection) {
                         navigator.clipboard.writeText(selection);
@@ -683,7 +683,7 @@ export class TermViewModel implements ViewModel {
             });
             menu.push({ type: "separator" });
             menu.push({
-                label: "Send to Wave AI",
+                label: "Отправить в Wave AI",
                 click: () => {
                     if (selection) {
                         const aiModel = WaveAIModel.getInstance();
@@ -713,7 +713,7 @@ export class TermViewModel implements ViewModel {
             if (selectionURL) {
                 menu.push({ type: "separator" });
                 menu.push({
-                    label: "Open URL (" + selectionURL.hostname + ")",
+                    label: "Открыть URL (" + selectionURL.hostname + ")",
                     click: () => {
                         createBlock({
                             meta: {
@@ -724,7 +724,7 @@ export class TermViewModel implements ViewModel {
                     },
                 });
                 menu.push({
-                    label: "Open URL in External Browser",
+                    label: "Открыть URL во внешнем браузере",
                     click: () => {
                         getApi().openExternal(selectionURL.toString());
                     },
@@ -734,7 +734,7 @@ export class TermViewModel implements ViewModel {
         }
 
         menu.push({
-            label: "Paste",
+            label: "Вставить",
             click: () => {
                 getApi().nativePaste();
             },
@@ -744,7 +744,7 @@ export class TermViewModel implements ViewModel {
 
         const magnified = globalStore.get(this.nodeModel.isMagnified);
         menu.push({
-            label: magnified ? "Un-Magnify Block" : "Magnify Block",
+            label: magnified ? "Уменьшить блок" : "Увеличить блок",
             click: () => {
                 this.nodeModel.toggleMagnify();
             },
@@ -781,7 +781,7 @@ export class TermViewModel implements ViewModel {
 
         const fullMenu: ContextMenuItem[] = [];
         fullMenu.push({
-            label: "Split Horizontally",
+            label: "Разделить горизонтально",
             click: () => {
                 const blockData = globalStore.get(this.blockAtom);
                 const blockDef: BlockDef = {
@@ -791,7 +791,7 @@ export class TermViewModel implements ViewModel {
             },
         });
         fullMenu.push({
-            label: "Split Vertically",
+            label: "Разделить вертикально",
             click: () => {
                 const blockData = globalStore.get(this.blockAtom);
                 const blockDef: BlockDef = {
@@ -808,7 +808,7 @@ export class TermViewModel implements ViewModel {
 
         if (canShowFileBrowser) {
             fullMenu.push({
-                label: "File Browser",
+                label: "Файловый браузер",
                 click: () => {
                     const blockData = globalStore.get(this.blockAtom);
                     const connection = blockData?.meta?.connection;
@@ -836,14 +836,14 @@ export class TermViewModel implements ViewModel {
             };
         });
         submenu.unshift({
-            label: "Default",
+            label: "По умолчанию",
             type: "checkbox",
             checked: curThemeName == null,
             click: () => this.setTerminalTheme(null),
         });
         const transparencySubMenu: ContextMenuItem[] = [];
         transparencySubMenu.push({
-            label: "Default",
+            label: "По умолчанию",
             type: "checkbox",
             checked: transparencyMeta == null,
             click: () => {
@@ -854,7 +854,7 @@ export class TermViewModel implements ViewModel {
             },
         });
         transparencySubMenu.push({
-            label: "Transparent Background",
+            label: "Прозрачный фон",
             type: "checkbox",
             checked: transparencyMeta == 0.5,
             click: () => {
@@ -865,7 +865,7 @@ export class TermViewModel implements ViewModel {
             },
         });
         transparencySubMenu.push({
-            label: "No Transparency",
+            label: "Без прозрачности",
             type: "checkbox",
             checked: transparencyMeta == 0,
             click: () => {
@@ -892,7 +892,7 @@ export class TermViewModel implements ViewModel {
             }
         );
         fontSizeSubMenu.unshift({
-            label: "Default (" + defaultFontSize + "px)",
+            label: "По умолчанию (" + defaultFontSize + "px)",
             type: "checkbox",
             checked: overrideFontSize == null,
             click: () => {
@@ -903,25 +903,25 @@ export class TermViewModel implements ViewModel {
             },
         });
         fullMenu.push({
-            label: "Themes",
+            label: "Темы",
             submenu: submenu,
         });
         fullMenu.push({
-            label: "Font Size",
+            label: "Размер шрифта",
             submenu: fontSizeSubMenu,
         });
         fullMenu.push({
-            label: "Transparency",
+            label: "Прозрачность",
             submenu: transparencySubMenu,
         });
         fullMenu.push({ type: "separator" });
         const advancedSubmenu: ContextMenuItem[] = [];
         const allowBracketedPaste = blockData?.meta?.["term:allowbracketedpaste"];
         advancedSubmenu.push({
-            label: "Allow Bracketed Paste Mode",
+            label: "Разрешить режим вставки в скобках",
             submenu: [
                 {
-                    label: "Default (" + (defaultAllowBracketedPaste ? "On" : "Off") + ")",
+                    label: "По умолчанию (" + (defaultAllowBracketedPaste ? "Вкл" : "Выкл") + ")",
                     type: "checkbox",
                     checked: allowBracketedPaste == null,
                     click: () => {
@@ -932,7 +932,7 @@ export class TermViewModel implements ViewModel {
                     },
                 },
                 {
-                    label: "On",
+                    label: "Вкл",
                     type: "checkbox",
                     checked: allowBracketedPaste === true,
                     click: () => {
@@ -943,7 +943,7 @@ export class TermViewModel implements ViewModel {
                     },
                 },
                 {
-                    label: "Off",
+                    label: "Выкл",
                     type: "checkbox",
                     checked: allowBracketedPaste === false,
                     click: () => {
@@ -956,15 +956,15 @@ export class TermViewModel implements ViewModel {
             ],
         });
         advancedSubmenu.push({
-            label: "Force Restart Controller",
+            label: "Принудительный перезапуск контроллера",
             click: this.forceRestartController.bind(this),
         });
         const isClearOnStart = blockData?.meta?.["cmd:clearonstart"];
         advancedSubmenu.push({
-            label: "Clear Output On Restart",
+            label: "Очистить вывод при перезапуске",
             submenu: [
                 {
-                    label: "On",
+                    label: "Вкл",
                     type: "checkbox",
                     checked: isClearOnStart,
                     click: () => {
@@ -975,7 +975,7 @@ export class TermViewModel implements ViewModel {
                     },
                 },
                 {
-                    label: "Off",
+                    label: "Выкл",
                     type: "checkbox",
                     checked: !isClearOnStart,
                     click: () => {
@@ -989,10 +989,10 @@ export class TermViewModel implements ViewModel {
         });
         const runOnStart = blockData?.meta?.["cmd:runonstart"];
         advancedSubmenu.push({
-            label: "Run On Startup",
+            label: "Запуск при старте",
             submenu: [
                 {
-                    label: "On",
+                    label: "Вкл",
                     type: "checkbox",
                     checked: runOnStart,
                     click: () => {
@@ -1003,7 +1003,7 @@ export class TermViewModel implements ViewModel {
                     },
                 },
                 {
-                    label: "Off",
+                    label: "Выкл",
                     type: "checkbox",
                     checked: !runOnStart,
                     click: () => {

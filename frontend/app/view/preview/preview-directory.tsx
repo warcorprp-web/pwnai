@@ -372,19 +372,19 @@ function TableBody({
             const fileName = finfo.path.split("/").pop();
             const menu: ContextMenuItem[] = [
                 {
-                    label: "New File",
+                    label: "Новый файл",
                     click: () => {
                         table.options.meta.newFile();
                     },
                 },
                 {
-                    label: "New Folder",
+                    label: "Новая папка",
                     click: () => {
                         table.options.meta.newDirectory();
                     },
                 },
                 {
-                    label: "Rename",
+                    label: "Переименовать",
                     click: () => {
                         table.options.meta.updateName(finfo.path, finfo.isdir);
                     },
@@ -393,19 +393,19 @@ function TableBody({
                     type: "separator",
                 },
                 {
-                    label: "Copy File Name",
+                    label: "Копировать имя файла",
                     click: () => fireAndForget(() => navigator.clipboard.writeText(fileName)),
                 },
                 {
-                    label: "Copy Full File Name",
+                    label: "Копировать полное имя файла",
                     click: () => fireAndForget(() => navigator.clipboard.writeText(finfo.path)),
                 },
                 {
-                    label: "Copy File Name (Shell Quoted)",
+                    label: "Копировать имя файла (в кавычках)",
                     click: () => fireAndForget(() => navigator.clipboard.writeText(shellQuote([fileName]))),
                 },
                 {
-                    label: "Copy Full File Name (Shell Quoted)",
+                    label: "Копировать полное имя файла (в кавычках)",
                     click: () => fireAndForget(() => navigator.clipboard.writeText(shellQuote([finfo.path]))),
                 },
             ];
@@ -415,7 +415,7 @@ function TableBody({
                     type: "separator",
                 },
                 {
-                    label: "Delete",
+                    label: "Удалить",
                     click: () => handleFileDelete(model, finfo.path, false, setErrorMsg),
                 }
             );
@@ -845,13 +845,13 @@ function DirectoryPreview({ model }: DirectoryPreviewProps) {
             e.stopPropagation();
             const menu: ContextMenuItem[] = [
                 {
-                    label: "New File",
+                    label: "Новый файл",
                     click: () => {
                         newFile();
                     },
                 },
                 {
-                    label: "New Folder",
+                    label: "Новая папка",
                     click: () => {
                         newDirectory();
                     },

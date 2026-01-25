@@ -604,7 +604,7 @@ export class WebViewModel implements ViewModel {
             };
         }
         zoomSubMenu.push({
-            label: "Reset",
+            label: "Сбросить",
             click: () => {
                 model.setZoomFactor(null);
             },
@@ -626,7 +626,7 @@ export class WebViewModel implements ViewModel {
         const curUserAgentType = globalStore.get(this.userAgentType) || "default";
         const userAgentSubMenu: ContextMenuItem[] = [
             {
-                label: "Default",
+                label: "По умолчанию",
                 type: "checkbox",
                 click: () => {
                     fireAndForget(() => {
@@ -639,7 +639,7 @@ export class WebViewModel implements ViewModel {
                 checked: curUserAgentType === "default" || curUserAgentType === "",
             },
             {
-                label: "Mobile: iPhone",
+                label: "Мобильный: iPhone",
                 type: "checkbox",
                 click: () => {
                     fireAndForget(() => {
@@ -652,7 +652,7 @@ export class WebViewModel implements ViewModel {
                 checked: curUserAgentType === "mobile:iphone",
             },
             {
-                label: "Mobile: Android",
+                label: "Мобильный: Android",
                 type: "checkbox",
                 click: () => {
                     fireAndForget(() => {
@@ -669,22 +669,22 @@ export class WebViewModel implements ViewModel {
         const isNavHidden = globalStore.get(this.hideNav);
         return [
             {
-                label: "Copy URL to Clipboard",
+                label: "Копировать URL в буфер обмена",
                 click: () => this.copyUrlToClipboard(),
             },
             {
-                label: "Set Block Homepage",
+                label: "Установить домашнюю страницу блока",
                 click: () => fireAndForget(() => this.setHomepageUrl(this.getUrl(), "block")),
             },
             {
-                label: "Set Default Homepage",
+                label: "Установить домашнюю страницу по умолчанию",
                 click: () => fireAndForget(() => this.setHomepageUrl(this.getUrl(), "global")),
             },
             {
                 type: "separator",
             },
             {
-                label: "User Agent Type",
+                label: "Тип User Agent",
                 submenu: userAgentSubMenu,
             },
             {

@@ -85,7 +85,7 @@ class HelpViewModel extends WebViewModel {
             };
         }
         zoomSubMenu.push({
-            label: "Reset",
+            label: "Сбросить",
             click: () => {
                 model.setZoomFactor(null);
             },

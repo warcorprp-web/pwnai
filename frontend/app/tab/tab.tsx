@@ -137,9 +137,9 @@ const Tab = memo(
                 (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
                     e.preventDefault();
                     let menu: ContextMenuItem[] = [
-                        { label: "Rename Tab", click: () => handleRenameTab(null) },
+                        { label: "Переименовать вкладку", click: () => handleRenameTab(null) },
                         {
-                            label: "Copy TabId",
+                            label: "Копировать TabId",
                             click: () => fireAndForget(() => navigator.clipboard.writeText(id)),
                         },
                         { type: "separator" },
@@ -174,9 +174,9 @@ const Tab = memo(
                                     }),
                             });
                         }
-                        menu.push({ label: "Backgrounds", type: "submenu", submenu }, { type: "separator" });
+                        menu.push({ label: "Фоны", type: "submenu", submenu }, { type: "separator" });
                     }
-                    menu.push({ label: "Close Tab", click: () => onClose(null) });
+                    menu.push({ label: "Закрыть вкладку", click: () => onClose(null) });
                     ContextMenuModel.showContextMenu(menu, e);
                 },
                 [handleRenameTab, id, onClose]
