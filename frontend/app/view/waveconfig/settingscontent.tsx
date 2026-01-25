@@ -34,11 +34,33 @@ const SettingsContentComponent = ({ model }: SettingsContentProps) => {
         setLoading(true);
         
         try {
-            // TODO: API запрос на отправку кода
+            // TODO: API запрос на отправку кода (только для регистрации)
             await new Promise(resolve => setTimeout(resolve, 1000));
             setStep("otp");
         } catch (err) {
             setError("Ошибка отправки кода");
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const handleLogin = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setError("");
+        
+        if (!email || !password) {
+            setError("Заполните все поля");
+            return;
+        }
+        
+        setLoading(true);
+        
+        try {
+            // TODO: API запрос на вход с email+password
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            setIsAuthenticated(true);
+        } catch (err) {
+            setError("Неверный email или пароль");
         } finally {
             setLoading(false);
         }
@@ -57,16 +79,9 @@ const SettingsContentComponent = ({ model }: SettingsContentProps) => {
         setLoading(true);
         
         try {
-            // TODO: API запрос на проверку кода
+            // TODO: API запрос на проверку кода (только для регистрации)
             await new Promise(resolve => setTimeout(resolve, 1000));
-            
-            if (isLogin) {
-                // Для входа сразу авторизуем
-                setIsAuthenticated(true);
-            } else {
-                // Для регистрации переходим к паролю
-                setStep("password");
-            }
+            setStep("password");
         } catch (err) {
             setError("Неверный код");
         } finally {
@@ -198,38 +213,89 @@ const SettingsContentComponent = ({ model }: SettingsContentProps) => {
                     </p>
                 </div>
 
-                {/* Шаг 1: Email */}
+                {/* Шаг 1: Email (для регистрации) или Email+Пароль (для входа) */}
                 {step === "email" && (
-                    <form onSubmit={handleSendCode} className="space-y-4">
-                        <div>
-                            <label className="block text-sm font-medium text-gray-300 mb-2">
-                                Email
-                            </label>
-                            <input
-                                type="email"
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
-                                placeholder="your@email.com"
-                                className="w-full px-4 py-3 bg-zinc-800 border border-zinc-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-accent transition-colors"
-                                disabled={loading}
-                                autoFocus
-                            />
-                        </div>
+                    <>
+                        {isLogin ? (
+                            // Вход: email + пароль сразу
+                            <form onSubmit={handleLogin} className="space-y-4">
+                                <div>
+                                    <label className="block text-sm font-medium text-gray-300 mb-2">
+                                        Email
+                                    </label>
+                                    <input
+                                        type="email"
+                                        value={email}
+                                        onChange={(e) => setEmail(e.target.value)}
+                                        placeholder="your@email.com"
+                                        className="w-full px-4 py-3 bg-zinc-800 border border-zinc-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-accent transition-colors"
+                                        disabled={loading}
+                                        autoFocus
+                                    />
+                                </div>
 
-                        {error && (
-                            <div className="bg-red-500/10 border border-red-500/30 rounded-lg p-3">
-                                <p className="text-red-400 text-sm">{error}</p>
-                            </div>
+                                <div>
+                                    <label className="block text-sm font-medium text-gray-300 mb-2">
+                                        Пароль
+                                    </label>
+                                    <input
+                                        type="password"
+                                        value={password}
+                                        onChange={(e) => setPassword(e.target.value)}
+                                        placeholder="••••••••"
+                                        className="w-full px-4 py-3 bg-zinc-800 border border-zinc-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-accent transition-colors"
+                                        disabled={loading}
+                                    />
+                                </div>
+
+                                {error && (
+                                    <div className="bg-red-500/10 border border-red-500/30 rounded-lg p-3">
+                                        <p className="text-red-400 text-sm">{error}</p>
+                                    </div>
+                                )}
+
+                                <button
+                                    type="submit"
+                                    disabled={loading}
+                                    className="w-full px-4 py-3 bg-accent hover:bg-accent/90 disabled:bg-accent/50 text-white font-semibold rounded-lg transition-colors cursor-pointer"
+                                >
+                                    {loading ? "Вход..." : "Войти"}
+                                </button>
+                            </form>
+                        ) : (
+                            // Регистрация: только email
+                            <form onSubmit={handleSendCode} className="space-y-4">
+                                <div>
+                                    <label className="block text-sm font-medium text-gray-300 mb-2">
+                                        Email
+                                    </label>
+                                    <input
+                                        type="email"
+                                        value={email}
+                                        onChange={(e) => setEmail(e.target.value)}
+                                        placeholder="your@email.com"
+                                        className="w-full px-4 py-3 bg-zinc-800 border border-zinc-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-accent transition-colors"
+                                        disabled={loading}
+                                        autoFocus
+                                    />
+                                </div>
+
+                                {error && (
+                                    <div className="bg-red-500/10 border border-red-500/30 rounded-lg p-3">
+                                        <p className="text-red-400 text-sm">{error}</p>
+                                    </div>
+                                )}
+
+                                <button
+                                    type="submit"
+                                    disabled={loading}
+                                    className="w-full px-4 py-3 bg-accent hover:bg-accent/90 disabled:bg-accent/50 text-white font-semibold rounded-lg transition-colors cursor-pointer"
+                                >
+                                    {loading ? "Отправка..." : "Получить код"}
+                                </button>
+                            </form>
                         )}
-
-                        <button
-                            type="submit"
-                            disabled={loading}
-                            className="w-full px-4 py-3 bg-accent hover:bg-accent/90 disabled:bg-accent/50 text-white font-semibold rounded-lg transition-colors cursor-pointer"
-                        >
-                            {loading ? "Отправка..." : "Получить код"}
-                        </button>
-                    </form>
+                    </>
                 )}
 
                 {/* Шаг 2: OTP */}
