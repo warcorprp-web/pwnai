@@ -17,6 +17,7 @@ import { memo, useCallback, useEffect, useRef, useState } from "react";
 import { useDrop } from "react-dnd";
 import { formatFileSizeError, isAcceptableFile, validateFileSize } from "./ai-utils";
 import { AIDroppedFiles } from "./aidroppedfiles";
+import { AILoginBanner } from "./ailoginbanner";
 import { AIModeDropdown } from "./aimode";
 import { AIPanelHeader } from "./aipanelheader";
 import { AIPanelInput } from "./aipanelinput";
@@ -730,6 +731,8 @@ const AIPanelComponentInner = memo(() => {
                                     <AIModeDropdown />
                                 </div>
                                 {model.inBuilder ? <AIBuilderWelcomeMessage /> : <AIWelcomeMessage />}
+                                {/* TODO: Показывать только если не авторизован */}
+                                <AILoginBanner />
                             </div>
                         ) : (
                             <AIPanelMessages
