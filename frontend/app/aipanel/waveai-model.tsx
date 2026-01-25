@@ -235,7 +235,7 @@ export class WaveAIModel {
             const file = new File([buffer], draggedFile.relName, { type: mimeType });
             if (!isAcceptableFile(file)) {
                 this.setError(
-                    `File type not supported: ${draggedFile.relName}. Supported: images, PDFs, and text/code files.`
+                    `Тип файла не поддерживается: ${draggedFile.relName}. Поддерживаются: изображения, PDF и текстовые/кодовые файлы.`
                 );
                 return;
             }

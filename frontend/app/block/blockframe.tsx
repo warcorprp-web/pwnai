@@ -50,7 +50,7 @@ function handleHeaderContextMenu(
     e.stopPropagation();
     let menu: ContextMenuItem[] = [
         {
-            label: magnified ? "Un-Magnify Block" : "Magnify Block",
+            label: magnified ? "Уменьшить блок" : "Увеличить блок",
             click: () => {
                 onMagnifyToggle();
             },
@@ -68,7 +68,7 @@ function handleHeaderContextMenu(
         // },
         { type: "separator" },
         {
-            label: "Copy BlockId",
+            label: "Копировать BlockId",
             click: () => {
                 navigator.clipboard.writeText(blockData.oid);
             },
@@ -79,7 +79,7 @@ function handleHeaderContextMenu(
     menu.push(
         { type: "separator" },
         {
-            label: "Close Block",
+            label: "Закрыть блок",
             click: () => uxCloseBlock(blockData.oid),
         }
     );

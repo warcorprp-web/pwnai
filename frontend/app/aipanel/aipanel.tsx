@@ -61,8 +61,8 @@ const AIDragOverlay = memo(() => {
         >
             <div className="text-accent text-center">
                 <i className="fa fa-upload text-3xl mb-2"></i>
-                <div className="text-lg font-semibold">Drop files here</div>
-                <div className="text-sm">Images, PDFs, and text/code files supported</div>
+                <div className="text-lg font-semibold">Перетащите файлы сюда</div>
+                <div className="text-sm">Поддерживаются изображения, PDF и текстовые/кодовые файлы</div>
             </div>
         </div>
     );
@@ -617,7 +617,7 @@ const AIPanelComponentInner = memo(() => {
             const rejectedFiles = files.filter((f) => !isAcceptableFile(f));
             const fileNames = rejectedFiles.map((f) => f.name).join(", ");
             model.setError(
-                `${rejectedCount} file${rejectedCount > 1 ? "s" : ""} rejected (unsupported type): ${fileNames}. Supported: images, PDFs, and text/code files.`
+                `${rejectedCount} файл${rejectedCount > 1 ? "ов" : ""} отклонено (неподдерживаемый тип): ${fileNames}. Поддерживаются: изображения, PDF и текстовые/кодовые файлы.`
             );
         }
     };

@@ -35,25 +35,25 @@ export function blockViewToIcon(view: string): string {
 
 export function blockViewToName(view: string): string {
     if (util.isBlank(view)) {
-        return "(No View)";
+        return "(Нет вида)";
     }
     if (view == "term") {
-        return "Terminal";
+        return "Терминал";
     }
     if (view == "preview") {
-        return "Preview";
+        return "Просмотр";
     }
     if (view == "web") {
-        return "Web";
+        return "Веб";
     }
     if (view == "waveai") {
         return "WaveAI";
     }
     if (view == "help") {
-        return "Help";
+        return "Справка";
     }
     if (view == "tips") {
-        return "Tips";
+        return "Подсказки";
     }
     return view;
 }

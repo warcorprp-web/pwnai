@@ -105,7 +105,7 @@ class HelpViewModel extends WebViewModel {
 
         return [
             {
-                label: this.webviewRef.current?.isDevToolsOpened() ? "Close DevTools" : "Open DevTools",
+                label: this.webviewRef.current?.isDevToolsOpened() ? "Закрыть DevTools" : "Открыть DevTools",
                 click: async () => {
                     if (this.webviewRef.current) {
                         if (this.webviewRef.current.isDevToolsOpened()) {
@@ -117,7 +117,7 @@ class HelpViewModel extends WebViewModel {
                 },
             },
             {
-                label: "Set Zoom Factor",
+                label: "Установить масштаб",
                 submenu: zoomSubMenu,
             },
         ];

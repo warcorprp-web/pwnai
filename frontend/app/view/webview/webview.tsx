@@ -701,11 +701,11 @@ export class WebViewModel implements ViewModel {
                     }),
             },
             {
-                label: "Set Zoom Factor",
+                label: "Установить масштаб",
                 submenu: zoomSubMenu,
             },
             {
-                label: this.webviewRef.current?.isDevToolsOpened() ? "Close DevTools" : "Open DevTools",
+                label: this.webviewRef.current?.isDevToolsOpened() ? "Закрыть DevTools" : "Открыть DevTools",
                 click: () => {
                     if (this.webviewRef.current) {
                         if (this.webviewRef.current.isDevToolsOpened()) {
@@ -720,11 +720,11 @@ export class WebViewModel implements ViewModel {
                 type: "separator",
             },
             {
-                label: "Clear History",
+                label: "Очистить историю",
                 click: () => this.clearHistory(),
             },
             {
-                label: "Clear Cookies and Storage (All Web Widgets)",
+                label: "Очистить куки и хранилище (все веб-виджеты)",
                 click: () => fireAndForget(() => this.clearCookiesAndStorage()),
             },
         ];
