@@ -61,6 +61,10 @@ func UpdateActivity(ctx context.Context, update interface{}) error {
 	return nil
 }
 
+func GetTosAgreedTs() int64 {
+	return 0
+}
+
 func Shutdown() {
 	// no-op
 }

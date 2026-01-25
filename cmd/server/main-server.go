@@ -340,11 +340,11 @@ func startupActivityUpdate(firstLaunch bool) {
 	cohortMonth := cohortTime.Format("2006-01")
 	year, week := cohortTime.ISOWeek()
 	cohortISOWeek := fmt.Sprintf("%04d-W%02d", year, week)
-	userSetOnce.CohortMonth = cohortMonth
-	userSetOnce.CohortISOWeek = cohortISOWeek
+	userSetOnce[telemetrydata.CohortMonth] = cohortMonth
+	userSetOnce[telemetrydata.CohortISOWeek] = cohortISOWeek
 	fullConfig := wconfig.GetWatcher().GetFullConfig()
 	props := telemetrydata.TEventProps{
-		UserSet: &telemetrydata.TEventUserProps{
+		telemetrydata.UserSet: &telemetrydata.TEventUserProps{
 			ClientVersion:       "v" + wavebase.WaveVersion,
 			ClientBuildTime:     wavebase.BuildTime,
 			ClientArch:          wavebase.ClientArch(),
@@ -356,10 +356,10 @@ func startupActivityUpdate(firstLaunch bool) {
 			LocalShellVersion:   shellVersion,
 			SettingsTransparent: fullConfig.Settings.WindowTransparent,
 		},
-		UserSetOnce: userSetOnce,
+		telemetrydata.UserSetOnce: userSetOnce,
 	}
 	if firstLaunch {
-		props.AppFirstLaunch = true
+		props[telemetrydata.AppFirstLaunch] = true
 	}
 	tevent := telemetrydata.MakeTEvent("app:startup", props)
 	err = telemetry.RecordTEvent(ctx, tevent)

@@ -66,6 +66,10 @@ const (
 	SettingsCustomAIModes      = "settings:customaimodes"
 	SettingsSecretsCount       = "settings:secretscount"
 	ClientInitialVersion       = "client:initialversion"
+	CohortMonth                = "cohort:month"
+	CohortISOWeek              = "cohort:isoweek"
+	UserSetOnce                = "user:setonce"
+	AppFirstLaunch             = "app:firstlaunch"
 )
 
 func MakeTEvent(eventType string, props ...TEventProps) *TEvent {
