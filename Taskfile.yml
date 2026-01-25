@@ -422,7 +422,7 @@ tasks:
               vars:
                   GOOS: darwin
                   GOARCH: arm64
-            - cp dist/bin/ish-{{.VERSION}}-darwin.arm64 ~/Library/Application\ Support/waveterm-dev/bin/wsh
+            - cp dist/bin/ish-{{.VERSION}}-darwin.arm64 ~/Library/Application\ Support/waveterm-dev/bin/ish
 
     dev:clearconfig:
         desc: Clear the config directory for waveterm-dev
