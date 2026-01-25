@@ -25,12 +25,24 @@ export interface AIResponse {
 export const authApi = {
     // Отправка OTP кода для регистрации
     async sendCode(email: string): Promise<AuthResponse> {
-        const response = await fetch(`${API_BASE_URL}/auth/send-code`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ email }),
-        });
-        return response.json();
+        const url = `${API_BASE_URL}/auth/send-code`;
+        console.log("Sending OTP to:", url, "email:", email);
+        
+        try {
+            const response = await fetch(url, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ email }),
+            });
+            
+            console.log("Response status:", response.status);
+            const data = await response.json();
+            console.log("Response data:", data);
+            return data;
+        } catch (error) {
+            console.error("Send code error:", error);
+            throw error;
+        }
     },
 
     // Проверка OTP кода
