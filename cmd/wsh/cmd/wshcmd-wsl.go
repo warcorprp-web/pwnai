@@ -17,14 +17,14 @@ var distroName string
 
 var wslCmd = &cobra.Command{
 	Use:     "wsl [-d <distribution-name>]",
-	Short:   "connect this terminal to a local wsl connection",
+	Short:   "подключить этот терминал к локальному wsl соединению",
 	Args:    cobra.NoArgs,
 	RunE:    wslRun,
 	PreRunE: preRunSetupRpcClient,
 }
 
 func init() {
-	wslCmd.Flags().StringVarP(&distroName, "distribution", "d", "", "Run the specified distribution")
+	wslCmd.Flags().StringVarP(&distroName, "distribution", "d", "", "Запустить указанный дистрибутив")
 	rootCmd.AddCommand(wslCmd)
 }
 

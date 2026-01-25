@@ -20,15 +20,15 @@ var (
 
 var sshCmd = &cobra.Command{
 	Use:     "ssh",
-	Short:   "connect this terminal to a remote host",
+	Short:   "подключить этот терминал к удалённому хосту",
 	Args:    cobra.ExactArgs(1),
 	RunE:    sshRun,
 	PreRunE: preRunSetupRpcClient,
 }
 
 func init() {
-	sshCmd.Flags().StringArrayVarP(&identityFiles, "identityfile", "i", []string{}, "add an identity file for publickey authentication")
-	sshCmd.Flags().BoolVarP(&newBlock, "new", "n", false, "create a new terminal block with this connection")
+	sshCmd.Flags().StringArrayVarP(&identityFiles, "identityfile", "i", []string{}, "добавить файл идентификации для аутентификации по публичному ключу")
+	sshCmd.Flags().BoolVarP(&newBlock, "new", "n", false, "создать новый блок терминала с этим соединением")
 	rootCmd.AddCommand(sshCmd)
 }
 

@@ -17,15 +17,15 @@ var notifySilent bool
 
 var setNotifyCmd = &cobra.Command{
 	Use:     "notify <message> [-t <title>] [-s]",
-	Short:   "create a notification",
+	Short:   "создать уведомление",
 	Args:    cobra.ExactArgs(1),
 	RunE:    notifyRun,
 	PreRunE: preRunSetupRpcClient,
 }
 
 func init() {
-	setNotifyCmd.Flags().StringVarP(&notifyTitle, "title", "t", "Wsh Notify", "the notification title")
-	setNotifyCmd.Flags().BoolVarP(&notifySilent, "silent", "s", false, "whether or not the notification sound is silenced")
+	setNotifyCmd.Flags().StringVarP(&notifyTitle, "title", "t", "Wsh Notify", "заголовок уведомления")
+	setNotifyCmd.Flags().BoolVarP(&notifySilent, "silent", "s", false, "отключить ли звук уведомления")
 	rootCmd.AddCommand(setNotifyCmd)
 }
 

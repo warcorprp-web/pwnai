@@ -11,7 +11,7 @@ import (
 
 var workspaceCommand = &cobra.Command{
 	Use:   "workspace",
-	Short: "Manage workspaces",
+	Short: "Управление рабочими пространствами",
 	// Args:    cobra.MinimumNArgs(1),
 }
 

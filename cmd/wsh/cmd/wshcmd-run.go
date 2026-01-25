@@ -19,7 +19,7 @@ import (
 
 var runCmd = &cobra.Command{
 	Use:              "run [flags] -- command [args...]",
-	Short:            "run a command in a new block",
+	Short:            "выполнить команду в новом блоке",
 	RunE:             runRun,
 	PreRunE:          preRunSetupRpcClient,
 	TraverseChildren: true,
@@ -27,7 +27,7 @@ var runCmd = &cobra.Command{
 
 func init() {
 	flags := runCmd.Flags()
-	flags.BoolP("magnified", "m", false, "open view in magnified mode")
+	flags.BoolP("magnified", "m", false, "открыть вид в увеличенном режиме")
 	flags.StringP("command", "c", "", "run command string in shell")
 	flags.BoolP("exit", "x", false, "close block if command exits successfully (will stay open if there was an error)")
 	flags.BoolP("forceexit", "X", false, "close block when command exits, regardless of exit status")

@@ -15,9 +15,9 @@ import (
 )
 
 var getMetaCmd = &cobra.Command{
-	Use:     "getmeta [key...]",
-	Short:   "get metadata for an entity",
-	Long:    "Get metadata for an entity. Keys can be exact matches or patterns like 'name:*' to get all keys that start with 'name:'",
+	Use:     "getmeta [ключ...]",
+	Short:   "получить метаданные для сущности",
+	Long:    "Получить метаданные для сущности. Ключи могут быть точными совпадениями или шаблонами вроде 'name:*' для получения всех ключей начинающихся с 'name:'",
 	Args:    cobra.ArbitraryArgs,
 	RunE:    getMetaRun,
 	PreRunE: preRunSetupRpcClient,
@@ -29,9 +29,9 @@ var getMetaVerbose bool
 
 func init() {
 	rootCmd.AddCommand(getMetaCmd)
-	getMetaCmd.Flags().BoolVarP(&getMetaVerbose, "verbose", "v", false, "output full metadata")
-	getMetaCmd.Flags().BoolVar(&getMetaRawOutput, "raw", false, "output singleton string values without quotes")
-	getMetaCmd.Flags().BoolVar(&getMetaClearPrefix, "clear-prefix", false, "output the special clearing key for prefix queries")
+	getMetaCmd.Flags().BoolVarP(&getMetaVerbose, "verbose", "v", false, "вывести полные метаданные")
+	getMetaCmd.Flags().BoolVar(&getMetaRawOutput, "raw", false, "вывести одиночные строковые значения без кавычек")
+	getMetaCmd.Flags().BoolVar(&getMetaClearPrefix, "clear-prefix", false, "вывести специальный ключ очистки для префиксных запросов")
 }
 
 func filterMetaKeys(meta map[string]interface{}, keys []string) map[string]interface{} {

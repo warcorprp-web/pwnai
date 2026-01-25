@@ -21,7 +21,7 @@ var viewMagnified bool
 var viewCmd = &cobra.Command{
 	Use:     "view {file|directory|URL}",
 	Aliases: []string{"preview", "open"},
-	Short:   "preview/edit a file or directory",
+	Short:   "просмотр/редактирование файла или директории",
 	RunE:    viewRun,
 	PreRunE: preRunSetupRpcClient,
 }
@@ -34,9 +34,9 @@ var editCmd = &cobra.Command{
 }
 
 func init() {
-	viewCmd.Flags().BoolVarP(&viewMagnified, "magnified", "m", false, "open view in magnified mode")
+	viewCmd.Flags().BoolVarP(&viewMagnified, "magnified", "m", false, "открыть вид в увеличенном режиме")
 	rootCmd.AddCommand(viewCmd)
-	editCmd.Flags().BoolVarP(&viewMagnified, "magnified", "m", false, "open view in magnified mode")
+	editCmd.Flags().BoolVarP(&viewMagnified, "magnified", "m", false, "открыть вид в увеличенном режиме")
 	rootCmd.AddCommand(editCmd)
 }
 

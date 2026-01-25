@@ -74,37 +74,37 @@ Supported URI schemes:
 
 var fileCmd = &cobra.Command{
 	Use:   "file",
-	Short: "manage files across different storage systems",
-	Long: `Manage files across different storage systems.
+	Short: "управление файлами в различных системах хранения",
+	Long: `Управление файлами в различных системах хранения.
     
-Wave Terminal is capable of managing files from remote SSH hosts, S3-compatible
-systems, and the internal Wave filesystem. Files are addressed via URIs, which
-vary depending on the storage system.` + UriHelpText}
+Искра Терминал способен управлять файлами с удалённых SSH хостов, S3-совместимых
+систем и внутренней файловой системы Искра. Файлы адресуются через URI, которые
+различаются в зависимости от системы хранения.` + UriHelpText}
 
 var fileTimeout int64
 
 func init() {
 	rootCmd.AddCommand(fileCmd)
 
-	fileCmd.PersistentFlags().Int64VarP(&fileTimeout, "timeout", "t", 15000, "timeout in milliseconds for long operations")
+	fileCmd.PersistentFlags().Int64VarP(&fileTimeout, "timeout", "t", 15000, "таймаут в миллисекундах для длительных операций")
 
-	fileListCmd.Flags().BoolP("recursive", "r", false, "list subdirectories recursively")
-	fileListCmd.Flags().BoolP("long", "l", false, "use long listing format")
-	fileListCmd.Flags().BoolP("one", "1", false, "list one file per line")
-	fileListCmd.Flags().BoolP("files", "f", false, "list files only")
+	fileListCmd.Flags().BoolP("recursive", "r", false, "рекурсивно перечислить поддиректории")
+	fileListCmd.Flags().BoolP("long", "l", false, "использовать длинный формат списка")
+	fileListCmd.Flags().BoolP("one", "1", false, "перечислить по одному файлу на строку")
+	fileListCmd.Flags().BoolP("files", "f", false, "перечислить только файлы")
 
 	fileCmd.AddCommand(fileListCmd)
 	fileCmd.AddCommand(fileCatCmd)
 	fileCmd.AddCommand(fileWriteCmd)
-	fileRmCmd.Flags().BoolP("recursive", "r", false, "remove directories recursively")
+	fileRmCmd.Flags().BoolP("recursive", "r", false, "удалить директории рекурсивно")
 	fileCmd.AddCommand(fileRmCmd)
 	fileCmd.AddCommand(fileInfoCmd)
 	fileCmd.AddCommand(fileAppendCmd)
-	fileCpCmd.Flags().BoolP("merge", "m", false, "merge directories")
-	fileCpCmd.Flags().BoolP("force", "f", false, "force overwrite of existing files")
+	fileCpCmd.Flags().BoolP("merge", "m", false, "объединить директории")
+	fileCpCmd.Flags().BoolP("force", "f", false, "принудительно перезаписать существующие файлы")
 	fileCmd.AddCommand(fileCpCmd)
-	fileMvCmd.Flags().BoolP("recursive", "r", false, "move directories recursively")
-	fileMvCmd.Flags().BoolP("force", "f", false, "force overwrite of existing files")
+	fileMvCmd.Flags().BoolP("recursive", "r", false, "переместить директории рекурсивно")
+	fileMvCmd.Flags().BoolP("force", "f", false, "принудительно перезаписать существующие файлы")
 	fileCmd.AddCommand(fileMvCmd)
 }
 
@@ -113,7 +113,7 @@ var fileListCmd = &cobra.Command{
 	Aliases: []string{"list"},
 	Short:   "list files",
 	Long:    "List files in a directory. By default, lists files in the current directory." + UriHelpText,
-	Example: "  wsh file ls wsh://user@ec2/home/user/\n  wsh file ls wavefile://client/configs/",
+	Example: "  ish file ls wsh://user@ec2/home/user/\n  wsh file ls wavefile://client/configs/",
 	RunE:    activityWrap("file", fileListRun),
 	PreRunE: preRunSetupRpcClient,
 }
@@ -122,7 +122,7 @@ var fileCatCmd = &cobra.Command{
 	Use:     "cat [uri]",
 	Short:   "display contents of a file",
 	Long:    "Display the contents of a file." + UriHelpText,
-	Example: "  wsh file cat wsh://user@ec2/home/user/config.txt\n  wsh file cat wavefile://client/settings.json",
+	Example: "  ish file cat wsh://user@ec2/home/user/config.txt\n  wsh file cat wavefile://client/settings.json",
 	Args:    cobra.ExactArgs(1),
 	RunE:    activityWrap("file", fileCatRun),
 	PreRunE: preRunSetupRpcClient,
@@ -132,7 +132,7 @@ var fileInfoCmd = &cobra.Command{
 	Use:     "info [uri]",
 	Short:   "show wave file information",
 	Long:    "Show information about a file." + UriHelpText,
-	Example: "  wsh file info wsh://user@ec2/home/user/config.txt\n  wsh file info wavefile://client/settings.json",
+	Example: "  ish file info wsh://user@ec2/home/user/config.txt\n  wsh file info wavefile://client/settings.json",
 	Args:    cobra.ExactArgs(1),
 	RunE:    activityWrap("file", fileInfoRun),
 	PreRunE: preRunSetupRpcClient,
@@ -142,7 +142,7 @@ var fileRmCmd = &cobra.Command{
 	Use:     "rm [uri]",
 	Short:   "remove a file",
 	Long:    "Remove a file." + UriHelpText,
-	Example: "  wsh file rm wsh://user@ec2/home/user/config.txt\n  wsh file rm wavefile://client/settings.json",
+	Example: "  ish file rm wsh://user@ec2/home/user/config.txt\n  wsh file rm wavefile://client/settings.json",
 	Args:    cobra.ExactArgs(1),
 	RunE:    activityWrap("file", fileRmRun),
 	PreRunE: preRunSetupRpcClient,
@@ -173,7 +173,7 @@ var fileCpCmd = &cobra.Command{
 	Aliases: []string{"copy"},
 	Short:   "copy files between storage systems, recursively if needed",
 	Long:    "Copy files between different storage systems." + UriHelpText,
-	Example: "  wsh file cp wavefile://block/config.txt ./local-config.txt\n  wsh file cp ./local-config.txt wavefile://block/config.txt\n  wsh file cp wsh://user@ec2/home/user/config.txt wavefile://client/config.txt",
+	Example: "  ish file cp wavefile://block/config.txt ./local-config.txt\n  wsh file cp ./local-config.txt wavefile://block/config.txt\n  wsh file cp wsh://user@ec2/home/user/config.txt wavefile://client/config.txt",
 	Args:    cobra.ExactArgs(2),
 	RunE:    activityWrap("file", fileCpRun),
 	PreRunE: preRunSetupRpcClient,
@@ -184,7 +184,7 @@ var fileMvCmd = &cobra.Command{
 	Aliases: []string{"move"},
 	Short:   "move files between storage systems",
 	Long:    "Move files between different storage systems. The source file will be deleted once the operation completes successfully." + UriHelpText,
-	Example: "  wsh file mv wavefile://block/config.txt ./local-config.txt\n  wsh file mv ./local-config.txt wavefile://block/config.txt\n  wsh file mv wsh://user@ec2/home/user/config.txt wavefile://client/config.txt",
+	Example: "  ish file mv wavefile://block/config.txt ./local-config.txt\n  wsh file mv ./local-config.txt wavefile://block/config.txt\n  wsh file mv wsh://user@ec2/home/user/config.txt wavefile://client/config.txt",
 	Args:    cobra.ExactArgs(2),
 	RunE:    activityWrap("file", fileMvRun),
 	PreRunE: preRunSetupRpcClient,

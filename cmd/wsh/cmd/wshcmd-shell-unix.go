@@ -21,7 +21,7 @@ func init() {
 var shellCmd = &cobra.Command{
 	Use:    "shell",
 	Hidden: true,
-	Short:  "Print the login shell of this user",
+	Short:  "Вывести логин-шелл этого пользователя",
 	Run: func(cmd *cobra.Command, args []string) {
 		WriteStdout("%s", shellCmdInner())
 	},

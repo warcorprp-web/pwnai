@@ -20,7 +20,7 @@ import (
 var jobManagerCmd = &cobra.Command{
 	Use:    "jobmanager",
 	Hidden: true,
-	Short:  "job manager for wave terminal",
+	Short:  "менеджер задач для искра терминала",
 	Args:   cobra.NoArgs,
 	RunE:   jobManagerRun,
 }
@@ -29,8 +29,8 @@ var jobManagerJobId string
 var jobManagerClientId string
 
 func init() {
-	jobManagerCmd.Flags().StringVar(&jobManagerJobId, "jobid", "", "job ID (UUID, required)")
-	jobManagerCmd.Flags().StringVar(&jobManagerClientId, "clientid", "", "client ID (UUID, required)")
+	jobManagerCmd.Flags().StringVar(&jobManagerJobId, "jobid", "", "ID задачи (UUID, обязательно)")
+	jobManagerCmd.Flags().StringVar(&jobManagerClientId, "clientid", "", "ID клиента (UUID, обязательно)")
 	jobManagerCmd.MarkFlagRequired("jobid")
 	jobManagerCmd.MarkFlagRequired("clientid")
 	rootCmd.AddCommand(jobManagerCmd)

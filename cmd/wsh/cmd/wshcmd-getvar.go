@@ -17,11 +17,11 @@ import (
 )
 
 var getVarCmd = &cobra.Command{
-	Use:   "getvar [flags] [key]",
-	Short: "get variable(s) from a block",
-	Long: `Get variable(s) from a block. Without --all, requires a key argument.
-With --all, prints all variables. Use -0 for null-terminated output.`,
-	Example: "  wsh getvar FOO\n  wsh getvar --all\n  wsh getvar --all -0",
+	Use:   "getvar [флаги] [ключ]",
+	Short: "получить переменную(ые) из блока",
+	Long: `Получить переменную(ые) из блока. Без --all требуется аргумент ключа.
+С --all выводит все переменные. Используйте -0 для вывода с null-разделителями.`,
+	Example: "  ish getvar FOO\n  ish getvar --all\n  ish getvar --all -0",
 	RunE:    getVarRun,
 	PreRunE: preRunSetupRpcClient,
 }
@@ -37,12 +37,12 @@ var (
 
 func init() {
 	rootCmd.AddCommand(getVarCmd)
-	getVarCmd.Flags().StringVar(&getVarFileName, "varfile", DefaultVarFileName, "var file name")
-	getVarCmd.Flags().BoolVar(&getVarAllVars, "all", false, "get all variables")
-	getVarCmd.Flags().BoolVarP(&getVarNullTerminate, "null", "0", false, "use null terminators in output")
-	getVarCmd.Flags().BoolVarP(&getVarLocal, "local", "l", false, "get variables local to block")
-	getVarCmd.Flags().BoolVarP(&getVarFlagNL, "newline", "n", false, "print newline after output")
-	getVarCmd.Flags().BoolVarP(&getVarFlagNoNL, "no-newline", "N", false, "do not print newline after output")
+	getVarCmd.Flags().StringVar(&getVarFileName, "varfile", DefaultVarFileName, "имя файла переменных")
+	getVarCmd.Flags().BoolVar(&getVarAllVars, "all", false, "получить все переменные")
+	getVarCmd.Flags().BoolVarP(&getVarNullTerminate, "null", "0", false, "использовать null-разделители в выводе")
+	getVarCmd.Flags().BoolVarP(&getVarLocal, "local", "l", false, "получить переменные локальные для блока")
+	getVarCmd.Flags().BoolVarP(&getVarFlagNL, "newline", "n", false, "вывести перевод строки после вывода")
+	getVarCmd.Flags().BoolVarP(&getVarFlagNoNL, "no-newline", "N", false, "не выводить перевод строки после вывода")
 }
 
 func shouldPrintNewline() bool {

@@ -10,7 +10,7 @@ import (
 var testCmd = &cobra.Command{
 	Use:     "test",
 	Hidden:  true,
-	Short:   "test command",
+	Short:   "тестовая команда",
 	PreRunE: preRunSetupRpcClient,
 	RunE:    runTestCmd,
 }

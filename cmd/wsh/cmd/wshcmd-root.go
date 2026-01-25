@@ -19,9 +19,9 @@ import (
 
 var (
 	rootCmd = &cobra.Command{
-		Use:          "wsh",
-		Short:        "CLI tool to control Wave Terminal",
-		Long:         `wsh is a small utility that lets you do cool things with Wave Terminal, right from the command line`,
+		Use:          "ish",
+		Short:        "CLI инструмент для управления Искра Терминалом",
+		Long:         `ish - небольшая утилита которая позволяет делать крутые вещи с Искра Терминалом прямо из командной строки`,
 		SilenceUsage: true,
 	}
 )
@@ -84,7 +84,7 @@ func OutputHelpMessage(cmd *cobra.Command) {
 func preRunSetupRpcClient(cmd *cobra.Command, args []string) error {
 	jwtToken := os.Getenv(wshutil.WaveJwtTokenVarName)
 	if jwtToken == "" {
-		return fmt.Errorf("wsh must be run inside a Wave-managed SSH session (WAVETERM_JWT not found)")
+		return fmt.Errorf("ish должен запускаться внутри SSH сессии управляемой Искра (WAVETERM_JWT не найден)")
 	}
 	err := setupRpcClient(nil, jwtToken)
 	if err != nil {
@@ -235,7 +235,7 @@ func Execute() {
 			wshutil.DoShutdown("", WshExitCode, false)
 		}
 	}()
-	rootCmd.PersistentFlags().StringVarP(&blockArg, "block", "b", "", "for commands which require a block id")
+	rootCmd.PersistentFlags().StringVarP(&blockArg, "block", "b", "", "для команд которым требуется id блока")
 	err := rootCmd.Execute()
 	if err != nil {
 		wshutil.DoShutdown("", 1, true)

@@ -13,7 +13,7 @@ import (
 
 var deleteBlockCmd = &cobra.Command{
 	Use:     "deleteblock",
-	Short:   "delete a block",
+	Short:   "удалить блок",
 	RunE:    deleteBlockRun,
 	PreRunE: preRunSetupRpcClient,
 }

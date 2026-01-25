@@ -15,14 +15,14 @@ var magnifyBlock bool
 
 var launchCmd = &cobra.Command{
 	Use:     "launch",
-	Short:   "launch a widget by its ID",
+	Short:   "запустить виджет по его ID",
 	Args:    cobra.ExactArgs(1),
 	RunE:    launchRun,
 	PreRunE: preRunSetupRpcClient,
 }
 
 func init() {
-	launchCmd.Flags().BoolVarP(&magnifyBlock, "magnify", "m", false, "start the widget in magnified mode")
+	launchCmd.Flags().BoolVarP(&magnifyBlock, "magnify", "m", false, "запустить виджет в увеличенном режиме")
 	rootCmd.AddCommand(launchCmd)
 }
 

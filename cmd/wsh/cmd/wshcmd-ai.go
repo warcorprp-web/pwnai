@@ -22,12 +22,12 @@ import (
 )
 
 var aiCmd = &cobra.Command{
-	Use:   "ai [options] [files...]",
-	Short: "Append content to Wave AI sidebar prompt",
-	Long: `Append content to Wave AI sidebar prompt (does not auto-submit by default)
+	Use:   "ai [опции] [файлы...]",
+	Short: "Добавить содержимое в промпт боковой панели Искра AI",
+	Long: `Добавить содержимое в промпт боковой панели Искра AI (не отправляет автоматически по умолчанию)
 
-Arguments:
-  files...               Files to attach (use '-' for stdin)
+Аргументы:
+  файлы...               Файлы для прикрепления (используйте '-' для stdin)
 
 Examples:
   git diff | wsh ai -                    # Pipe diff to AI, ask question in UI
@@ -46,9 +46,9 @@ var aiNewBlockFlag bool
 
 func init() {
 	rootCmd.AddCommand(aiCmd)
-	aiCmd.Flags().StringVarP(&aiMessageFlag, "message", "m", "", "optional message/question to append after files")
-	aiCmd.Flags().BoolVarP(&aiSubmitFlag, "submit", "s", false, "submit the prompt immediately after appending")
-	aiCmd.Flags().BoolVarP(&aiNewBlockFlag, "new", "n", false, "create a new AI chat instead of using existing")
+	aiCmd.Flags().StringVarP(&aiMessageFlag, "message", "m", "", "опциональное сообщение/вопрос для добавления после файлов")
+	aiCmd.Flags().BoolVarP(&aiSubmitFlag, "submit", "s", false, "отправить промпт сразу после добавления")
+	aiCmd.Flags().BoolVarP(&aiNewBlockFlag, "new", "n", false, "создать новый AI чат вместо использования существующего")
 }
 
 func detectMimeType(data []byte) string {

@@ -20,13 +20,13 @@ var versionJSON bool
 // versionCmd represents the version command
 var versionCmd = &cobra.Command{
 	Use:   "version [-v] [--json]",
-	Short: "Print the version number of wsh",
+	Short: "Вывести номер версии ish",
 	RunE:  runVersionCmd,
 }
 
 func init() {
-	versionCmd.Flags().BoolVarP(&versionVerbose, "verbose", "v", false, "Display full version information")
-	versionCmd.Flags().BoolVar(&versionJSON, "json", false, "Output version information in JSON format")
+	versionCmd.Flags().BoolVarP(&versionVerbose, "verbose", "v", false, "Показать полную информацию о версии")
+	versionCmd.Flags().BoolVar(&versionJSON, "json", false, "Вывести информацию о версии в формате JSON")
 	rootCmd.AddCommand(versionCmd)
 }
 

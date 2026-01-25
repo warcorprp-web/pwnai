@@ -15,7 +15,7 @@ import (
 
 var jobDebugCmd = &cobra.Command{
 	Use:               "jobdebug",
-	Short:             "debugging commands for the job system",
+	Short:             "отладочные команды для системы задач",
 	Hidden:            true,
 	PersistentPreRunE: preRunSetupRpcClient,
 }
@@ -119,32 +119,32 @@ func init() {
 	jobDebugCmd.AddCommand(jobDebugAttachJobCmd)
 	jobDebugCmd.AddCommand(jobDebugDetachJobCmd)
 
-	jobDebugListCmd.Flags().BoolVar(&jobDebugJsonFlag, "json", false, "output as JSON")
+	jobDebugListCmd.Flags().BoolVar(&jobDebugJsonFlag, "json", false, "вывести как JSON")
 
-	jobDebugDeleteCmd.Flags().StringVar(&jobIdFlag, "jobid", "", "job id to delete (required)")
+	jobDebugDeleteCmd.Flags().StringVar(&jobIdFlag, "jobid", "", "id задачи для удаления (обязательно)")
 	jobDebugDeleteCmd.MarkFlagRequired("jobid")
 
-	jobDebugExitCmd.Flags().StringVar(&exitJobIdFlag, "jobid", "", "job id to exit (required)")
+	jobDebugExitCmd.Flags().StringVar(&exitJobIdFlag, "jobid", "", "id задачи для выхода (обязательно)")
 	jobDebugExitCmd.MarkFlagRequired("jobid")
 
-	jobDebugDisconnectCmd.Flags().StringVar(&disconnectJobIdFlag, "jobid", "", "job id to disconnect (required)")
+	jobDebugDisconnectCmd.Flags().StringVar(&disconnectJobIdFlag, "jobid", "", "id задачи для отключения (обязательно)")
 	jobDebugDisconnectCmd.MarkFlagRequired("jobid")
 
-	jobDebugReconnectCmd.Flags().StringVar(&reconnectJobIdFlag, "jobid", "", "job id to reconnect (required)")
+	jobDebugReconnectCmd.Flags().StringVar(&reconnectJobIdFlag, "jobid", "", "id задачи для переподключения (обязательно)")
 	jobDebugReconnectCmd.MarkFlagRequired("jobid")
 
-	jobDebugReconnectConnCmd.Flags().StringVar(&reconnectConnNameFlag, "conn", "", "connection name (required)")
+	jobDebugReconnectConnCmd.Flags().StringVar(&reconnectConnNameFlag, "conn", "", "имя соединения (обязательно)")
 	jobDebugReconnectConnCmd.MarkFlagRequired("conn")
 
-	jobDebugGetOutputCmd.Flags().StringVar(&jobIdFlag, "jobid", "", "job id to get output for (required)")
+	jobDebugGetOutputCmd.Flags().StringVar(&jobIdFlag, "jobid", "", "id задачи для получения вывода (обязательно)")
 	jobDebugGetOutputCmd.MarkFlagRequired("jobid")
 
-	jobDebugStartCmd.Flags().StringVar(&jobConnFlag, "conn", "", "connection name (required)")
+	jobDebugStartCmd.Flags().StringVar(&jobConnFlag, "conn", "", "имя соединения (обязательно)")
 	jobDebugStartCmd.MarkFlagRequired("conn")
 
-	jobDebugAttachJobCmd.Flags().StringVar(&attachJobIdFlag, "jobid", "", "job id to attach (required)")
+	jobDebugAttachJobCmd.Flags().StringVar(&attachJobIdFlag, "jobid", "", "id задачи для прикрепления (обязательно)")
 	jobDebugAttachJobCmd.MarkFlagRequired("jobid")
-	jobDebugAttachJobCmd.Flags().StringVar(&attachBlockIdFlag, "blockid", "", "block id to attach to (required)")
+	jobDebugAttachJobCmd.Flags().StringVar(&attachBlockIdFlag, "blockid", "", "id блока для прикрепления (обязательно)")
 	jobDebugAttachJobCmd.MarkFlagRequired("blockid")
 
 	jobDebugDetachJobCmd.Flags().StringVar(&detachJobIdFlag, "jobid", "", "job id to detach (required)")

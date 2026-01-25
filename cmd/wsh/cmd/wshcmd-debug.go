@@ -12,7 +12,7 @@ import (
 
 var debugCmd = &cobra.Command{
 	Use:               "debug",
-	Short:             "debug commands",
+	Short:             "отладочные команды",
 	PersistentPreRunE: preRunSetupRpcClient,
 	Hidden:            true,
 }

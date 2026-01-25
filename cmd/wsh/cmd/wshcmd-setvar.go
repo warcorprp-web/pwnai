@@ -15,13 +15,13 @@ import (
 const DefaultVarFileName = "var"
 
 var setVarCmd = &cobra.Command{
-	Use:   "setvar [flags] KEY=VALUE...",
-	Short: "set variable(s) for a block",
-	Long: `Set one or more variables for a block. 
-Use --remove/-r to remove variables instead of setting them.
-When setting, each argument must be in KEY=VALUE format.
-When removing, each argument is treated as a key to remove.`,
-	Example: "  wsh setvar FOO=bar BAZ=123\n  wsh setvar -r FOO BAZ",
+	Use:   "setvar [флаги] КЛЮЧ=ЗНАЧЕНИЕ...",
+	Short: "установить переменную(ые) для блока",
+	Long: `Установить одну или несколько переменных для блока. 
+Используйте --remove/-r для удаления переменных вместо установки.
+При установке каждый аргумент должен быть в формате КЛЮЧ=ЗНАЧЕНИЕ.
+При удалении каждый аргумент рассматривается как ключ для удаления.`,
+	Example: "  ish setvar FOO=bar BAZ=123\n  ish setvar -r FOO BAZ",
 	Args:    cobra.MinimumNArgs(1),
 	RunE:    setVarRun,
 	PreRunE: preRunSetupRpcClient,
@@ -35,9 +35,9 @@ var (
 
 func init() {
 	rootCmd.AddCommand(setVarCmd)
-	setVarCmd.Flags().StringVar(&setVarFileName, "varfile", DefaultVarFileName, "var file name")
-	setVarCmd.Flags().BoolVarP(&setVarLocal, "local", "l", false, "set variables local to block")
-	setVarCmd.Flags().BoolVarP(&setVarRemoveVar, "remove", "r", false, "remove the variable(s) instead of setting")
+	setVarCmd.Flags().StringVar(&setVarFileName, "varfile", DefaultVarFileName, "имя файла переменных")
+	setVarCmd.Flags().BoolVarP(&setVarLocal, "local", "l", false, "установить переменные локальные для блока")
+	setVarCmd.Flags().BoolVarP(&setVarRemoveVar, "remove", "r", false, "удалить переменную(ые) вместо установки")
 }
 
 func parseKeyValue(arg string) (key, value string, err error) {

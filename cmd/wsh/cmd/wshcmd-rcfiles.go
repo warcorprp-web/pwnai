@@ -15,7 +15,7 @@ func init() {
 var rcfilesCmd = &cobra.Command{
 	Use:    "rcfiles",
 	Hidden: true,
-	Short:  "Generate the rc files needed for various shells",
+	Short:  "Сгенерировать rc файлы необходимые для различных шеллов",
 	Run: func(cmd *cobra.Command, args []string) {
 		err := wshutil.InstallRcFiles()
 		if err != nil {

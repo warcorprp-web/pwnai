@@ -20,13 +20,13 @@ var editMagnified bool
 
 var editorCmd = &cobra.Command{
 	Use:     "editor",
-	Short:   "edit a file (blocks until editor is closed)",
+	Short:   "редактировать файл (блокирует до закрытия редактора)",
 	RunE:    editorRun,
 	PreRunE: preRunSetupRpcClient,
 }
 
 func init() {
-	editorCmd.Flags().BoolVarP(&editMagnified, "magnified", "m", false, "open view in magnified mode")
+	editorCmd.Flags().BoolVarP(&editMagnified, "magnified", "m", false, "открыть вид в увеличенном режиме")
 	rootCmd.AddCommand(editorCmd)
 }
 

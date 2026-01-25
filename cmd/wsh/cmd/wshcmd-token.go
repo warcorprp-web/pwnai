@@ -12,7 +12,7 @@ import (
 
 var tokenCmd = &cobra.Command{
 	Use:    "token [token] [shell-type]",
-	Short:  "exchange token for shell initialization script",
+	Short:  "обменять токен на скрипт инициализации шелла",
 	RunE:   tokenCmdRun,
 	Hidden: true,
 }

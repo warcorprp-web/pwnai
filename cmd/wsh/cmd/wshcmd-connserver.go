@@ -32,7 +32,7 @@ import (
 var serverCmd = &cobra.Command{
 	Use:    "connserver",
 	Hidden: true,
-	Short:  "remote server to power wave blocks",
+	Short:  "удалённый сервер для работы блоков искра",
 	Args:   cobra.NoArgs,
 	RunE:   serverRun,
 }
@@ -44,10 +44,10 @@ var connServerDev bool
 var ConnServerWshRouter *wshutil.WshRouter
 
 func init() {
-	serverCmd.Flags().BoolVar(&connServerRouter, "router", false, "run in local router mode (stdio upstream)")
-	serverCmd.Flags().BoolVar(&connServerRouterDomainSocket, "router-domainsocket", false, "run in local router mode (domain socket upstream)")
-	serverCmd.Flags().StringVar(&connServerConnName, "conn", "", "connection name")
-	serverCmd.Flags().BoolVar(&connServerDev, "dev", false, "enable dev mode with file logging and PID in logs")
+	serverCmd.Flags().BoolVar(&connServerRouter, "router", false, "запустить в режиме локального роутера (stdio upstream)")
+	serverCmd.Flags().BoolVar(&connServerRouterDomainSocket, "router-domainsocket", false, "запустить в режиме локального роутера (domain socket upstream)")
+	serverCmd.Flags().StringVar(&connServerConnName, "conn", "", "имя соединения")
+	serverCmd.Flags().BoolVar(&connServerDev, "dev", false, "включить режим разработки с логированием в файл и PID в логах")
 	rootCmd.AddCommand(serverCmd)
 }
 

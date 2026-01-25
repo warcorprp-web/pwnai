@@ -18,7 +18,7 @@ import (
 
 var setMetaCmd = &cobra.Command{
 	Use:     "setmeta [-b {blockid|blocknum|this}] [--json file.json] key=value ...",
-	Short:   "set metadata for an entity",
+	Short:   "установить метаданные для сущности",
 	Args:    cobra.MinimumNArgs(0),
 	RunE:    setMetaRun,
 	PreRunE: preRunSetupRpcClient,
@@ -28,7 +28,7 @@ var setMetaJsonFilePath string
 
 func init() {
 	rootCmd.AddCommand(setMetaCmd)
-	setMetaCmd.Flags().StringVar(&setMetaJsonFilePath, "json", "", "JSON file containing metadata to apply (use '-' for stdin)")
+	setMetaCmd.Flags().StringVar(&setMetaJsonFilePath, "json", "", "JSON файл содержащий метаданные для применения (используйте '-' для stdin)")
 }
 
 func loadJSONFile(filepath string) (map[string]interface{}, error) {

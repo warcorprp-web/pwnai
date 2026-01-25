@@ -20,7 +20,7 @@ import (
 
 var setBgCmd = &cobra.Command{
 	Use:   "setbg [--opacity value] [--tile|--center] [--scale value] (image-path|\"#color\"|color-name)",
-	Short: "set background image or color for a tab",
+	Short: "установить фоновое изображение или цвет для вкладки",
 	Long: `Set a background image or color for a tab. Colors can be specified as:
   - A quoted hex value like "#ff0000" (quotes required to prevent # being interpreted as a shell comment)
   - A CSS color name like "blue" or "forestgreen"
@@ -47,12 +47,12 @@ var (
 
 func init() {
 	rootCmd.AddCommand(setBgCmd)
-	setBgCmd.Flags().Float64Var(&setBgOpacity, "opacity", 0.5, "background opacity (0.0-1.0)")
-	setBgCmd.Flags().BoolVar(&setBgTile, "tile", false, "tile the background image")
-	setBgCmd.Flags().BoolVar(&setBgCenter, "center", false, "center the image without scaling")
-	setBgCmd.Flags().StringVar(&setBgSize, "size", "auto", "size for centered images (px, %, or auto)")
-	setBgCmd.Flags().BoolVar(&setBgClear, "clear", false, "clear the background")
-	setBgCmd.Flags().BoolVar(&setBgPrint, "print", false, "print the metadata without applying it")
+	setBgCmd.Flags().Float64Var(&setBgOpacity, "opacity", 0.5, "прозрачность фона (0.0-1.0)")
+	setBgCmd.Flags().BoolVar(&setBgTile, "tile", false, "замостить фоновое изображение")
+	setBgCmd.Flags().BoolVar(&setBgCenter, "center", false, "центрировать изображение без масштабирования")
+	setBgCmd.Flags().StringVar(&setBgSize, "size", "auto", "размер для центрированных изображений (px, %, или auto)")
+	setBgCmd.Flags().BoolVar(&setBgClear, "clear", false, "очистить фон")
+	setBgCmd.Flags().BoolVar(&setBgPrint, "print", false, "вывести метаданные без применения")
 
 	// Make tile and center mutually exclusive
 	setBgCmd.MarkFlagsMutuallyExclusive("tile", "center")

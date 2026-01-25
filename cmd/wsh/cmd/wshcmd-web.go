@@ -16,7 +16,7 @@ import (
 
 var webCmd = &cobra.Command{
 	Use:               "web [open|get|set]",
-	Short:             "web commands",
+	Short:             "веб команды",
 	PersistentPreRunE: preRunSetupRpcClient,
 }
 
@@ -42,12 +42,12 @@ var webOpenMagnified bool
 var webOpenReplaceBlock string
 
 func init() {
-	webOpenCmd.Flags().BoolVarP(&webOpenMagnified, "magnified", "m", false, "open view in magnified mode")
-	webOpenCmd.Flags().StringVarP(&webOpenReplaceBlock, "replace", "r", "", "replace block")
+	webOpenCmd.Flags().BoolVarP(&webOpenMagnified, "magnified", "m", false, "открыть вид в увеличенном режиме")
+	webOpenCmd.Flags().StringVarP(&webOpenReplaceBlock, "replace", "r", "", "заменить блок")
 	webCmd.AddCommand(webOpenCmd)
-	webGetCmd.Flags().BoolVarP(&webGetInner, "inner", "", false, "get inner html (instead of outer)")
-	webGetCmd.Flags().BoolVarP(&webGetAll, "all", "", false, "get all matches (querySelectorAll)")
-	webGetCmd.Flags().BoolVarP(&webGetJson, "json", "", false, "output as json")
+	webGetCmd.Flags().BoolVarP(&webGetInner, "inner", "", false, "получить внутренний html (вместо внешнего)")
+	webGetCmd.Flags().BoolVarP(&webGetAll, "all", "", false, "получить все совпадения (querySelectorAll)")
+	webGetCmd.Flags().BoolVarP(&webGetJson, "json", "", false, "вывести как json")
 	webCmd.AddCommand(webGetCmd)
 	rootCmd.AddCommand(webCmd)
 }

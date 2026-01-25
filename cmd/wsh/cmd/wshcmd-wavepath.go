@@ -16,15 +16,15 @@ import (
 
 var wavepathCmd = &cobra.Command{
 	Use:     "wavepath {config|data|log}",
-	Short:   "Get paths to various waveterm files and directories",
+	Short:   "Получить пути к различным файлам и директориям waveterm",
 	RunE:    wavepathRun,
 	PreRunE: preRunSetupRpcClient,
 }
 
 func init() {
-	wavepathCmd.Flags().BoolP("open", "o", false, "Open the path in a new block")
-	wavepathCmd.Flags().BoolP("open-external", "O", false, "Open the path in the default external application")
-	wavepathCmd.Flags().BoolP("tail", "t", false, "Tail the last 100 lines of the log")
+	wavepathCmd.Flags().BoolP("open", "o", false, "Открыть путь в новом блоке")
+	wavepathCmd.Flags().BoolP("open-external", "O", false, "Открыть путь в стандартном внешнем приложении")
+	wavepathCmd.Flags().BoolP("tail", "t", false, "Показать последние 100 строк лога")
 	rootCmd.AddCommand(wavepathCmd)
 }
 

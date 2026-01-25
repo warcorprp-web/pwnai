@@ -15,8 +15,8 @@ import (
 
 var connCmd = &cobra.Command{
 	Use:   "conn",
-	Short: "manage Wave Terminal connections",
-	Long:  "Commands to manage Wave Terminal SSH and WSL connections",
+	Short: "управление соединениями Искра Терминала",
+	Long:  "Команды для управления SSH и WSL соединениями Искра Терминала",
 }
 
 var connStatusCmd = &cobra.Command{

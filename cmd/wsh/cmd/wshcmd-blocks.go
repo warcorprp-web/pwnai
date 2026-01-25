@@ -39,7 +39,7 @@ type BlockDetails struct {
 var blocksListCmd = &cobra.Command{
 	Use:     "list",
 	Aliases: []string{"ls", "get"},
-	Short:   "List blocks in workspaces/windows",
+	Short:   "Список блоков в рабочих пространствах/окнах",
 	Long:    `List blocks with optional filtering by workspace, window, tab, or view type.
 
 Examples:
@@ -71,12 +71,12 @@ Examples:
 // init registers the blocks commands with the root command
 // It configures all the flags and command options
 func init() {
-	blocksListCmd.Flags().StringVar(&blocksWindowId, "window", "", "restrict to window id")
-	blocksListCmd.Flags().StringVar(&blocksWorkspaceId, "workspace", "", "restrict to workspace id")
-	blocksListCmd.Flags().StringVar(&blocksTabId, "tab", "", "restrict to specific tab id")
-	blocksListCmd.Flags().StringVar(&blocksView, "view", "", "restrict to view type (term/terminal, web/browser, preview/edit, sysinfo, waveai)")
-	blocksListCmd.Flags().BoolVar(&blocksJSON, "json", false, "output as JSON")
-	blocksListCmd.Flags().IntVar(&blocksTimeout, "timeout", 5000, "timeout in milliseconds for RPC calls (default: 5000)")
+	blocksListCmd.Flags().StringVar(&blocksWindowId, "window", "", "ограничить по id окна")
+	blocksListCmd.Flags().StringVar(&blocksWorkspaceId, "workspace", "", "ограничить по id рабочего пространства")
+	blocksListCmd.Flags().StringVar(&blocksTabId, "tab", "", "ограничить по конкретному id вкладки")
+	blocksListCmd.Flags().StringVar(&blocksView, "view", "", "ограничить по типу вида (term/terminal, web/browser, preview/edit, sysinfo, waveai)")
+	blocksListCmd.Flags().BoolVar(&blocksJSON, "json", false, "вывести как JSON")
+	blocksListCmd.Flags().IntVar(&blocksTimeout, "timeout", 5000, "таймаут в миллисекундах для RPC вызовов (по умолчанию: 5000)")
 
 	for _, cmd := range rootCmd.Commands() {
 		if cmd.Use == "blocks" {

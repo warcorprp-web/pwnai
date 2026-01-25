@@ -16,7 +16,7 @@ var createBlockMagnified bool
 
 var createBlockCmd = &cobra.Command{
 	Use:     "createblock viewname key=value ...",
-	Short:   "create a new block",
+	Short:   "создать новый блок",
 	Args:    cobra.MinimumNArgs(1),
 	RunE:    createBlockRun,
 	PreRunE: preRunSetupRpcClient,
@@ -24,7 +24,7 @@ var createBlockCmd = &cobra.Command{
 }
 
 func init() {
-	createBlockCmd.Flags().BoolVarP(&createBlockMagnified, "magnified", "m", false, "create block in magnified mode")
+	createBlockCmd.Flags().BoolVarP(&createBlockMagnified, "magnified", "m", false, "создать блок в увеличенном режиме")
 	rootCmd.AddCommand(createBlockCmd)
 }
 

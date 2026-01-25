@@ -19,14 +19,14 @@ var termMagnified bool
 
 var termCmd = &cobra.Command{
 	Use:     "term",
-	Short:   "open a terminal in directory",
+	Short:   "открыть терминал в директории",
 	Args:    cobra.RangeArgs(0, 1),
 	RunE:    termRun,
 	PreRunE: preRunSetupRpcClient,
 }
 
 func init() {
-	termCmd.Flags().BoolVarP(&termMagnified, "magnified", "m", false, "open view in magnified mode")
+	termCmd.Flags().BoolVarP(&termMagnified, "magnified", "m", false, "открыть вид в увеличенном режиме")
 	rootCmd.AddCommand(termCmd)
 }
 

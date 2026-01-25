@@ -13,7 +13,7 @@ import (
 
 var setConfigCmd = &cobra.Command{
 	Use:     "setconfig",
-	Short:   "set config",
+	Short:   "установить конфигурацию",
 	Args:    cobra.MinimumNArgs(1),
 	RunE:    setConfigRun,
 	PreRunE: preRunSetupRpcClient,

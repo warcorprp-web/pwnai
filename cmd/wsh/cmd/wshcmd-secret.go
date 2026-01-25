@@ -21,8 +21,8 @@ var secretUiMagnified bool
 
 var secretCmd = &cobra.Command{
 	Use:   "secret",
-	Short: "manage secrets",
-	Long:  "Manage secrets for Wave Terminal",
+	Short: "управление секретами",
+	Long:  "Управление секретами для Искра Терминала",
 }
 
 var secretGetCmd = &cobra.Command{
@@ -66,7 +66,7 @@ var secretUiCmd = &cobra.Command{
 }
 
 func init() {
-	secretUiCmd.Flags().BoolVarP(&secretUiMagnified, "magnified", "m", false, "open secrets UI in magnified mode")
+	secretUiCmd.Flags().BoolVarP(&secretUiMagnified, "magnified", "m", false, "открыть UI секретов в увеличенном режиме")
 	rootCmd.AddCommand(secretCmd)
 	secretCmd.AddCommand(secretGetCmd)
 	secretCmd.AddCommand(secretSetCmd)
