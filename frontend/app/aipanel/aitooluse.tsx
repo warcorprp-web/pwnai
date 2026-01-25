@@ -88,8 +88,8 @@ interface AIToolApprovalButtonsProps {
 }
 
 const AIToolApprovalButtons = memo(({ count, onApprove, onDeny }: AIToolApprovalButtonsProps) => {
-    const approveText = count > 1 ? `Approve All (${count})` : "Approve";
-    const denyText = count > 1 ? "Deny All" : "Deny";
+    const approveText = count > 1 ? `Одобрить все (${count})` : "Одобрить";
+    const denyText = count > 1 ? "Отклонить все" : "Отклонить";
 
     return (
         <div className="mt-2 flex gap-2">
@@ -288,7 +288,7 @@ const AIToolUse = memo(({ part, isStreaming }: AIToolUseProps) => {
                             className="flex-shrink-0 px-1.5 py-0.5 border border-zinc-600 hover:border-zinc-500 hover:bg-zinc-700 rounded cursor-pointer transition-colors flex items-center gap-1 text-zinc-400"
                             title="Восстановить резервную копию"
                         >
-                            <span className="text-xs">Revert File</span>
+                            <span className="text-xs">Откатить</span>
                             <i className="fa fa-clock-rotate-left text-xs"></i>
                         </button>
                     )}
@@ -298,14 +298,14 @@ const AIToolUse = memo(({ part, isStreaming }: AIToolUseProps) => {
                         className="flex-shrink-0 px-1.5 py-0.5 border border-zinc-600 hover:border-zinc-500 hover:bg-zinc-700 rounded cursor-pointer transition-colors flex items-center gap-1 text-zinc-400"
                         title="Открыть в просмотре различий"
                     >
-                        <span className="text-xs">Show Diff</span>
+                        <span className="text-xs">Показать изменения</span>
                         <i className="fa fa-arrow-up-right-from-square text-xs"></i>
                     </button>
                 )}
             </div>
             {toolData.tooldesc && <ToolDesc text={toolData.tooldesc} className="text-sm text-gray-400 pl-6" />}
             {(toolData.errormessage || effectiveApproval === "timeout") && (
-                <div className="text-sm text-red-300 pl-6">{toolData.errormessage || "Not approved"}</div>
+                <div className="text-sm text-red-300 pl-6">{toolData.errormessage || "Не одобрено"}</div>
             )}
             {effectiveApproval === "needs-approval" && (
                 <div className="pl-6">

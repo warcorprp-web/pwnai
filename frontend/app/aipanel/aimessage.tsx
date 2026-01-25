@@ -190,7 +190,7 @@ const getThinkingMessage = (
     );
 
     if (hasPendingApprovals) {
-        return { message: "Waiting for Tool Approvals...", isWaitingApproval: true };
+        return { message: "Ожидание подтверждения инструментов...", isWaitingApproval: true };
     }
 
     const lastPart = parts[parts.length - 1];
