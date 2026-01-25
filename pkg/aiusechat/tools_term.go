@@ -5,6 +5,7 @@ package aiusechat
 
 import (
 	"context"
+	"encoding/base64"
 	"encoding/json"
 	"fmt"
 	"strings"
@@ -361,24 +362,20 @@ func GetTermRunCommandToolDefinition(tabId string) uctypes.ToolDefinition {
 			}
 			return fmt.Sprintf("executing command in terminal %s: %s", parsed.WidgetId, parsed.Command)
 		},
-		ToolApproval: func(input any) *uctypes.ToolApprovalInfo {
+		ToolApproval: func(input any) string {
 			parsed, err := parseTermRunCommandInput(input)
 			if err != nil {
-				return nil
+				return ""
 			}
 			
 			// Require approval for potentially dangerous commands
 			dangerousPatterns := []string{"rm ", "del ", "format", "mkfs", "dd ", "> /dev/", "sudo rm", "chmod -R", "chown -R"}
 			for _, pattern := range dangerousPatterns {
 				if strings.Contains(strings.ToLower(parsed.Command), pattern) {
-					return &uctypes.ToolApprovalInfo{
-						ToolName:    "term_run_command",
-						ToolDesc:    fmt.Sprintf("Execute potentially dangerous command: %s", parsed.Command),
-						NeedsPrompt: true,
-					}
+					return fmt.Sprintf("Execute potentially dangerous command: %s", parsed.Command)
 				}
 			}
-			return nil
+			return ""
 		},
 		ToolAnyCallback: func(input any, toolUseData *uctypes.UIMessageDataToolUse) (any, error) {
 			parsed, err := parseTermRunCommandInput(input)
@@ -405,11 +402,12 @@ func GetTermRunCommandToolDefinition(tabId string) uctypes.ToolDefinition {
 
 			// Send command to terminal
 			inputData := wshrpc.CommandBlockInputData{
-				BlockId:   fullBlockId,
-				InputData: []byte(parsed.Command + "\n"),
+				BlockId:     fullBlockId,
+				InputData64: base64.StdEncoding.EncodeToString([]byte(parsed.Command + "\n")),
 			}
 
-			err = wshclient.ControllerInputCommand(wcore.GetWebSocketRpcClient(), inputData, &wshrpc.RpcOpts{
+			rpcClient := wshclient.GetBareRpcClient()
+			err = wshclient.ControllerInputCommand(rpcClient, inputData, &wshrpc.RpcOpts{
 				Timeout: 5000,
 			})
 			if err != nil {
