@@ -65,7 +65,7 @@ export const AIPanelHeader = memo(() => {
                 <button
                     onClick={handleKebabClick}
                     className="text-gray-400 hover:text-white cursor-pointer transition-colors p-1 rounded flex-shrink-0 ml-2 focus:outline-none"
-                    title="More options"
+                    title="Дополнительные опции"
                 >
                     <i className="fa fa-ellipsis-vertical"></i>
                 </button>

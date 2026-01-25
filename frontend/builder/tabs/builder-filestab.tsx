@@ -319,7 +319,7 @@ const BuilderFilesTab = memo(() => {
                         className="px-3 py-1 text-sm font-medium rounded bg-panel border border-border hover:bg-hover transition-colors cursor-pointer"
                         onClick={handleRefresh}
                         disabled={loading}
-                        title="Refresh file list"
+                        title="Обновить список файлов"
                     >
                         <i className="fa fa-refresh" />
                     </button>
@@ -380,7 +380,7 @@ const BuilderFilesTab = memo(() => {
                                     <button
                                         className="px-2 py-1 hover:bg-hover rounded transition-colors cursor-pointer"
                                         onClick={(e) => handleContextMenu(e, file.name)}
-                                        title="File options"
+                                        title="Опции файла"
                                     >
                                         <i className="fa fa-ellipsis-vertical" />
                                     </button>

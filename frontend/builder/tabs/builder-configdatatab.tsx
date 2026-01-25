@@ -193,7 +193,7 @@ const BuilderConfigDataTab = memo(() => {
                                 <i className="fa fa-gear" />
                                 Config
                             </h4>
-                            <CopyButton title="Copy Config" onClick={handleCopyConfig} />
+                            <CopyButton title="Копировать конфиг" onClick={handleCopyConfig} />
                         </div>
                         <div className="bg-panel border border-border rounded-lg p-4 overflow-auto">
                             <pre className="text-xs text-primary font-mono whitespace-pre">
@@ -207,7 +207,7 @@ const BuilderConfigDataTab = memo(() => {
                                 <i className="fa fa-database" />
                                 Data
                             </h4>
-                            <CopyButton title="Copy Data" onClick={handleCopyData} />
+                            <CopyButton title="Копировать данные" onClick={handleCopyData} />
                         </div>
                         <div className="bg-panel border border-border rounded-lg p-4 overflow-auto">
                             <pre className="text-xs text-primary font-mono whitespace-pre">

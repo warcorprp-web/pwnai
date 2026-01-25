@@ -286,7 +286,7 @@ const AIToolUse = memo(({ part, isStreaming }: AIToolUseProps) => {
                                 model.openRestoreBackupModal(toolData.toolcallid);
                             }}
                             className="flex-shrink-0 px-1.5 py-0.5 border border-zinc-600 hover:border-zinc-500 hover:bg-zinc-700 rounded cursor-pointer transition-colors flex items-center gap-1 text-zinc-400"
-                            title="Restore backup file"
+                            title="Восстановить резервную копию"
                         >
                             <span className="text-xs">Revert File</span>
                             <i className="fa fa-clock-rotate-left text-xs"></i>
@@ -296,7 +296,7 @@ const AIToolUse = memo(({ part, isStreaming }: AIToolUseProps) => {
                     <button
                         onClick={handleOpenDiff}
                         className="flex-shrink-0 px-1.5 py-0.5 border border-zinc-600 hover:border-zinc-500 hover:bg-zinc-700 rounded cursor-pointer transition-colors flex items-center gap-1 text-zinc-400"
-                        title="Open in diff viewer"
+                        title="Открыть в просмотре различий"
                     >
                         <span className="text-xs">Show Diff</span>
                         <i className="fa fa-arrow-up-right-from-square text-xs"></i>

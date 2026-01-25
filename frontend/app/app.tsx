@@ -263,7 +263,7 @@ const FlashError = () => {
                     onClick={() => copyError(err.id)}
                     onMouseEnter={() => setHoveredId(err.id)}
                     onMouseLeave={() => setHoveredId(null)}
-                    title="Click to Copy Error Message"
+                    title="Нажмите для копирования ошибки"
                 >
                     <div className="flash-error-scroll">
                         {err.title != null ? <div className="flash-error-title">{err.title}</div> : null}

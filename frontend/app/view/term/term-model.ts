@@ -125,7 +125,7 @@ export class TermViewModel implements ViewModel {
                     {
                         elemtype: "iconbutton",
                         icon: "square-terminal",
-                        title: "Switch back to Terminal",
+                        title: "Вернуться к терминалу",
                         click: () => {
                             this.setTermMode("term");
                         },
@@ -138,7 +138,7 @@ export class TermViewModel implements ViewModel {
                 rtn.push({
                     elemtype: "iconbutton",
                     icon: "bolt",
-                    title: "Switch to Wave App",
+                    title: "Переключиться на Wave App",
                     click: () => {
                         this.setTermMode("vdom");
                     },
@@ -164,7 +164,7 @@ export class TermViewModel implements ViewModel {
                         icon: "refresh",
                         iconColor: "var(--success-color)",
                         iconSpin: true,
-                        title: "Restarting Command",
+                        title: "Перезапуск команды",
                         noAction: true,
                     });
                 } else {
@@ -175,7 +175,7 @@ export class TermViewModel implements ViewModel {
                                 elemtype: "iconbutton",
                                 icon: "check",
                                 iconColor: "var(--success-color)",
-                                title: "Command Exited Successfully",
+                                title: "Команда выполнена успешно",
                                 noAction: true,
                             });
                         } else {
@@ -183,7 +183,7 @@ export class TermViewModel implements ViewModel {
                                 elemtype: "iconbutton",
                                 icon: "xmark-large",
                                 iconColor: "var(--error-color)",
-                                title: "Exit Code: " + fullShellProcStatus?.shellprocexitcode,
+                                title: "Код выхода: " + fullShellProcStatus?.shellprocexitcode,
                                 noAction: true,
                             });
                         }
@@ -194,9 +194,9 @@ export class TermViewModel implements ViewModel {
             if (isMI && this.isBasicTerm(get)) {
                 rtn.push({
                     elemtype: "textbutton",
-                    text: "Multi Input ON",
+                    text: "Мульти-ввод ВКЛ",
                     className: "yellow !py-[2px] !px-[10px] text-[11px] font-[500]",
-                    title: "Input will be sent to all connected terminals (click to disable)",
+                    title: "Ввод будет отправлен во все подключенные терминалы (нажмите для отключения)",
                     onClick: () => {
                         globalStore.set(this.tabModel.isTermMultiInput, false);
                     },

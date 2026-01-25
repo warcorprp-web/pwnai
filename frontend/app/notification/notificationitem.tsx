@@ -36,7 +36,7 @@ const NotificationItem = ({
     const renderCloseButton = () => {
         if (!isBubble && persistent) {
             return (
-                <span className="lock-btn" title="Cannot be cleared">
+                <span className="lock-btn" title="Невозможно очистить">
                     <i className={makeIconClass("lock", false)}></i>
                 </span>
             );
@@ -61,7 +61,7 @@ const NotificationItem = ({
             onMouseEnter={onMouseEnter}
             onMouseLeave={onMouseLeave}
             onClick={() => onCopy(id)}
-            title="Click to Copy Notification Message"
+            title="Нажмите для копирования уведомления"
         >
             {renderCloseButton()}
             <div className="notification-inner">

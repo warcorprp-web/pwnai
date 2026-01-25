@@ -55,7 +55,7 @@ const UpdateStatusBannerComponent = forwardRef<HTMLButtonElement>((_, ref) => {
         return (
             <Button
                 className="text-black bg-[var(--accent-color)] flex-[0_0_fit-content] !h-full !px-3 disabled:!opacity-[unset]"
-                title={appUpdateStatus === "ready" ? "Click to Install Update" : updateStatusMessage}
+                title={appUpdateStatus === "ready" ? "Нажмите для установки обновления" : updateStatusMessage}
                 onClick={onClick}
                 disabled={appUpdateStatus !== "ready"}
                 ref={ref}
