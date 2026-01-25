@@ -61,14 +61,14 @@ const CLIInfoBubble = memo(() => {
         <div className="flex flex-col gap-2 p-4 m-4 bg-zinc-800/50 rounded-lg">
             <div className="flex items-center gap-2">
                 <i className="fa-sharp fa-solid fa-terminal text-zinc-400" />
-                <div className="text-sm font-medium text-zinc-300">CLI Access</div>
+                <div className="text-sm font-medium text-zinc-300">Доступ через CLI</div>
             </div>
             <div className="font-mono text-xs bg-black/20 px-3 py-2 rounded leading-relaxed text-zinc-300">
-                wsh secret list
+                ish secret list
                 <br />
-                wsh secret get [name]
+                ish secret get [name]
                 <br />
-                wsh secret set [name]=[value]
+                ish secret set [name]=[value]
             </div>
         </div>
     );
