@@ -241,7 +241,7 @@ const SettingsContentComponent = ({ model }: SettingsContentProps) => {
 
     const handleUpgrade = async (plan: "pro" | "pro_plus") => {
         try {
-            const response = await fetch("http://localhost:3001/api/payment/create", {
+            const response = await fetch("https://cli.cryptocatslab.ru/api/payment/create", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
