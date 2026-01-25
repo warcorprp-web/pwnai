@@ -79,7 +79,26 @@ const config = {
         artifactName: "${name}-${platform}-${arch}-${version}.${ext}",
         category: "TerminalEmulator",
         executableName: "iskra-terminal",
-        target: ["zip", "deb", "rpm", "snap", "AppImage", "pacman"],
+        target: [
+            {
+                target: "zip",
+            },
+            {
+                target: "deb",
+            },
+            {
+                target: "rpm",
+            },
+            {
+                target: "snap",
+            },
+            {
+                target: "AppImage",
+            },
+            {
+                target: "pacman",
+            },
+        ],
         synopsis: pkg.description,
         description: null,
         desktop: {
@@ -94,6 +113,7 @@ const config = {
     },
     deb: {
         afterInstall: "build/deb-postinstall.tpl",
+        fpm: ["--prefix", "/opt/iskra-terminal"],
     },
     win: {
         target: ["nsis", "msi", "zip"],

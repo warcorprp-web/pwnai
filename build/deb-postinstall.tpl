@@ -2,15 +2,15 @@
 
 if type update-alternatives 2>/dev/null >&1; then
     # Remove previous link if it doesn't use update-alternatives
-    if [ -L '/usr/bin/waveterm' -a -e '/usr/bin/waveterm' -a "`readlink '/usr/bin/waveterm'`" != '/etc/alternatives/waveterm' ]; then
-        rm -f '/usr/bin/waveterm'
+    if [ -L '/usr/bin/iskra-terminal' -a -e '/usr/bin/iskra-terminal' -a "`readlink '/usr/bin/iskra-terminal'`" != '/etc/alternatives/iskra-terminal' ]; then
+        rm -f '/usr/bin/iskra-terminal'
     fi
-    update-alternatives --install '/usr/bin/waveterm' 'waveterm' '/opt/Wave/waveterm' 100 || ln -sf '/opt/Wave/waveterm' '/usr/bin/waveterm'
+    update-alternatives --install '/usr/bin/iskra-terminal' 'iskra-terminal' '/opt/iskra-terminal/iskra-terminal' 100 || ln -sf '/opt/iskra-terminal/iskra-terminal' '/usr/bin/iskra-terminal'
 else
-    ln -sf '/opt/Wave/waveterm' '/usr/bin/waveterm'
+    ln -sf '/opt/iskra-terminal/iskra-terminal' '/usr/bin/iskra-terminal'
 fi
 
-chmod 4755 '/opt/Wave/chrome-sandbox' || true
+chmod 4755 '/opt/iskra-terminal/chrome-sandbox' || true
 
 if hash update-mime-database 2>/dev/null; then
     update-mime-database /usr/share/mime || true
