@@ -2,7 +2,7 @@
     "defwidget@terminal": {
         "display:order": -5,
         "icon": "square-terminal",
-        "label": "terminal",
+        "label": "терминал",
         "blockdef": {
             "meta": {
                 "view": "term",
@@ -13,7 +13,7 @@
     "defwidget@files": {
         "display:order": -4,
         "icon": "folder",
-        "label": "files",
+        "label": "файлы",
         "blockdef": {
             "meta": {
                 "view": "preview",
@@ -24,7 +24,7 @@
     "defwidget@web": {
         "display:order": -3,
         "icon": "globe",
-        "label": "web",
+        "label": "веб",
         "blockdef": {
             "meta": {
                 "view": "web"
@@ -34,7 +34,7 @@
     "defwidget@ai": {
         "display:order": -2,
         "icon": "sparkles",
-        "label": "ai",
+        "label": "искра",
         "blockdef": {
             "meta": {
                 "view": "waveai"
@@ -44,7 +44,7 @@
     "defwidget@sysinfo": {
         "display:order": -1,
         "icon": "chart-line",
-        "label": "sysinfo",
+        "label": "системная информация",
         "blockdef": {
             "meta": {
                 "view": "sysinfo"
