@@ -145,14 +145,14 @@ function DirectoryTable({
             }),
             columnHelper.accessor("name", {
                 cell: (info) => <span className="dir-table-name ellipsis">{info.getValue()}</span>,
-                header: () => <span className="dir-table-head-name">Name</span>,
+                header: () => <span className="dir-table-head-name">Имя</span>,
                 sortingFn: "alphanumeric",
                 size: 200,
                 minSize: 90,
             }),
             columnHelper.accessor("modestr", {
                 cell: (info) => <span className="dir-table-modestr">{info.getValue()}</span>,
-                header: () => <span>Perm</span>,
+                header: () => <span>Права</span>,
                 size: 91,
                 minSize: 90,
                 sortingFn: "alphanumeric",
@@ -161,21 +161,21 @@ function DirectoryTable({
                 cell: (info) => (
                     <span className="dir-table-lastmod">{getLastModifiedTime(info.getValue(), info.column)}</span>
                 ),
-                header: () => <span>Last Modified</span>,
+                header: () => <span>Изменен</span>,
                 size: 91,
                 minSize: 65,
                 sortingFn: "datetime",
             }),
             columnHelper.accessor("size", {
                 cell: (info) => <span className="dir-table-size">{getBestUnit(info.getValue())}</span>,
-                header: () => <span className="dir-table-head-size">Size</span>,
+                header: () => <span className="dir-table-head-size">Размер</span>,
                 size: 55,
                 minSize: 50,
                 sortingFn: "auto",
             }),
             columnHelper.accessor("mimetype", {
                 cell: (info) => <span className="dir-table-type ellipsis">{cleanMimetype(info.getValue() ?? "")}</span>,
-                header: () => <span className="dir-table-head-type">Type</span>,
+                header: () => <span className="dir-table-head-type">Тип</span>,
                 size: 97,
                 minSize: 97,
                 sortingFn: "alphanumeric",
