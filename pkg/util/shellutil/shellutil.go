@@ -476,6 +476,15 @@ func initCustomShellStartupFilesInternal() error {
 	}
 	ishBaseName := filepath.Base(ishFullPath)
 	log.Printf("ish binary successfully copied from %q to %q\n", ishBaseName, ishDstPath)
+	
+	// On Windows, add bin directory to user PATH if not already present
+	if runtime.GOOS == "windows" {
+		err = addToWindowsPath(binDir)
+		if err != nil {
+			log.Printf("warning: could not add to Windows PATH: %v\n", err)
+		}
+	}
+	
 	return nil
 }
 
@@ -644,4 +653,27 @@ func FormatOSC(oscNum int, parts ...string) string {
 		return fmt.Sprintf("\x1b]%d\x07", oscNum)
 	}
 	return fmt.Sprintf("\x1b]%d;%s\x07", oscNum, strings.Join(parts, ";"))
+}
+
+// addToWindowsPath adds the given directory to the user's PATH environment variable in Windows registry
+func addToWindowsPath(binDir string) error {
+	// Use PowerShell to add to user PATH
+	psScript := fmt.Sprintf(`
+$path = [Environment]::GetEnvironmentVariable('Path', 'User')
+$binDir = '%s'
+if ($path -notlike "*$binDir*") {
+    [Environment]::SetEnvironmentVariable('Path', "$path;$binDir", 'User')
+    Write-Host "Added $binDir to user PATH"
+} else {
+    Write-Host "PATH already contains $binDir"
+}
+`, binDir)
+	
+	cmd := exec.Command("powershell", "-NoProfile", "-ExecutionPolicy", "Bypass", "-Command", psScript)
+	output, err := cmd.CombinedOutput()
+	if err != nil {
+		return fmt.Errorf("failed to update PATH: %w, output: %s", err, string(output))
+	}
+	log.Printf("Windows PATH update: %s\n", string(output))
+	return nil
 }
