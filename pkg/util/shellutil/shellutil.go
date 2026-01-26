@@ -348,13 +348,17 @@ func GetLocalWshBinaryPath(version string, goos string, goarch string) (string, 
 	// Try simple name first (ish or ish.exe)
 	simpleName := "ish" + ext
 	simplePath := filepath.Join(wavebase.GetWaveAppBinPath(), simpleName)
+	log.Printf("[DEBUG] trying simple path: %s", simplePath)
 	if _, err := os.Stat(simplePath); err == nil {
+		log.Printf("[DEBUG] found ish at simple path: %s", simplePath)
 		return simplePath, nil
 	}
 	// Fallback to versioned name in bin subdirectory (for packaged app)
 	baseName := fmt.Sprintf("ish-%s-%s.%s%s", version, goos, goarch, ext)
 	binPath := filepath.Join(wavebase.GetWaveAppPath(), "bin", baseName)
+	log.Printf("[DEBUG] trying versioned path: %s (GetWaveAppPath=%s)", binPath, wavebase.GetWaveAppPath())
 	if _, err := os.Stat(binPath); err == nil {
+		log.Printf("[DEBUG] found ish at versioned path: %s", binPath)
 		return binPath, nil
 	}
 	// Final fallback to bin directory in home
