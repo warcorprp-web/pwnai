@@ -1,9 +1,12 @@
 # We source this file with -NoExit -File
-$env:PATH = {{.WSHBINDIR_PWSH}} + "{{.PATHSEP}}" + $env:PATH
+$binDir = {{.WSHBINDIR_PWSH}}
+$env:PATH = $binDir + "{{.PATHSEP}}" + $env:PATH
+Write-Host "[DEBUG] Added to PATH: $binDir" -ForegroundColor Yellow
 
 # Source dynamic script from ish token
-$ishPath = {{.WSHBINDIR_PWSH}} + "\ish.exe"
+$ishPath = $binDir + "\ish.exe"
 if (Test-Path -Path $ishPath) {
+    Write-Host "[DEBUG] Found ish at: $ishPath" -ForegroundColor Green
     $waveterm_swaptoken_output = & $ishPath token $env:WAVETERM_SWAPTOKEN pish 2>$null | Out-String
     if ($waveterm_swaptoken_output -and $waveterm_swaptoken_output -ne "") {
         Invoke-Expression $waveterm_swaptoken_output
@@ -13,6 +16,8 @@ if (Test-Path -Path $ishPath) {
 
     # Load Wave completions
     & $ishPath completion powershell | Out-String | Invoke-Expression
+} else {
+    Write-Host "[DEBUG] ish.exe not found at: $ishPath" -ForegroundColor Red
 }
 
 if ($PSVersionTable.PSVersion.Major -lt 7) {
