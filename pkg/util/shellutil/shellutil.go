@@ -351,8 +351,13 @@ func GetLocalWshBinaryPath(version string, goos string, goarch string) (string, 
 	if _, err := os.Stat(simplePath); err == nil {
 		return simplePath, nil
 	}
-	// Fallback to versioned name
+	// Fallback to versioned name in dist/bin (for packaged app)
 	baseName := fmt.Sprintf("ish-%s-%s.%s%s", version, goos, goarch, ext)
+	distBinPath := filepath.Join(wavebase.GetWaveAppPath(), "dist", "bin", baseName)
+	if _, err := os.Stat(distBinPath); err == nil {
+		return distBinPath, nil
+	}
+	// Final fallback to bin directory
 	return filepath.Join(wavebase.GetWaveAppBinPath(), baseName), nil
 }
 
