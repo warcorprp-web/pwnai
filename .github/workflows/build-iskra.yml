@@ -124,9 +124,9 @@ jobs:
             curl -X POST \
               -H "X-Deploy-Secret: ${{ secrets.DEPLOY_SECRET }}" \
               -F "files=@$file" \
-              https://cli.cryptocatslab.ru/api/deploy/upload
+              https://cryptocatslab.ru/api/deploy/upload
           done
       
       - name: Verify deployment
         run: |
-          curl -s https://cli.cryptocatslab.ru/api/deploy/status | jq '.files[] | .name'
+          curl -s https://cryptocatslab.ru/api/deploy/status | jq '.files[] | .name'
