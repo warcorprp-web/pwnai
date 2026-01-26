@@ -45,9 +45,6 @@ const config = {
     ],
     mac: {
         executableName: "Искра Терминал",
-        extraMetadata: {
-            productName: "Искра Терминал"
-        },
         target: [
             {
                 target: "zip",
@@ -120,9 +117,6 @@ const config = {
     },
     win: {
         executableName: "Искра Терминал",
-        extraMetadata: {
-            productName: "Искра Терминал"
-        },
         target: ["nsis", "msi", "zip"],
         signtoolOptions: windowsShouldSign && {
             signingHashAlgorithms: ["sha256"],
