@@ -360,18 +360,18 @@ func writeToKnownHosts(knownHostsFile string, newLine string, getUserVerificatio
 func createUnknownKeyVerifier(ctx context.Context, knownHostsFile string, hostname string, remote string, key ssh.PublicKey) func() (*userinput.UserInputResponse, error) {
 	base64Key := base64.StdEncoding.EncodeToString(key.Marshal())
 	queryText := fmt.Sprintf(
-		"The authenticity of host '%s (%s)' can't be established "+
-			"as it **does not exist in any checked known_hosts files**. "+
-			"The host you are attempting to connect to provides this %s key:  \n"+
+		"Подлинность хоста '%s (%s)' не может быть установлена, "+
+			"так как он **отсутствует в проверенных файлах known_hosts**. "+
+			"Хост, к которому вы пытаетесь подключиться, предоставляет этот %s ключ:  \n"+
 			"%s.\n\n"+
-			"**Would you like to continue connecting?** If so, the key will be permanently "+
-			"added to the file %s "+
-			"to protect from future man-in-the-middle attacks.", hostname, remote, key.Type(), base64Key, knownHostsFile)
+			"**Хотите продолжить подключение?** Если да, ключ будет добавлен "+
+			"в файл %s "+
+			"для защиты от будущих атак типа man-in-the-middle.", hostname, remote, key.Type(), base64Key, knownHostsFile)
 	request := &userinput.UserInputRequest{
 		ResponseType: "confirm",
 		QueryText:    queryText,
 		Markdown:     true,
-		Title:        "Known Hosts Key Missing",
+		Title:        "Неизвестный ключ хоста",
 	}
 	return func() (*userinput.UserInputResponse, error) {
 		ctx, cancelFn := context.WithTimeout(ctx, 60*time.Second)
@@ -390,14 +390,14 @@ func createUnknownKeyVerifier(ctx context.Context, knownHostsFile string, hostna
 func createMissingKnownHostsVerifier(knownHostsFile string, hostname string, remote string, key ssh.PublicKey) func() (*userinput.UserInputResponse, error) {
 	base64Key := base64.StdEncoding.EncodeToString(key.Marshal())
 	queryText := fmt.Sprintf(
-		"The authenticity of host '%s (%s)' can't be established "+
-			"as **no known_hosts files could be found**. "+
-			"The host you are attempting to connect to provides this %s key:  \n"+
+		"Подлинность хоста '%s (%s)' не может быть установлена, "+
+			"так как **файлы known_hosts не найдены**. "+
+			"Хост, к которому вы пытаетесь подключиться, предоставляет этот %s ключ:  \n"+
 			"%s.\n\n"+
-			"**Would you like to continue connecting?** If so:  \n"+
-			"- %s will be created  \n"+
-			"- the key will be added to %s\n\n"+
-			"This will protect from future man-in-the-middle attacks.", hostname, remote, key.Type(), base64Key, knownHostsFile, knownHostsFile)
+			"**Хотите продолжить подключение?** Если да:  \n"+
+			"- %s будет создан  \n"+
+			"- ключ будет добавлен в %s\n\n"+
+			"Это защитит от будущих атак типа man-in-the-middle.", hostname, remote, key.Type(), base64Key, knownHostsFile, knownHostsFile)
 	request := &userinput.UserInputRequest{
 		ResponseType: "confirm",
 		QueryText:    queryText,
@@ -567,17 +567,17 @@ func createHostKeyCallback(ctx context.Context, sshKeywords *wconfig.ConnKeyword
 				offendingKeysFmt = append(offendingKeysFmt, formattedKey)
 			}
 			// todo
-			errorMsg := fmt.Sprintf("**WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!**\n\n"+
-				"If this is not expected, it is possible that someone could be trying to "+
-				"eavesdrop on you via a man-in-the-middle attack. "+
-				"Alternatively, the host you are connecting to may have changed its key. "+
-				"The %s key sent by the remote hist has the fingerprint:  \n"+
+			errorMsg := fmt.Sprintf("**ВНИМАНИЕ: ИДЕНТИФИКАЦИЯ УДАЛЁННОГО ХОСТА ИЗМЕНИЛАСЬ!**\n\n"+
+				"Если это неожиданно, возможно кто-то пытается "+
+				"перехватить ваше соединение через атаку man-in-the-middle. "+
+				"Также возможно, что хост изменил свой ключ. "+
+				"Ключ %s, отправленный удалённым хостом, имеет отпечаток:  \n"+
 				"%s\n\n"+
-				"If you are sure this is correct, please update your known_hosts files to "+
-				"remove the lines with the offending before trying to connect again.  \n"+
-				"**Known Hosts Files**  \n"+
+				"Если вы уверены, что это правильно, обновите файлы known_hosts, "+
+				"удалив строки с конфликтующими ключами перед повторным подключением.  \n"+
+				"**Файлы Known Hosts**  \n"+
 				"%s\n\n"+
-				"**Offending Keys**  \n"+
+				"**Конфликтующие ключи**  \n"+
 				"%s", key.Type(), correctKeyFingerprint, strings.Join(bulletListKnownHosts, "  \n"), strings.Join(offendingKeysFmt, "  \n"))
 
 			log.Print(errorMsg)
@@ -585,7 +585,7 @@ func createHostKeyCallback(ctx context.Context, sshKeywords *wconfig.ConnKeyword
 			// create update into alert message
 
 			//send update via bus?
-			return fmt.Errorf("remote host identification has changed")
+			return fmt.Errorf("идентификация удалённого хоста изменилась")
 		}
 
 		updatedCallback, err := xknownhosts.New(knownHostsFiles...)
