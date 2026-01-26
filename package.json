@@ -10,7 +10,35 @@
     "version": "1.0.0",
     "homepage": "https://iskra-terminal.dev",
     "build": {
-        "appId": "dev.iskra-terminal.app"
+        "appId": "dev.iskra-terminal.app",
+        "mac": {
+            "extraResources": [
+                {
+                    "from": "remove-quarantine.command",
+                    "to": "remove-quarantine.command"
+                }
+            ]
+        },
+        "dmg": {
+            "contents": [
+                {
+                    "x": 130,
+                    "y": 220
+                },
+                {
+                    "x": 410,
+                    "y": 220,
+                    "type": "link",
+                    "path": "/Applications"
+                },
+                {
+                    "x": 270,
+                    "y": 350,
+                    "type": "file",
+                    "path": "remove-quarantine.command"
+                }
+            ]
+        }
     },
     "private": true,
     "main": "./dist/main/index.js",
