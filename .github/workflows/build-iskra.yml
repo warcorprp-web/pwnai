@@ -66,8 +66,9 @@ jobs:
           npm ci --no-audit --no-fund
       
       - name: Build and package
+        shell: bash
         run: |
-          rm -rf dist/bin/wavesrv* dist/bin/ish* || true
+          rm -rf dist/bin/wavesrv* dist/bin/ish* 2>/dev/null || true
           task package
         env:
           NODE_OPTIONS: '--max-old-space-size=8192'
