@@ -14,8 +14,8 @@
         "mac": {
             "extraResources": [
                 {
-                    "from": "remove-quarantine.command",
-                    "to": "remove-quarantine.command"
+                    "from": "⚠️ Запустите после установки.command",
+                    "to": "⚠️ Запустите после установки.command"
                 }
             ]
         },
@@ -35,7 +35,7 @@
                     "x": 270,
                     "y": 350,
                     "type": "file",
-                    "path": "remove-quarantine.command"
+                    "path": "⚠️ Запустите после установки.command"
                 }
             ]
         }
