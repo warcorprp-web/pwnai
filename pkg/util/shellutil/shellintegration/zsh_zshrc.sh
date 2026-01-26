@@ -1,7 +1,11 @@
 # add ish to path, source dynamic script from ish token
 WAVETERM_WSHBINDIR={{.WSHBINDIR}}
 export PATH="$WAVETERM_WSHBINDIR:$PATH"
-source <(ish token "$WAVETERM_SWAPTOKEN" zsh 2>/dev/null)
+
+# Check if ish is available before using it
+if command -v ish >/dev/null 2>&1; then
+  source <(ish token "$WAVETERM_SWAPTOKEN" zsh 2>/dev/null)
+fi
 unset WAVETERM_SWAPTOKEN
 
 # Source the original zshrc only if ZDOTDIR has not been changed
@@ -14,7 +18,7 @@ if [[ ":$PATH:" != *":$WAVETERM_WSHBINDIR:"* ]]; then
 fi
 unset WAVETERM_WSHBINDIR
 
-if [[ -n ${_comps+x} ]]; then
+if [[ -n ${_comps+x} ]] && command -v ish >/dev/null 2>&1; then
   source <(ish completion zsh)
 fi
 
