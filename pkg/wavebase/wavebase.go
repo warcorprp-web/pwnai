@@ -30,7 +30,7 @@ const (
 	WaveDataHomeEnvVar             = "ISKRA_DATA_HOME"
 	WaveAppPathVarName             = "ISKRA_APP_PATH"
 	WaveAppResourcesPathVarName    = "ISKRA_RESOURCES_PATH"
-	WaveAppElectronExecPathVarName = "WAVETERM_ELECTRONEXECPATH"
+	WaveAppElectronExecPathVarName = "ISKRA_ELECTRONEXECPATH"
 	WaveDevVarName                 = "WAVETERM_DEV"
 	WaveDevViteVarName             = "WAVETERM_DEV_VITE"
 	WaveWshForceUpdateVarName      = "WAVETERM_WSHFORCEUPDATE"
