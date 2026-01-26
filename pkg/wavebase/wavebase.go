@@ -98,6 +98,7 @@ func CacheAndRemoveEnvVars() error {
 	}
 	os.Unsetenv(WaveDataHomeEnvVar)
 	AppPath_VarCache = os.Getenv(WaveAppPathVarName)
+	log.Printf("[DEBUG] CacheAndRemoveEnvVars: WaveAppPathVarName=%s, AppPath_VarCache=%q", WaveAppPathVarName, AppPath_VarCache)
 	os.Unsetenv(WaveAppPathVarName)
 	AppResourcesPath_VarCache = os.Getenv(WaveAppResourcesPathVarName)
 	os.Unsetenv(WaveAppResourcesPathVarName)
