@@ -5,13 +5,11 @@ $OutputEncoding = [System.Text.Encoding]::UTF8
 
 $binDir = {{.WSHBINDIR_PWSH}}
 $env:PATH = $binDir + "{{.PATHSEP}}" + $env:PATH
-Write-Host "[DEBUG] Added to PATH: $binDir" -ForegroundColor Yellow
 
 # Source dynamic script from ish token
 # Use Join-Path to properly handle paths with non-ASCII characters
 $ishPath = Join-Path -Path $binDir -ChildPath "ish.exe"
 if (Test-Path -Path $ishPath) {
-    Write-Host "[DEBUG] Found ish at: $ishPath" -ForegroundColor Green
     $waveterm_swaptoken_output = & $ishPath token $env:WAVETERM_SWAPTOKEN pish 2>$null | Out-String
     if ($waveterm_swaptoken_output -and $waveterm_swaptoken_output -ne "") {
         Invoke-Expression $waveterm_swaptoken_output
@@ -22,7 +20,7 @@ if (Test-Path -Path $ishPath) {
     # Load Wave completions
     & $ishPath completion powershell | Out-String | Invoke-Expression
 } else {
-    Write-Host "[DEBUG] ish.exe not found at: $ishPath" -ForegroundColor Red
+    # Silently skip if ish not found
 }
 
 if ($PSVersionTable.PSVersion.Major -lt 7) {
