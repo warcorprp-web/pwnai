@@ -360,10 +360,6 @@ export const ConnectionsContent = memo(({ model }: ConnectionsContentProps) => {
         try {
             console.log("Saving connection:", conn);
             
-            // Загружаем текущий конфиг
-            const fullConfig = await RpcApi.GetFullConfigCommand(TabRpcClient);
-            const currentData = fullConfig?.connections || {};
-
             // Формируем данные подключения
             const connData: any = {
                 "ssh:hostname": conn.hostname,
@@ -382,10 +378,12 @@ export const ConnectionsContent = memo(({ model }: ConnectionsContentProps) => {
                 connData["ssh:identityfile"] = conn.identityFile;
             }
 
-            // Обновляем конфиг
-            const newData = { ...currentData, [conn.name]: connData };
-            console.log("Saving config:", newData);
-            await RpcApi.SetConfigCommand(TabRpcClient, { connections: newData });
+            // Сохраняем через SetConnectionsConfigCommand
+            console.log("Saving config:", connData);
+            await RpcApi.SetConnectionsConfigCommand(TabRpcClient, {
+                host: conn.name,
+                metamaptype: connData
+            });
 
             // Перезагружаем список
             await loadConnections();
@@ -402,10 +400,11 @@ export const ConnectionsContent = memo(({ model }: ConnectionsContentProps) => {
         if (!confirm(`Удалить подключение "${name}"?`)) return;
 
         try {
-            const fullConfig = await RpcApi.GetFullConfigCommand(TabRpcClient);
-            const currentData = fullConfig?.connections || {};
-            delete currentData[name];
-            await RpcApi.SetConfigCommand(TabRpcClient, { connections: currentData });
+            // Удаляем через SetConnectionsConfigCommand с пустым объектом
+            await RpcApi.SetConnectionsConfigCommand(TabRpcClient, {
+                host: name,
+                metamaptype: null
+            });
             await loadConnections();
         } catch (error) {
             console.error("Failed to delete connection:", error);
