@@ -4,6 +4,7 @@ const fs = require("fs");
 const path = require("path");
 
 const windowsShouldSign = !!process.env.SM_CODE_SIGNING_CERT_SHA1_HASH;
+const productName = process.env.PRODUCT_NAME || pkg.productName;
 
 /**
  * @type {import('electron-builder').Configuration}
@@ -11,7 +12,7 @@ const windowsShouldSign = !!process.env.SM_CODE_SIGNING_CERT_SHA1_HASH;
  */
 const config = {
     appId: pkg.build.appId,
-    productName: pkg.productName,
+    productName: productName,
     artifactName: "${productName}-${platform}-${arch}-${version}.${ext}",
     generateUpdatesFilesForAllChannels: true,
     npmRebuild: false,

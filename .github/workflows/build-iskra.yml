@@ -9,6 +9,7 @@ on:
 jobs:
   build:
     strategy:
+      fail-fast: false
       matrix:
         include:
           - platform: darwin
@@ -68,6 +69,7 @@ jobs:
         env:
           NODE_OPTIONS: '--max-old-space-size=8192'
           USE_SYSTEM_FPM: ${{ matrix.platform != 'windows' && 'true' || '' }}
+          PRODUCT_NAME: ${{ matrix.platform == 'linux' && 'iskra-terminal' || '' }}
       
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
