@@ -137,51 +137,64 @@ const ConnectionForm = memo(
         };
 
         return (
-            <div className="flex flex-col gap-4 p-6 bg-zinc-800/50 rounded-lg border border-zinc-700/50">
-                <div className="flex items-center justify-between">
-                    <h3 className="text-lg font-semibold text-zinc-200">
-                        {connection ? "Редактировать подключение" : "Новое подключение"}
+            <div className="p-4 bg-zinc-800/50 rounded-lg border border-zinc-700/50">
+                <div className="flex items-center justify-between mb-3">
+                    <h3 className="text-base font-semibold text-zinc-200">
+                        {connection ? "Редактировать" : "Новое подключение"}
                     </h3>
                     <button
                         onClick={onCancel}
-                        className="px-3 py-1 hover:bg-zinc-700 rounded cursor-pointer transition-colors"
+                        className="w-7 h-7 flex items-center justify-center hover:bg-zinc-700 rounded cursor-pointer transition-colors"
                     >
-                        <i className="fa-sharp fa-solid fa-xmark" />
+                        <i className="fa-sharp fa-solid fa-xmark text-sm" />
                     </button>
                 </div>
 
-                <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-                    <div>
-                        <label className="block text-sm font-medium text-zinc-400 mb-1">Название</label>
-                        <input
-                            type="text"
-                            value={name}
-                            onChange={(e) => setName(e.target.value)}
-                            className="w-full px-3 py-2 bg-zinc-900 border border-zinc-700 rounded text-zinc-200 focus:outline-none focus:border-accent-500"
-                            placeholder="my-server"
-                            required
-                        />
+                <form onSubmit={handleSubmit} className="space-y-3">
+                    <div className="grid grid-cols-2 gap-3">
+                        <div>
+                            <label className="block text-xs font-medium text-zinc-400 mb-1">Название</label>
+                            <input
+                                type="text"
+                                value={name}
+                                onChange={(e) => setName(e.target.value)}
+                                className="w-full px-2.5 py-1.5 text-sm bg-zinc-900 border border-zinc-700 rounded text-zinc-200 focus:outline-none focus:border-accent-500"
+                                placeholder="my-server"
+                                required
+                            />
+                        </div>
+                        <div>
+                            <label className="block text-xs font-medium text-zinc-400 mb-1">Пользователь</label>
+                            <input
+                                type="text"
+                                value={user}
+                                onChange={(e) => setUser(e.target.value)}
+                                className="w-full px-2.5 py-1.5 text-sm bg-zinc-900 border border-zinc-700 rounded text-zinc-200 focus:outline-none focus:border-accent-500"
+                                placeholder="root"
+                                required
+                            />
+                        </div>
                     </div>
 
-                    <div className="grid grid-cols-2 gap-4">
+                    <div className="grid grid-cols-[1fr_80px] gap-3">
                         <div>
-                            <label className="block text-sm font-medium text-zinc-400 mb-1">Хост</label>
+                            <label className="block text-xs font-medium text-zinc-400 mb-1">Хост</label>
                             <input
                                 type="text"
                                 value={hostname}
                                 onChange={(e) => setHostname(e.target.value)}
-                                className="w-full px-3 py-2 bg-zinc-900 border border-zinc-700 rounded text-zinc-200 focus:outline-none focus:border-accent-500"
+                                className="w-full px-2.5 py-1.5 text-sm bg-zinc-900 border border-zinc-700 rounded text-zinc-200 focus:outline-none focus:border-accent-500"
                                 placeholder="example.com"
                                 required
                             />
                         </div>
                         <div>
-                            <label className="block text-sm font-medium text-zinc-400 mb-1">Порт</label>
+                            <label className="block text-xs font-medium text-zinc-400 mb-1">Порт</label>
                             <input
                                 type="text"
                                 value={port}
                                 onChange={(e) => setPort(e.target.value)}
-                                className="w-full px-3 py-2 bg-zinc-900 border border-zinc-700 rounded text-zinc-200 focus:outline-none focus:border-accent-500"
+                                className="w-full px-2.5 py-1.5 text-sm bg-zinc-900 border border-zinc-700 rounded text-zinc-200 focus:outline-none focus:border-accent-500"
                                 placeholder="22"
                                 required
                             />
@@ -189,33 +202,21 @@ const ConnectionForm = memo(
                     </div>
 
                     <div>
-                        <label className="block text-sm font-medium text-zinc-400 mb-1">Пользователь</label>
-                        <input
-                            type="text"
-                            value={user}
-                            onChange={(e) => setUser(e.target.value)}
-                            className="w-full px-3 py-2 bg-zinc-900 border border-zinc-700 rounded text-zinc-200 focus:outline-none focus:border-accent-500"
-                            placeholder="root"
-                            required
-                        />
-                    </div>
-
-                    <div>
-                        <label className="block text-sm font-medium text-zinc-400 mb-1">Аутентификация</label>
-                        <div className="flex gap-2">
+                        <label className="block text-xs font-medium text-zinc-400 mb-1.5">Аутентификация</label>
+                        <div className="flex gap-1.5">
                             {(["password", "key", "agent"] as const).map((type) => (
                                 <button
                                     key={type}
                                     type="button"
                                     onClick={() => setAuthType(type)}
                                     className={cn(
-                                        "flex-1 px-3 py-2 rounded cursor-pointer transition-colors",
+                                        "flex-1 px-2.5 py-1.5 text-xs rounded cursor-pointer transition-colors",
                                         authType === type
                                             ? "bg-accent-600 text-white"
                                             : "bg-zinc-700 text-zinc-400 hover:bg-zinc-600"
                                     )}
                                 >
-                                    {type === "password" ? "Пароль" : type === "key" ? "SSH ключ" : "SSH Agent"}
+                                    {type === "password" ? "Пароль" : type === "key" ? "Ключ" : "Agent"}
                                 </button>
                             ))}
                         </div>
@@ -223,42 +224,42 @@ const ConnectionForm = memo(
 
                     {authType === "password" && (
                         <div>
-                            <label className="block text-sm font-medium text-zinc-400 mb-1">Пароль</label>
+                            <label className="block text-xs font-medium text-zinc-400 mb-1">Пароль</label>
                             <input
                                 type="password"
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
-                                className="w-full px-3 py-2 bg-zinc-900 border border-zinc-700 rounded text-zinc-200 focus:outline-none focus:border-accent-500"
+                                className="w-full px-2.5 py-1.5 text-sm bg-zinc-900 border border-zinc-700 rounded text-zinc-200 focus:outline-none focus:border-accent-500"
                                 placeholder="••••••••"
                             />
-                            <p className="text-xs text-zinc-500 mt-1">Пароль будет сохранён в зашифрованном виде</p>
+                            <p className="text-[10px] text-zinc-500 mt-1">Сохраняется в зашифрованном виде</p>
                         </div>
                     )}
 
                     {authType === "key" && (
                         <div>
-                            <label className="block text-sm font-medium text-zinc-400 mb-1">Путь к ключу</label>
+                            <label className="block text-xs font-medium text-zinc-400 mb-1">Путь к ключу</label>
                             <input
                                 type="text"
                                 value={identityFile}
                                 onChange={(e) => setIdentityFile(e.target.value)}
-                                className="w-full px-3 py-2 bg-zinc-900 border border-zinc-700 rounded text-zinc-200 focus:outline-none focus:border-accent-500"
+                                className="w-full px-2.5 py-1.5 text-sm bg-zinc-900 border border-zinc-700 rounded text-zinc-200 focus:outline-none focus:border-accent-500"
                                 placeholder="~/.ssh/id_rsa"
                             />
                         </div>
                     )}
 
-                    <div className="flex gap-2 pt-2">
+                    <div className="flex gap-2 pt-1">
                         <button
                             type="submit"
-                            className="flex-1 px-4 py-2 bg-accent-600 hover:bg-accent-500 rounded cursor-pointer transition-colors font-medium"
+                            className="flex-1 px-3 py-1.5 text-sm bg-accent-600 hover:bg-accent-500 rounded cursor-pointer transition-colors font-medium"
                         >
                             Сохранить
                         </button>
                         <button
                             type="button"
                             onClick={onCancel}
-                            className="px-4 py-2 bg-zinc-700 hover:bg-zinc-600 rounded cursor-pointer transition-colors"
+                            className="px-3 py-1.5 text-sm bg-zinc-700 hover:bg-zinc-600 rounded cursor-pointer transition-colors"
                         >
                             Отмена
                         </button>
