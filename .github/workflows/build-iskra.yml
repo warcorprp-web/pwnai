@@ -100,15 +100,21 @@ jobs:
         with:
           path: artifacts
       
-      - name: Rename files to Latin
+      - name: Prepare files for deploy
         run: |
+          mkdir -p deploy
           cd artifacts
+          # Переименовываем кириллицу
           find . -name "*Искра*" -o -name "*Терминал*" | while read file; do
             newname=$(echo "$file" | sed 's/Искра Терминал/Iskra-Terminal/g')
             if [ "$file" != "$newname" ]; then
               mv "$file" "$newname" 2>/dev/null || true
             fi
           done
+          # Копируем нужные файлы
+          find . -type f \( -name "Iskra-Terminal-*.dmg" -o -name "Iskra-Terminal-*.exe" -o -name "Iskra-Terminal-*.msi" -o -name "iskra-terminal-*.deb" -o -name "iskra-terminal-*.rpm" -o -name "iskra-terminal-*.AppImage" -o -name "iskra-terminal_*.snap" \) -exec cp {} ../deploy/ \;
+          cd ..
+          ls -lh deploy/
       
       - name: Deploy to server
         uses: appleboy/scp-action@v0.1.7
@@ -116,18 +122,17 @@ jobs:
           host: ${{ secrets.DEPLOY_HOST }}
           username: ${{ secrets.DEPLOY_USER }}
           key: ${{ secrets.DEPLOY_KEY }}
-          source: "artifacts/*/Iskra-Terminal-*.dmg,artifacts/*/Iskra-Terminal-*.exe,artifacts/*/Iskra-Terminal-*.msi,artifacts/*/iskra-terminal-*.deb,artifacts/*/iskra-terminal-*.rpm,artifacts/*/iskra-terminal-*.AppImage,artifacts/*/iskra-terminal_*.snap"
-          target: "/tmp/iskra-deploy"
-          strip_components: 2
+          source: "deploy/*"
+          target: "/root/iskra-site/public/downloads"
+          strip_components: 1
+          overwrite: true
       
-      - name: Move files to website
+      - name: Verify deployment
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.DEPLOY_HOST }}
           username: ${{ secrets.DEPLOY_USER }}
           key: ${{ secrets.DEPLOY_KEY }}
           script: |
-            mkdir -p /root/iskra-site/public/downloads
-            cp -f /tmp/iskra-deploy/*.{dmg,exe,msi,deb,rpm,AppImage,snap} /root/iskra-site/public/downloads/ 2>/dev/null || true
-            rm -rf /tmp/iskra-deploy
+            echo "Files deployed:"
             ls -lh /root/iskra-site/public/downloads/
