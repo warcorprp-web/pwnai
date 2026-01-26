@@ -2,16 +2,18 @@
 $env:PATH = {{.WSHBINDIR_PWSH}} + "{{.PATHSEP}}" + $env:PATH
 
 # Source dynamic script from ish token
-$ishPath = Join-Path {{.WSHBINDIR_PWSH}} "ish.exe"
-$waveterm_swaptoken_output = & $ishPath token $env:WAVETERM_SWAPTOKEN pish 2>$null | Out-String
-if ($waveterm_swaptoken_output -and $waveterm_swaptoken_output -ne "") {
-    Invoke-Expression $waveterm_swaptoken_output
-}
-Remove-Variable -Name waveterm_swaptoken_output
-Remove-Item Env:WAVETERM_SWAPTOKEN
+$ishPath = Join-Path -LiteralPath {{.WSHBINDIR_PWSH}} -ChildPath "ish.exe"
+if (Test-Path -LiteralPath $ishPath) {
+    $waveterm_swaptoken_output = & $ishPath token $env:WAVETERM_SWAPTOKEN pish 2>$null | Out-String
+    if ($waveterm_swaptoken_output -and $waveterm_swaptoken_output -ne "") {
+        Invoke-Expression $waveterm_swaptoken_output
+    }
+    Remove-Variable -Name waveterm_swaptoken_output -ErrorAction SilentlyContinue
+    Remove-Item Env:WAVETERM_SWAPTOKEN -ErrorAction SilentlyContinue
 
-# Load Wave completions
-& $ishPath completion powershell | Out-String | Invoke-Expression
+    # Load Wave completions
+    & $ishPath completion powershell | Out-String | Invoke-Expression
+}
 
 if ($PSVersionTable.PSVersion.Major -lt 7) {
     return  # skip OSC setup entirely
