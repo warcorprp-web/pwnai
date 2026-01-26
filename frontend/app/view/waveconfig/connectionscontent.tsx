@@ -3,8 +3,8 @@
 
 import { Button } from "@/app/element/button";
 import { Input } from "@/app/element/input";
-import { globalStore } from "@/app/store/global";
 import { RpcApi } from "@/app/store/wshclientapi";
+import { TabRpcClient } from "@/app/store/wshrpcutil";
 import type { WaveConfigViewModel } from "@/app/view/waveconfig/waveconfig-model";
 import { cn } from "@/util/util";
 import { atom, useAtom, useAtomValue } from "jotai";
@@ -144,75 +144,75 @@ const ConnectionForm = memo(
         };
 
         return (
-            <div className="max-w-md mx-auto p-4 bg-zinc-800/50 rounded-lg border border-zinc-700/50">
+            <div className="max-w-lg mx-auto bg-zinc-800/50 rounded-lg border border-zinc-700/50 p-5">
                 <div className="flex items-center justify-between mb-4">
                     <h3 className="text-base font-semibold text-zinc-200">
                         {connection ? "Редактировать" : "Новое подключение"}
                     </h3>
                     <button
                         onClick={onCancel}
-                        className="w-7 h-7 flex items-center justify-center hover:bg-zinc-700 rounded transition-colors"
+                        className="w-8 h-8 flex items-center justify-center hover:bg-zinc-700 rounded transition-colors"
                     >
-                        <i className="fa-sharp fa-solid fa-xmark text-sm" />
+                        <i className="fa-sharp fa-solid fa-xmark" />
                     </button>
                 </div>
 
-                <form onSubmit={handleSubmit} className="space-y-3">
+                <form onSubmit={handleSubmit} className="space-y-4">
                     {/* Название */}
                     <div>
-                        <label className="block text-xs font-medium text-zinc-400 mb-1.5">Название</label>
+                        <label className="block text-xs font-medium text-zinc-400 mb-2">Название</label>
                         <input
                             type="text"
                             value={name}
                             onChange={(e) => setName(e.target.value)}
-                            className="w-full px-3 py-2 text-sm bg-zinc-900 border border-zinc-700 rounded text-zinc-200 focus:outline-none focus:border-accent-500"
+                            className="w-full px-3 py-2 bg-zinc-900 border border-zinc-700 rounded text-zinc-200 text-sm focus:outline-none focus:border-accent-500"
                             placeholder="my-server"
                             required
                         />
                     </div>
 
+                    {/* Пользователь */}
+                    <div>
+                        <label className="block text-xs font-medium text-zinc-400 mb-2">Пользователь</label>
+                        <input
+                            type="text"
+                            value={user}
+                            onChange={(e) => setUser(e.target.value)}
+                            className="w-full px-3 py-2 bg-zinc-900 border border-zinc-700 rounded text-zinc-200 text-sm focus:outline-none focus:border-accent-500"
+                            placeholder="root"
+                            required
+                        />
+                    </div>
+
                     {/* Хост и Порт */}
-                    <div className="grid grid-cols-[1fr_100px] gap-2">
+                    <div className="grid grid-cols-[1fr_100px] gap-3">
                         <div>
-                            <label className="block text-xs font-medium text-zinc-400 mb-1.5">Хост</label>
+                            <label className="block text-xs font-medium text-zinc-400 mb-2">Хост</label>
                             <input
                                 type="text"
                                 value={hostname}
                                 onChange={(e) => setHostname(e.target.value)}
-                                className="w-full px-3 py-2 text-sm bg-zinc-900 border border-zinc-700 rounded text-zinc-200 focus:outline-none focus:border-accent-500"
+                                className="w-full px-3 py-2 bg-zinc-900 border border-zinc-700 rounded text-zinc-200 text-sm focus:outline-none focus:border-accent-500"
                                 placeholder="example.com"
                                 required
                             />
                         </div>
                         <div>
-                            <label className="block text-xs font-medium text-zinc-400 mb-1.5">Порт</label>
+                            <label className="block text-xs font-medium text-zinc-400 mb-2">Порт</label>
                             <input
                                 type="text"
                                 value={port}
                                 onChange={(e) => setPort(e.target.value)}
-                                className="w-full px-3 py-2 text-sm bg-zinc-900 border border-zinc-700 rounded text-zinc-200 focus:outline-none focus:border-accent-500 text-center"
+                                className="w-full px-3 py-2 bg-zinc-900 border border-zinc-700 rounded text-zinc-200 text-sm text-center focus:outline-none focus:border-accent-500"
                                 placeholder="22"
                                 required
                             />
                         </div>
                     </div>
 
-                    {/* Пользователь */}
-                    <div>
-                        <label className="block text-xs font-medium text-zinc-400 mb-1.5">Пользователь</label>
-                        <input
-                            type="text"
-                            value={user}
-                            onChange={(e) => setUser(e.target.value)}
-                            className="w-full px-3 py-2 text-sm bg-zinc-900 border border-zinc-700 rounded text-zinc-200 focus:outline-none focus:border-accent-500"
-                            placeholder="root"
-                            required
-                        />
-                    </div>
-
                     {/* Аутентификация */}
                     <div>
-                        <label className="block text-xs font-medium text-zinc-400 mb-1.5">Аутентификация</label>
+                        <label className="block text-xs font-medium text-zinc-400 mb-2">Аутентификация</label>
                         <div className="grid grid-cols-3 gap-2">
                             <button
                                 type="button"
@@ -256,12 +256,12 @@ const ConnectionForm = memo(
                     {/* Пароль */}
                     {authType === "password" && (
                         <div>
-                            <label className="block text-xs font-medium text-zinc-400 mb-1.5">Пароль</label>
+                            <label className="block text-xs font-medium text-zinc-400 mb-2">Пароль</label>
                             <input
                                 type="password"
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
-                                className="w-full px-3 py-2 text-sm bg-zinc-900 border border-zinc-700 rounded text-zinc-200 focus:outline-none focus:border-accent-500"
+                                className="w-full px-3 py-2 bg-zinc-900 border border-zinc-700 rounded text-zinc-200 text-sm focus:outline-none focus:border-accent-500"
                                 placeholder="••••••••"
                             />
                         </div>
@@ -270,23 +270,23 @@ const ConnectionForm = memo(
                     {/* Путь к ключу */}
                     {authType === "key" && (
                         <div>
-                            <label className="block text-xs font-medium text-zinc-400 mb-1.5">Путь к ключу</label>
+                            <label className="block text-xs font-medium text-zinc-400 mb-2">Путь к ключу</label>
                             <input
                                 type="text"
                                 value={identityFile}
                                 onChange={(e) => setIdentityFile(e.target.value)}
-                                className="w-full px-3 py-2 text-sm bg-zinc-900 border border-zinc-700 rounded text-zinc-200 focus:outline-none focus:border-accent-500"
+                                className="w-full px-3 py-2 bg-zinc-900 border border-zinc-700 rounded text-zinc-200 text-sm focus:outline-none focus:border-accent-500"
                                 placeholder="~/.ssh/id_rsa"
                             />
                         </div>
                     )}
 
                     {/* Кнопки */}
-                    <div className="flex gap-2 pt-2">
+                    <div className="flex gap-3 pt-2">
                         <button
                             type="submit"
                             disabled={saving}
-                            className="flex-1 px-4 py-2 text-sm bg-accent-600 hover:bg-accent-500 disabled:bg-accent-600/50 disabled:cursor-not-allowed rounded transition-colors font-medium"
+                            className="flex-1 px-4 py-2.5 text-sm bg-accent-600 hover:bg-accent-500 disabled:bg-accent-600/50 disabled:cursor-not-allowed rounded transition-colors font-medium"
                         >
                             {saving ? (
                                 <>
@@ -301,7 +301,7 @@ const ConnectionForm = memo(
                             type="button"
                             onClick={onCancel}
                             disabled={saving}
-                            className="px-4 py-2 text-sm bg-zinc-700 hover:bg-zinc-600 disabled:bg-zinc-700/50 disabled:cursor-not-allowed rounded transition-colors"
+                            className="px-4 py-2.5 text-sm bg-zinc-700 hover:bg-zinc-600 disabled:bg-zinc-700/50 disabled:cursor-not-allowed rounded transition-colors"
                         >
                             Отмена
                         </button>
@@ -326,7 +326,7 @@ export const ConnectionsContent = memo(({ model }: ConnectionsContentProps) => {
     const loadConnections = async () => {
         try {
             setLoading(true);
-            const fullConfig = await RpcApi.GetFullConfigCommand(globalStore.getWshClient());
+            const fullConfig = await RpcApi.GetFullConfigCommand(TabRpcClient);
             const connectionsData = fullConfig?.connections || {};
             const conns: Connection[] = [];
 
@@ -361,7 +361,7 @@ export const ConnectionsContent = memo(({ model }: ConnectionsContentProps) => {
             console.log("Saving connection:", conn);
             
             // Загружаем текущий конфиг
-            const fullConfig = await RpcApi.GetFullConfigCommand(globalStore.getWshClient());
+            const fullConfig = await RpcApi.GetFullConfigCommand(TabRpcClient);
             const currentData = fullConfig?.connections || {};
 
             // Формируем данные подключения
@@ -376,7 +376,7 @@ export const ConnectionsContent = memo(({ model }: ConnectionsContentProps) => {
                 // Сохраняем пароль в secrets
                 if (password) {
                     console.log("Saving password to secrets");
-                    await RpcApi.SetSecretsCommand(globalStore.getWshClient(), { [conn.passwordSecretName]: password });
+                    await RpcApi.SetSecretsCommand(TabRpcClient, { [conn.passwordSecretName]: password });
                 }
             } else if (conn.authType === "key" && conn.identityFile) {
                 connData["ssh:identityfile"] = conn.identityFile;
@@ -385,7 +385,7 @@ export const ConnectionsContent = memo(({ model }: ConnectionsContentProps) => {
             // Обновляем конфиг
             const newData = { ...currentData, [conn.name]: connData };
             console.log("Saving config:", newData);
-            await RpcApi.SetConfigCommand(globalStore.getWshClient(), { connections: newData });
+            await RpcApi.SetConfigCommand(TabRpcClient, { connections: newData });
 
             // Перезагружаем список
             await loadConnections();
@@ -402,10 +402,10 @@ export const ConnectionsContent = memo(({ model }: ConnectionsContentProps) => {
         if (!confirm(`Удалить подключение "${name}"?`)) return;
 
         try {
-            const fullConfig = await RpcApi.GetFullConfigCommand(globalStore.getWshClient());
+            const fullConfig = await RpcApi.GetFullConfigCommand(TabRpcClient);
             const currentData = fullConfig?.connections || {};
             delete currentData[name];
-            await RpcApi.SetConfigCommand(globalStore.getWshClient(), { connections: currentData });
+            await RpcApi.SetConfigCommand(TabRpcClient, { connections: currentData });
             await loadConnections();
         } catch (error) {
             console.error("Failed to delete connection:", error);
