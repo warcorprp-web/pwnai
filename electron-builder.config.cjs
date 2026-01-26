@@ -12,7 +12,6 @@ const windowsShouldSign = !!process.env.SM_CODE_SIGNING_CERT_SHA1_HASH;
 const config = {
     appId: pkg.build.appId,
     productName: pkg.productName,
-    executableName: pkg.productName,
     artifactName: "${productName}-${platform}-${arch}-${version}.${ext}",
     generateUpdatesFilesForAllChannels: true,
     npmRebuild: false,
@@ -45,6 +44,7 @@ const config = {
         "dist/schema/**/*", // schema files for Monaco editor
     ],
     mac: {
+        executableName: "Искра Терминал",
         extraMetadata: {
             productName: "Искра Терминал"
         },
@@ -119,6 +119,7 @@ const config = {
         fpm: ["--prefix", "/opt/iskra-terminal"],
     },
     win: {
+        executableName: "iskra-terminal",
         extraMetadata: {
             productName: "Искра Терминал"
         },
