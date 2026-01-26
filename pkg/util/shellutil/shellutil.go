@@ -658,16 +658,7 @@ func FormatOSC(oscNum int, parts ...string) string {
 // addToWindowsPath adds the given directory to the user's PATH environment variable in Windows registry
 func addToWindowsPath(binDir string) error {
 	// Use PowerShell to add to user PATH
-	psScript := fmt.Sprintf(`
-$path = [Environment]::GetEnvironmentVariable('Path', 'User')
-$binDir = '%s'
-if ($path -notlike "*$binDir*") {
-    [Environment]::SetEnvironmentVariable('Path', "$path;$binDir", 'User')
-    Write-Host "Added $binDir to user PATH"
-} else {
-    Write-Host "PATH already contains $binDir"
-}
-`, binDir)
+	psScript := fmt.Sprintf(`$path = [Environment]::GetEnvironmentVariable('Path', 'User'); $binDir = '%s'; if ($path -notlike "*$binDir*") { [Environment]::SetEnvironmentVariable('Path', "$path;$binDir", 'User'); Write-Host "Added $binDir to user PATH" } else { Write-Host "PATH already contains $binDir" }`, binDir)
 	
 	cmd := exec.Command("powershell", "-NoProfile", "-ExecutionPolicy", "Bypass", "-Command", psScript)
 	output, err := cmd.CombinedOutput()
