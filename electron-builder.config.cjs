@@ -119,7 +119,7 @@ const config = {
         fpm: ["--prefix", "/opt/iskra-terminal"],
     },
     win: {
-        executableName: "iskra-terminal",
+        executableName: "Искра Терминал",
         extraMetadata: {
             productName: "Искра Терминал"
         },
