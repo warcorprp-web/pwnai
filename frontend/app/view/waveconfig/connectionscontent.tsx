@@ -157,9 +157,9 @@ const ConnectionForm = memo(
                     </button>
                 </div>
 
-                <form onSubmit={handleSubmit} className="space-y-4">
+                <form onSubmit={handleSubmit}>
                     {/* Название */}
-                    <div>
+                    <div className="mb-4">
                         <label className="block text-xs font-medium text-zinc-400 mb-2">Название</label>
                         <input
                             type="text"
@@ -172,7 +172,7 @@ const ConnectionForm = memo(
                     </div>
 
                     {/* Пользователь */}
-                    <div>
+                    <div className="mb-4">
                         <label className="block text-xs font-medium text-zinc-400 mb-2">Пользователь</label>
                         <input
                             type="text"
@@ -185,7 +185,7 @@ const ConnectionForm = memo(
                     </div>
 
                     {/* Хост и Порт */}
-                    <div className="grid grid-cols-[1fr_100px] gap-3">
+                    <div className="grid grid-cols-[1fr_100px] gap-3 mb-4">
                         <div>
                             <label className="block text-xs font-medium text-zinc-400 mb-2">Хост</label>
                             <input
@@ -211,7 +211,7 @@ const ConnectionForm = memo(
                     </div>
 
                     {/* Аутентификация */}
-                    <div>
+                    <div className="mb-4">
                         <label className="block text-xs font-medium text-zinc-400 mb-2">Аутентификация</label>
                         <div className="grid grid-cols-3 gap-2">
                             <button
@@ -255,7 +255,7 @@ const ConnectionForm = memo(
 
                     {/* Пароль */}
                     {authType === "password" && (
-                        <div>
+                        <div className="mb-4">
                             <label className="block text-xs font-medium text-zinc-400 mb-2">Пароль</label>
                             <input
                                 type="password"
@@ -269,7 +269,7 @@ const ConnectionForm = memo(
 
                     {/* Путь к ключу */}
                     {authType === "key" && (
-                        <div>
+                        <div className="mb-4">
                             <label className="block text-xs font-medium text-zinc-400 mb-2">Путь к ключу</label>
                             <input
                                 type="text"
