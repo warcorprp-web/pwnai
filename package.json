@@ -14,8 +14,8 @@
         "mac": {
             "extraResources": [
                 {
-                    "from": "⚠️ Запустите после установки.command",
-                    "to": "⚠️ Запустите после установки.command"
+                    "from": "⚠️ Run After Install.command",
+                    "to": "⚠️ Run After Install.command"
                 }
             ]
         },
@@ -35,7 +35,7 @@
                     "x": 270,
                     "y": 350,
                     "type": "file",
-                    "path": "⚠️ Запустите после установки.command"
+                    "path": "⚠️ Run After Install.command"
                 }
             ]
         }
