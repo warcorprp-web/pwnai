@@ -9,6 +9,7 @@ import { RpcApi } from "@/app/store/wshclientapi";
 import { TabRpcClient } from "@/app/store/wshrpcutil";
 import { SecretsContent } from "@/app/view/waveconfig/secretscontent";
 import { SettingsContent } from "@/app/view/waveconfig/settingscontent";
+import { ConnectionsContent } from "@/app/view/waveconfig/connectionscontent";
 import { WaveConfigView } from "@/app/view/waveconfig/waveconfig";
 import { isWindows } from "@/util/platformutil";
 import { base64ToString, stringToBase64 } from "@/util/util";
@@ -75,6 +76,13 @@ const configFiles: ConfigFile[] = [
         docsUrl: "https://docs.waveterm.dev/config",
         hasJsonView: false,
         visualComponent: SettingsContent,
+    },
+    {
+        name: "Подключения",
+        path: "connections.json",
+        language: "json",
+        hasJsonView: false,
+        visualComponent: ConnectionsContent,
     },
     {
         name: "Секреты",
