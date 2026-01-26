@@ -228,17 +228,64 @@ const QuickTips = () => {
                         <code className="font-mono text-sm">
                             <span className="text-secondary">&gt; </span>
                             <span className="text-accent-400 font-semibold">ish view</span>
-                            <span className="text-muted"> [filename|url]</span>
+                            <span className="text-muted"> [file|dir|url]</span>
                         </code>
-                        <div className="text-secondary text-sm mt-1">Просмотр файлов, директорий или веб-URL</div>
+                        <div className="text-secondary text-sm mt-1">Просмотр файлов, директорий или веб-страниц</div>
                     </div>
                     <div className="flex flex-col gap-2 p-4 bg-black/20 rounded-lg border border-accent-400/30 hover:border-accent-400/50 transition-colors">
                         <code className="font-mono text-sm">
                             <span className="text-secondary">&gt; </span>
                             <span className="text-accent-400 font-semibold">ish edit</span>
-                            <span className="text-muted"> [filename]</span>
+                            <span className="text-muted"> [file]</span>
                         </code>
-                        <div className="text-secondary text-sm mt-1">Редактирование конфигурационных и кодовых файлов</div>
+                        <div className="text-secondary text-sm mt-1">Редактирование файлов в Monaco редакторе</div>
+                    </div>
+                    <div className="flex flex-col gap-2 p-4 bg-black/20 rounded-lg border border-accent-400/30 hover:border-accent-400/50 transition-colors">
+                        <code className="font-mono text-sm">
+                            <span className="text-secondary">&gt; </span>
+                            <span className="text-accent-400 font-semibold">ish ai</span>
+                            <span className="text-muted"> [prompt]</span>
+                        </code>
+                        <div className="text-secondary text-sm mt-1">Запрос к AI ассистенту из командной строки</div>
+                    </div>
+                    <div className="flex flex-col gap-2 p-4 bg-black/20 rounded-lg border border-accent-400/30 hover:border-accent-400/50 transition-colors">
+                        <code className="font-mono text-sm">
+                            <span className="text-secondary">&gt; </span>
+                            <span className="text-accent-400 font-semibold">ish web open</span>
+                            <span className="text-muted"> [url]</span>
+                        </code>
+                        <div className="text-secondary text-sm mt-1">Открыть URL в браузере внутри терминала</div>
+                    </div>
+                    <div className="flex flex-col gap-2 p-4 bg-black/20 rounded-lg border border-accent-400/30 hover:border-accent-400/50 transition-colors">
+                        <code className="font-mono text-sm">
+                            <span className="text-secondary">&gt; </span>
+                            <span className="text-accent-400 font-semibold">ish notify</span>
+                            <span className="text-muted"> "text"</span>
+                        </code>
+                        <div className="text-secondary text-sm mt-1">Отправить системное уведомление</div>
+                    </div>
+                    <div className="flex flex-col gap-2 p-4 bg-black/20 rounded-lg border border-accent-400/30 hover:border-accent-400/50 transition-colors">
+                        <code className="font-mono text-sm">
+                            <span className="text-secondary">&gt; </span>
+                            <span className="text-accent-400 font-semibold">ish setbg</span>
+                            <span className="text-muted"> [image|color]</span>
+                        </code>
+                        <div className="text-secondary text-sm mt-1">Установить фон блока (картинка или цвет)</div>
+                    </div>
+                    <div className="flex flex-col gap-2 p-4 bg-black/20 rounded-lg border border-accent-400/30 hover:border-accent-400/50 transition-colors">
+                        <code className="font-mono text-sm">
+                            <span className="text-secondary">&gt; </span>
+                            <span className="text-accent-400 font-semibold">ish conn status</span>
+                        </code>
+                        <div className="text-secondary text-sm mt-1">Статус всех SSH подключений</div>
+                    </div>
+                    <div className="flex flex-col gap-2 p-4 bg-black/20 rounded-lg border border-accent-400/30 hover:border-accent-400/50 transition-colors">
+                        <code className="font-mono text-sm">
+                            <span className="text-secondary">&gt; </span>
+                            <span className="text-accent-400 font-semibold">ish secret set</span>
+                            <span className="text-muted"> key=val</span>
+                        </code>
+                        <div className="text-secondary text-sm mt-1">Сохранить секрет (пароль, токен, ключ)</div>
                     </div>
                 </div>
             </div>
