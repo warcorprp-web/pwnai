@@ -109,7 +109,7 @@ const ConnectionForm = memo(
         onCancel,
     }: {
         connection?: Connection;
-        onSave: (conn: Connection) => void;
+        onSave: (conn: Connection, password?: string) => void;
         onCancel: () => void;
     }) => {
         const [name, setName] = useState(connection?.name || "");
@@ -122,15 +122,18 @@ const ConnectionForm = memo(
 
         const handleSubmit = (e: React.FormEvent) => {
             e.preventDefault();
-            onSave({
-                name,
-                hostname,
-                port,
-                user,
-                authType,
-                passwordSecretName: authType === "password" ? `SSH_PASSWORD_${name}` : undefined,
-                identityFile: authType === "key" && identityFile ? [identityFile] : undefined,
-            });
+            onSave(
+                {
+                    name,
+                    hostname,
+                    port,
+                    user,
+                    authType,
+                    passwordSecretName: authType === "password" ? `SSH_PASSWORD_${name}` : undefined,
+                    identityFile: authType === "key" && identityFile ? [identityFile] : undefined,
+                },
+                authType === "password" ? password : undefined
+            );
         };
 
         return (
@@ -311,7 +314,7 @@ export const ConnectionsContent = memo(({ model }: ConnectionsContentProps) => {
         }
     };
 
-    const handleSaveConnection = async (conn: Connection) => {
+    const handleSaveConnection = async (conn: Connection, password?: string) => {
         try {
             // Загружаем текущий конфиг
             const currentData = (await RpcApi.ConfigGetCommand("connections.json")) || {};
@@ -325,7 +328,10 @@ export const ConnectionsContent = memo(({ model }: ConnectionsContentProps) => {
 
             if (conn.authType === "password" && conn.passwordSecretName) {
                 connData["ssh:passwordsecretname"] = conn.passwordSecretName;
-                // TODO: Сохранить пароль в secrets через RpcApi.SetSecretsCommand
+                // Сохраняем пароль в secrets
+                if (password) {
+                    await RpcApi.SetSecretsCommand({ [conn.passwordSecretName]: password });
+                }
             } else if (conn.authType === "key" && conn.identityFile) {
                 connData["ssh:identityfile"] = conn.identityFile;
             }
@@ -357,8 +363,23 @@ export const ConnectionsContent = memo(({ model }: ConnectionsContentProps) => {
     };
 
     const handleConnect = async (conn: Connection) => {
-        // TODO: Открыть новый терминал с подключением
-        console.log("Connect to:", conn.name);
+        try {
+            // Создаём новый блок с терминалом и SSH подключением
+            const termBlockDef = {
+                meta: {
+                    view: "term",
+                    controller: "shell",
+                    "cmd:cwd": "~",
+                    "cmd:runonnewblock": true,
+                    "cmd:clearonnewblock": true,
+                    "connection": conn.name,
+                },
+            };
+            
+            await RpcApi.CreateBlockCommand(termBlockDef);
+        } catch (error) {
+            console.error("Failed to connect:", error);
+        }
     };
 
     if (loading) {
