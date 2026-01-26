@@ -345,6 +345,13 @@ func GetLocalWshBinaryPath(version string, goos string, goarch string) (string, 
 	if !wavebase.SupportedWshBinaries[fmt.Sprintf("%s-%s", goos, goarch)] {
 		return "", fmt.Errorf("unsupported ish platform: %s-%s", goos, goarch)
 	}
+	// Try simple name first (ish or ish.exe)
+	simpleName := "ish" + ext
+	simplePath := filepath.Join(wavebase.GetWaveAppBinPath(), simpleName)
+	if _, err := os.Stat(simplePath); err == nil {
+		return simplePath, nil
+	}
+	// Fallback to versioned name
 	baseName := fmt.Sprintf("ish-%s-%s.%s%s", version, goos, goarch, ext)
 	return filepath.Join(wavebase.GetWaveAppBinPath(), baseName), nil
 }
