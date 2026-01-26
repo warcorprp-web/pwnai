@@ -109,7 +109,7 @@ const ConnectionForm = memo(
         onCancel,
     }: {
         connection?: Connection;
-        onSave: (conn: Connection, password?: string) => void;
+        onSave: (conn: Connection, password?: string) => Promise<void>;
         onCancel: () => void;
     }) => {
         const [name, setName] = useState(connection?.name || "");
@@ -119,21 +119,27 @@ const ConnectionForm = memo(
         const [authType, setAuthType] = useState<"password" | "key" | "agent">(connection?.authType || "password");
         const [password, setPassword] = useState("");
         const [identityFile, setIdentityFile] = useState(connection?.identityFile?.[0] || "");
+        const [saving, setSaving] = useState(false);
 
-        const handleSubmit = (e: React.FormEvent) => {
+        const handleSubmit = async (e: React.FormEvent) => {
             e.preventDefault();
-            onSave(
-                {
-                    name,
-                    hostname,
-                    port,
-                    user,
-                    authType,
-                    passwordSecretName: authType === "password" ? `SSH_PASSWORD_${name}` : undefined,
-                    identityFile: authType === "key" && identityFile ? [identityFile] : undefined,
-                },
-                authType === "password" ? password : undefined
-            );
+            setSaving(true);
+            try {
+                await onSave(
+                    {
+                        name,
+                        hostname,
+                        port,
+                        user,
+                        authType,
+                        passwordSecretName: authType === "password" ? `SSH_PASSWORD_${name}` : undefined,
+                        identityFile: authType === "key" && identityFile ? [identityFile] : undefined,
+                    },
+                    authType === "password" ? password : undefined
+                );
+            } finally {
+                setSaving(false);
+            }
         };
 
         return (
@@ -252,14 +258,23 @@ const ConnectionForm = memo(
                     <div className="flex gap-2 pt-1">
                         <button
                             type="submit"
-                            className="flex-1 px-3 py-1.5 text-sm bg-accent-600 hover:bg-accent-500 rounded cursor-pointer transition-colors font-medium"
+                            disabled={saving}
+                            className="flex-1 px-3 py-1.5 text-sm bg-accent-600 hover:bg-accent-500 disabled:bg-accent-600/50 disabled:cursor-not-allowed rounded cursor-pointer transition-colors font-medium"
                         >
-                            Сохранить
+                            {saving ? (
+                                <>
+                                    <i className="fa-sharp fa-solid fa-spinner fa-spin mr-2" />
+                                    Сохранение...
+                                </>
+                            ) : (
+                                "Сохранить"
+                            )}
                         </button>
                         <button
                             type="button"
                             onClick={onCancel}
-                            className="px-3 py-1.5 text-sm bg-zinc-700 hover:bg-zinc-600 rounded cursor-pointer transition-colors"
+                            disabled={saving}
+                            className="px-3 py-1.5 text-sm bg-zinc-700 hover:bg-zinc-600 disabled:bg-zinc-700/50 disabled:cursor-not-allowed rounded cursor-pointer transition-colors"
                         >
                             Отмена
                         </button>
@@ -317,6 +332,8 @@ export const ConnectionsContent = memo(({ model }: ConnectionsContentProps) => {
 
     const handleSaveConnection = async (conn: Connection, password?: string) => {
         try {
+            console.log("Saving connection:", conn);
+            
             // Загружаем текущий конфиг
             const currentData = (await RpcApi.ConfigGetCommand("connections.json")) || {};
 
@@ -331,6 +348,7 @@ export const ConnectionsContent = memo(({ model }: ConnectionsContentProps) => {
                 connData["ssh:passwordsecretname"] = conn.passwordSecretName;
                 // Сохраняем пароль в secrets
                 if (password) {
+                    console.log("Saving password to secrets");
                     await RpcApi.SetSecretsCommand({ [conn.passwordSecretName]: password });
                 }
             } else if (conn.authType === "key" && conn.identityFile) {
@@ -339,14 +357,17 @@ export const ConnectionsContent = memo(({ model }: ConnectionsContentProps) => {
 
             // Обновляем конфиг
             const newData = { ...currentData, [conn.name]: connData };
+            console.log("Saving config:", newData);
             await RpcApi.ConfigSetCommand("connections.json", newData);
 
             // Перезагружаем список
             await loadConnections();
             setShowForm(false);
             setEditingConnection(undefined);
+            console.log("Connection saved successfully");
         } catch (error) {
             console.error("Failed to save connection:", error);
+            alert("Ошибка сохранения: " + error);
         }
     };
 
