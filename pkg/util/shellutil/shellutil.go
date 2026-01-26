@@ -332,6 +332,10 @@ func IsExtendedZshHistoryFile(fileName string) (bool, error) {
 }
 
 func GetLocalWshBinaryPath(version string, goos string, goarch string) (string, error) {
+	appPath := wavebase.GetWaveAppPath()
+	if appPath == "" {
+		return "", fmt.Errorf("GetWaveAppPath returned empty string")
+	}
 	ext := ""
 	if goarch == "amd64" {
 		goarch = "x64"
