@@ -79,6 +79,9 @@ const config = {
         artifactName: "${name}-${platform}-${arch}-${version}.${ext}",
         category: "TerminalEmulator",
         executableName: "iskra-terminal",
+        extraMetadata: {
+            productName: "iskra-terminal"
+        },
         target: [
             {
                 target: "zip",
