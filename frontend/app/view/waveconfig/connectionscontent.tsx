@@ -159,8 +159,10 @@ const ConnectionForm = memo(
 
                 <form onSubmit={handleSubmit}>
                     {/* Название */}
-                    <div className="mb-4">
-                        <label className="block text-xs font-medium text-zinc-400 mb-2">Название</label>
+                    <div style={{ marginBottom: '16px' }}>
+                        <label className="block text-xs font-medium text-zinc-400" style={{ marginBottom: '8px' }}>
+                            Название
+                        </label>
                         <input
                             type="text"
                             value={name}
@@ -171,9 +173,43 @@ const ConnectionForm = memo(
                         />
                     </div>
 
+                    {/* Хост и Порт */}
+                    <div style={{ marginBottom: '16px' }}>
+                        <div className="grid grid-cols-[1fr_100px] gap-3">
+                            <div>
+                                <label className="block text-xs font-medium text-zinc-400" style={{ marginBottom: '8px' }}>
+                                    Хост
+                                </label>
+                                <input
+                                    type="text"
+                                    value={hostname}
+                                    onChange={(e) => setHostname(e.target.value)}
+                                    className="w-full px-3 py-2 bg-zinc-900 border border-zinc-700 rounded text-zinc-200 text-sm focus:outline-none focus:border-accent-500"
+                                    placeholder="example.com"
+                                    required
+                                />
+                            </div>
+                            <div>
+                                <label className="block text-xs font-medium text-zinc-400" style={{ marginBottom: '8px' }}>
+                                    Порт
+                                </label>
+                                <input
+                                    type="text"
+                                    value={port}
+                                    onChange={(e) => setPort(e.target.value)}
+                                    className="w-full px-3 py-2 bg-zinc-900 border border-zinc-700 rounded text-zinc-200 text-sm text-center focus:outline-none focus:border-accent-500"
+                                    placeholder="22"
+                                    required
+                                />
+                            </div>
+                        </div>
+                    </div>
+
                     {/* Пользователь */}
-                    <div className="mb-4">
-                        <label className="block text-xs font-medium text-zinc-400 mb-2">Пользователь</label>
+                    <div style={{ marginBottom: '16px' }}>
+                        <label className="block text-xs font-medium text-zinc-400" style={{ marginBottom: '8px' }}>
+                            Пользователь
+                        </label>
                         <input
                             type="text"
                             value={user}
@@ -184,35 +220,11 @@ const ConnectionForm = memo(
                         />
                     </div>
 
-                    {/* Хост и Порт */}
-                    <div className="grid grid-cols-[1fr_100px] gap-3 mb-4">
-                        <div>
-                            <label className="block text-xs font-medium text-zinc-400 mb-2">Хост</label>
-                            <input
-                                type="text"
-                                value={hostname}
-                                onChange={(e) => setHostname(e.target.value)}
-                                className="w-full px-3 py-2 bg-zinc-900 border border-zinc-700 rounded text-zinc-200 text-sm focus:outline-none focus:border-accent-500"
-                                placeholder="example.com"
-                                required
-                            />
-                        </div>
-                        <div>
-                            <label className="block text-xs font-medium text-zinc-400 mb-2">Порт</label>
-                            <input
-                                type="text"
-                                value={port}
-                                onChange={(e) => setPort(e.target.value)}
-                                className="w-full px-3 py-2 bg-zinc-900 border border-zinc-700 rounded text-zinc-200 text-sm text-center focus:outline-none focus:border-accent-500"
-                                placeholder="22"
-                                required
-                            />
-                        </div>
-                    </div>
-
                     {/* Аутентификация */}
-                    <div className="mb-4">
-                        <label className="block text-xs font-medium text-zinc-400 mb-2">Аутентификация</label>
+                    <div style={{ marginBottom: '16px' }}>
+                        <label className="block text-xs font-medium text-zinc-400" style={{ marginBottom: '8px' }}>
+                            Аутентификация
+                        </label>
                         <div className="grid grid-cols-3 gap-2">
                             <button
                                 type="button"
@@ -255,8 +267,10 @@ const ConnectionForm = memo(
 
                     {/* Пароль */}
                     {authType === "password" && (
-                        <div className="mb-4">
-                            <label className="block text-xs font-medium text-zinc-400 mb-2">Пароль</label>
+                        <div style={{ marginBottom: '16px' }}>
+                            <label className="block text-xs font-medium text-zinc-400" style={{ marginBottom: '8px' }}>
+                                Пароль
+                            </label>
                             <input
                                 type="password"
                                 value={password}
@@ -269,8 +283,10 @@ const ConnectionForm = memo(
 
                     {/* Путь к ключу */}
                     {authType === "key" && (
-                        <div className="mb-4">
-                            <label className="block text-xs font-medium text-zinc-400 mb-2">Путь к ключу</label>
+                        <div style={{ marginBottom: '16px' }}>
+                            <label className="block text-xs font-medium text-zinc-400" style={{ marginBottom: '8px' }}>
+                                Путь к ключу
+                            </label>
                             <input
                                 type="text"
                                 value={identityFile}
