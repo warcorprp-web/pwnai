@@ -45,6 +45,9 @@ const config = {
         "dist/schema/**/*", // schema files for Monaco editor
     ],
     mac: {
+        extraMetadata: {
+            productName: "Искра Терминал"
+        },
         target: [
             {
                 target: "zip",
@@ -79,9 +82,6 @@ const config = {
         artifactName: "${name}-${platform}-${arch}-${version}.${ext}",
         category: "TerminalEmulator",
         executableName: "iskra-terminal",
-        extraMetadata: {
-            productName: "iskra-terminal"
-        },
         target: [
             {
                 target: "zip",
@@ -119,6 +119,9 @@ const config = {
         fpm: ["--prefix", "/opt/iskra-terminal"],
     },
     win: {
+        extraMetadata: {
+            productName: "Искра Терминал"
+        },
         target: ["nsis", "msi", "zip"],
         signtoolOptions: windowsShouldSign && {
             signingHashAlgorithms: ["sha256"],
