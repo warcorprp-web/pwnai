@@ -1,0 +1,103 @@
+=== 1. Структура приложения ===upport/iskra-terminal/
+total 24
+drwxr-xr-x@  7 artemdeev  admin   224 26 янв 07:28 .
+drwxr-xr-x@  3 artemdeev  admin    96 26 янв 07:29 ..
+drwxr-xr-x@ 10 artemdeev  admin   320 26 янв 07:29 Frameworks
+-rw-r--r--@  1 artemdeev  admin  4814 26 янв 07:29 Info.plist
+drwxr-xr-x@  3 artemdeev  admin    96 26 янв 07:29 MacOS
+-rw-r--r--@  1 artemdeev  admin     8 26 янв 07:28 PkgInfo
+drwxr-xr-x@ 62 artemdeev  admin  1984 26 янв 07:29 Resources
+
+=== 2. MacOS директория ===
+total 32
+drwxr-xr-x@ 3 artemdeev  admin     96 26 янв 07:29 .
+drwxr-xr-x@ 7 artemdeev  admin    224 26 янв 07:28 ..
+-rwxr-xr-x@ 1 artemdeev  admin  13076 26 янв 07:28 Искра Терминал
+
+=== 3. Resources директория ===
+total 278304
+drwxr-xr-x@ 62 artemdeev  admin       1984 26 янв 07:29 .
+drwxr-xr-x@  7 artemdeev  admin        224 26 янв 07:28 ..
+drwxr-xr-x@  2 artemdeev  admin         64 26 янв 07:28 af.lproj
+drwxr-xr-x@  2 artemdeev  admin         64 26 янв 07:28 am.lproj
+-rw-r--r--@  1 artemdeev  admin        103 26 янв 07:29 app-update.yml
+-rw-r--r--@  1 artemdeev  admin  142440693 26 янв 07:29 app.asar
+drwxr-xr-x@  3 artemdeev  admin         96 26 янв 07:29 app.asar.unpacked
+drwxr-xr-x@  2 artemdeev  admin         64 26 янв 07:28 ar.lproj
+drwxr-xr-x@  2 artemdeev  admin         64 26 янв 07:28 bg.lproj
+drwxr-xr-x@  2 artemdeev  admin         64 26 янв 07:28 bn.lproj
+drwxr-xr-x@  2 artemdeev  admin         64 26 янв 07:28 ca.lproj
+drwxr-xr-x@  2 artemdeev  admin         64 26 янв 07:28 cs.lproj
+drwxr-xr-x@  2 artemdeev  admin         64 26 янв 07:28 da.lproj
+drwxr-xr-x@  2 artemdeev  admin         64 26 янв 07:28 de.lproj
+drwxr-xr-x@  2 artemdeev  admin         64 26 янв 07:28 el.lproj
+drwxr-xr-x@  2 artemdeev  admin         64 26 янв 07:28 en.lproj
+drwxr-xr-x@  2 artemdeev  admin         64 26 янв 07:28 en_GB.lproj
+drwxr-xr-x@  2 artemdeev  admin         64 26 янв 07:28 es.lproj
+drwxr-xr-x@  2 artemdeev  admin         64 26 янв 07:28 es_419.lproj
+drwxr-xr-x@  2 artemdeev  admin         64 26 янв 07:28 et.lproj
+drwxr-xr-x@  2 artemdeev  admin         64 26 янв 07:28 fa.lproj
+drwxr-xr-x@  2 artemdeev  admin         64 26 янв 07:28 fi.lproj
+drwxr-xr-x@  2 artemdeev  admin         64 26 янв 07:28 fil.lproj
+drwxr-xr-x@  2 artemdeev  admin         64 26 янв 07:28 fr.lproj
+drwxr-xr-x@  2 artemdeev  admin         64 26 янв 07:28 gu.lproj
+drwxr-xr-x@  2 artemdeev  admin         64 26 янв 07:28 he.lproj
+drwxr-xr-x@  2 artemdeev  admin         64 26 янв 07:28 hi.lproj
+drwxr-xr-x@  2 artemdeev  admin         64 26 янв 07:28 hr.lproj
+drwxr-xr-x@  2 artemdeev  admin         64 26 янв 07:28 hu.lproj
+-rw-r--r--@  1 artemdeev  admin      41107 26 янв 07:29 icon.icns
+drwxr-xr-x@  2 artemdeev  admin         64 26 янв 07:28 id.lproj
+drwxr-xr-x@  2 artemdeev  admin         64 26 янв 07:28 it.lproj
+drwxr-xr-x@  2 artemdeev  admin         64 26 янв 07:28 ja.lproj
+drwxr-xr-x@  2 artemdeev  admin         64 26 янв 07:28 kn.lproj
+drwxr-xr-x@  2 artemdeev  admin         64 26 янв 07:28 ko.lproj
+drwxr-xr-x@  2 artemdeev  admin         64 26 янв 07:28 lt.lproj
+drwxr-xr-x@  2 artemdeev  admin         64 26 янв 07:28 lv.lproj
+drwxr-xr-x@  2 artemdeev  admin         64 26 янв 07:28 ml.lproj
+drwxr-xr-x@  2 artemdeev  admin         64 26 янв 07:28 mr.lproj
+drwxr-xr-x@  2 artemdeev  admin         64 26 янв 07:28 ms.lproj
+drwxr-xr-x@  2 artemdeev  admin         64 26 янв 07:28 nb.lproj
+drwxr-xr-x@  2 artemdeev  admin         64 26 янв 07:28 nl.lproj
+drwxr-xr-x@  2 artemdeev  admin         64 26 янв 07:28 pl.lproj
+drwxr-xr-x@  2 artemdeev  admin         64 26 янв 07:28 pt_BR.lproj
+drwxr-xr-x@  2 artemdeev  admin         64 26 янв 07:28 pt_PT.lproj
+drwxr-xr-x@  2 artemdeev  admin         64 26 янв 07:28 ro.lproj
+drwxr-xr-x@  2 artemdeev  admin         64 26 янв 07:28 ru.lproj
+drwxr-xr-x@  2 artemdeev  admin         64 26 янв 07:28 sk.lproj
+drwxr-xr-x@  2 artemdeev  admin         64 26 янв 07:28 sl.lproj
+drwxr-xr-x@  2 artemdeev  admin         64 26 янв 07:28 sr.lproj
+drwxr-xr-x@  2 artemdeev  admin         64 26 янв 07:28 sv.lproj
+drwxr-xr-x@  2 artemdeev  admin         64 26 янв 07:28 sw.lproj
+drwxr-xr-x@  2 artemdeev  admin         64 26 янв 07:28 ta.lproj
+drwxr-xr-x@  2 artemdeev  admin         64 26 янв 07:28 te.lproj
+drwxr-xr-x@  2 artemdeev  admin         64 26 янв 07:28 th.lproj
+drwxr-xr-x@  2 artemdeev  admin         64 26 янв 07:28 tr.lproj
+drwxr-xr-x@ 11 artemdeev  admin        352 26 янв 07:29 tsunamiscaffold
+drwxr-xr-x@  2 artemdeev  admin         64 26 янв 07:28 uk.lproj
+drwxr-xr-x@  2 artemdeev  admin         64 26 янв 07:28 ur.lproj
+drwxr-xr-x@  2 artemdeev  admin         64 26 янв 07:28 vi.lproj
+drwxr-xr-x@  2 artemdeev  admin         64 26 янв 07:28 zh_CN.lproj
+drwxr-xr-x@  2 artemdeev  admin         64 26 янв 07:28 zh_TW.lproj
+
+=== 4. Поиск всех ish файлов ===
+/Applications/Искра Терминал.app/Contents/Resources/app.asar.unpacked/dist/bin/ish-1.0.0-linux.x64
+/Applications/Искра Терминал.app/Contents/Resources/app.asar.unpacked/dist/bin/ish-1.0.0-linux.arm64
+/Applications/Искра Терминал.app/Contents/Resources/app.asar.unpacked/dist/bin/ish-1.0.0-darwin.x64
+/Applications/Искра Терминал.app/Contents/Resources/app.asar.unpacked/dist/bin/ish-1.0.0-linux.mips64
+/Applications/Искра Терминал.app/Contents/Resources/app.asar.unpacked/dist/bin/ish-1.0.0-windows.arm64.exe
+/Applications/Искра Терминал.app/Contents/Resources/app.asar.unpacked/dist/bin/ish-1.0.0-linux.mips
+/Applications/Искра Терминал.app/Contents/Resources/app.asar.unpacked/dist/bin/ish-1.0.0-windows.x64.exe
+/Applications/Искра Терминал.app/Contents/Resources/app.asar.unpacked/dist/bin/ish-1.0.0-darwin.arm64
+
+=== 5. Application Support ===
+total 392
+drwxr-xr-x   9 artemdeev  staff     288 26 янв 07:58 .
+drwx------+ 59 artemdeev  staff    1888 26 янв 02:22 ..
+drwxr-xr-x   2 artemdeev  staff      64 26 янв 02:22 bin
+drwx------   8 artemdeev  staff     256 26 янв 02:22 db
+drwxr-xr-x   2 artemdeev  staff      64 26 янв 02:22 logs
+drwxr-xr-x   6 artemdeev  staff     192 26 янв 02:22 shell
+-rw-------   1 artemdeev  staff       0 26 янв 02:22 wave.lock
+srwx------   1 artemdeev  staff       0 26 янв 07:58 wave.sock
+-rw-r--r--   1 artemdeev  staff  180291 26 янв 08:05 waveapp.log
+  ~ ❯                                                                                                         08:05:46
