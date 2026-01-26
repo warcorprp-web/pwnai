@@ -1,1 +1,17 @@
-Copyright 2025, Command Line Inc.
+NOTICE
+
+Искра Терминал
+Copyright 2026 CryptoCat's Lab
+
+This product is based on WaveTerminal (https://github.com/wavetermdev/waveterm)
+Copyright 2024 Command Line Inc.
+
+Licensed under the Apache License, Version 2.0.
+
+MODIFICATIONS:
+- Rebranded to "Искра Терминал"
+- Added custom AI endpoint integration
+- Added subscription payment system
+- Translated interface to Russian
+- Modified shell integration (ish binary)
+- Custom branding and styling
