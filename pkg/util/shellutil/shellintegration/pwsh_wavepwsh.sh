@@ -2,8 +2,8 @@
 $env:PATH = {{.WSHBINDIR_PWSH}} + "{{.PATHSEP}}" + $env:PATH
 
 # Source dynamic script from ish token
-$ishPath = Join-Path -LiteralPath {{.WSHBINDIR_PWSH}} -ChildPath "ish.exe"
-if (Test-Path -LiteralPath $ishPath) {
+$ishPath = {{.WSHBINDIR_PWSH}} + "\ish.exe"
+if (Test-Path -Path $ishPath) {
     $waveterm_swaptoken_output = & $ishPath token $env:WAVETERM_SWAPTOKEN pish 2>$null | Out-String
     if ($waveterm_swaptoken_output -and $waveterm_swaptoken_output -ne "") {
         Invoke-Expression $waveterm_swaptoken_output
