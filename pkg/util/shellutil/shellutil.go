@@ -658,9 +658,11 @@ func FormatOSC(oscNum int, parts ...string) string {
 // addToWindowsPath adds the given directory to the user's PATH environment variable in Windows registry
 func addToWindowsPath(binDir string) error {
 	// Use PowerShell to add to user PATH
-	psScript := fmt.Sprintf(`$path = [Environment]::GetEnvironmentVariable('Path', 'User'); $binDir = '%s'; if ($path -notlike "*$binDir*") { [Environment]::SetEnvironmentVariable('Path', "$path;$binDir", 'User'); Write-Host "Added $binDir to user PATH" } else { Write-Host "PATH already contains $binDir" }`, binDir)
+	// Pass binDir as environment variable to avoid encoding issues with non-ASCII paths
+	psScript := `$path = [Environment]::GetEnvironmentVariable('Path', 'User'); $binDir = $env:WAVE_BIN_DIR; if ($path -notlike "*$binDir*") { [Environment]::SetEnvironmentVariable('Path', "$path;$binDir", 'User'); Write-Host "Added $binDir to user PATH" } else { Write-Host "PATH already contains $binDir" }`
 	
 	cmd := exec.Command("powershell", "-NoProfile", "-ExecutionPolicy", "Bypass", "-Command", psScript)
+	cmd.Env = append(os.Environ(), fmt.Sprintf("WAVE_BIN_DIR=%s", binDir))
 	output, err := cmd.CombinedOutput()
 	if err != nil {
 		return fmt.Errorf("failed to update PATH: %w, output: %s", err, string(output))
