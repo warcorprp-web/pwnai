@@ -116,23 +116,17 @@ jobs:
           cd ..
           ls -lh deploy/
       
-      - name: Deploy to server
-        uses: appleboy/scp-action@v0.1.7
-        with:
-          host: ${{ secrets.DEPLOY_HOST }}
-          username: ${{ secrets.DEPLOY_USER }}
-          key: ${{ secrets.DEPLOY_KEY }}
-          source: "deploy/*"
-          target: "/root/iskra-site/public/downloads"
-          strip_components: 1
-          overwrite: true
+      - name: Upload to server
+        run: |
+          cd deploy
+          for file in *; do
+            echo "Uploading $file..."
+            curl -X POST \
+              -H "X-Deploy-Secret: ${{ secrets.DEPLOY_SECRET }}" \
+              -F "files=@$file" \
+              https://api.cryptocatslab.ru/api/deploy/upload
+          done
       
       - name: Verify deployment
-        uses: appleboy/ssh-action@v1.0.3
-        with:
-          host: ${{ secrets.DEPLOY_HOST }}
-          username: ${{ secrets.DEPLOY_USER }}
-          key: ${{ secrets.DEPLOY_KEY }}
-          script: |
-            echo "Files deployed:"
-            ls -lh /root/iskra-site/public/downloads/
+        run: |
+          curl -s https://api.cryptocatslab.ru/api/deploy/status | jq '.files[] | .name'
