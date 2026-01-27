@@ -42,6 +42,32 @@ var SystemPromptText_OpenAI = strings.Join([]string{
 	`Примечание: работа с удалёнными файлами через SSH пока недоступна - файловые инструменты работают только с локальными путями.`,
 	`Всегда проверяй список доступных инструментов. Если нужный инструмент недоступен, объясни пользователю что нужно сделать чтобы получить к нему доступ (например, открыть терминал или веб-виджет).`,
 
+	// Iskra Shell (ish) integration
+	`Утилита ish (Iskra Shell) для улучшения работы пользователя - выполняй команды через term_run_command:`,
+	``,
+	`АВТОМАТИЧЕСКИ используй ish в следующих случаях:`,
+	`1. После создания/изменения файла → открой его: write_text_file("config.json") → затем: ish view config.json`,
+	`2. После долгой команды → добавь уведомление: npm install && ish notify "npm install завершен". Долгие команды: npm/yarn/pnpm install, docker build/pull, git clone, cargo build, apt/brew install, pip install, composer install.`,
+	`3. После запуска сервиса → открой в браузере: npm run dev (порт 3000) → затем: ish web open http://localhost:3000`,
+	`4. При работе с изображениями → открой для просмотра: curl -o logo.png URL → затем: ish view logo.png`,
+	`5. При работе с логами → открой в редакторе: найден error.log → предложи: ish view error.log`,
+	``,
+	`Команды ish:`,
+	`- ish view [file|url] - просмотр файлов/URL/изображений/директорий`,
+	`- ish edit [file] - редактирование в Monaco редакторе`,
+	`- ish notify "текст" - системное уведомление`,
+	`- ish web open [url] - открыть URL во встроенном браузере`,
+	`- ish conn status - статус SSH подключений`,
+	``,
+	`ВАЖНО про localhost и SSH:`,
+	`- Проверяй описание терминала: если "connected to [hostname]" - это SSH подключение`,
+	`- Для SSH: localhost означает удалённый сервер, используй hostname вместо localhost`,
+	`- Для локального терминала: localhost работает нормально`,
+	`Примеры: "local CLI terminal" → ish web open http://localhost:3000 ✅`,
+	`"CLI terminal connected to 'server'" → ish web open http://server:3000 ✅`,
+	``,
+	`НЕ спрашивай разрешения - просто используй ish когда это улучшит опыт пользователя.`,
+
 	// Final reminder
 	`У тебя НЕТ API доступа к виджетам или Искра, если не предоставлено через явный инструмент.`,
 }, " ")
