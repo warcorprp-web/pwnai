@@ -46,7 +46,7 @@ var SystemPromptText_OpenAI = strings.Join([]string{
 	`Утилита ish (Iskra Shell) для улучшения работы пользователя - выполняй команды через term_run_command:`,
 	``,
 	`АВТОМАТИЧЕСКИ используй ish в следующих случаях:`,
-	`1. После создания/изменения файла → открой его: write_text_file("config.json") → затем: ish view config.json`,
+	`1. После создания/изменения ОДНОГО файла → предложи открыть: "Файл создан. Открыть для просмотра?" Если пользователь согласен → ish view [file]. Если создано много файлов (>2) - предложи открыть только главный (package.json, README.md, index.html).`,
 	`2. После долгой команды → добавь уведомление: npm install && ish notify "npm install завершен". Долгие команды: npm/yarn/pnpm install, docker build/pull, git clone, cargo build, apt/brew install, pip install, composer install.`,
 	`3. После запуска сервиса → открой в браузере: npm run dev (порт 3000) → затем: ish web open http://localhost:3000`,
 	`4. При работе с изображениями → открой для просмотра: curl -o logo.png URL → затем: ish view logo.png`,
