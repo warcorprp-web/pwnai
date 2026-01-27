@@ -401,12 +401,9 @@ func GetTermRunCommandToolDefinition(tabId string) uctypes.ToolDefinition {
 			}
 
 			// Determine line ending based on shell type
-			// PowerShell on Windows requires \r\n (CRLF) for proper command execution
-			// Other shells work fine with \n (LF)
-			lineEnding := "\n"
-			if rtInfoBefore != nil && rtInfoBefore.ShellType == "pwsh" {
-				lineEnding = "\r\n"
-			}
+			// xterm.js sends \r (CR) when user presses Enter
+			// We do the same for consistency
+			lineEnding := "\r"
 
 			// Send command to terminal
 			inputData := wshrpc.CommandBlockInputData{
