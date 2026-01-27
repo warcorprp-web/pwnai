@@ -400,10 +400,18 @@ func GetTermRunCommandToolDefinition(tabId string) uctypes.ToolDefinition {
 				lastCmdBefore = rtInfoBefore.ShellLastCmd
 			}
 
+			// Determine line ending based on shell type
+			// PowerShell requires \r (CR) for proper command execution
+			// Other shells work fine with \n (LF)
+			lineEnding := "\n"
+			if rtInfoBefore != nil && rtInfoBefore.ShellType == "pwsh" {
+				lineEnding = "\r"
+			}
+
 			// Send command to terminal
 			inputData := wshrpc.CommandBlockInputData{
 				BlockId:     fullBlockId,
-				InputData64: base64.StdEncoding.EncodeToString([]byte(parsed.Command + "\n")),
+				InputData64: base64.StdEncoding.EncodeToString([]byte(parsed.Command + lineEnding)),
 			}
 
 			rpcClient := wshclient.GetBareRpcClient()
