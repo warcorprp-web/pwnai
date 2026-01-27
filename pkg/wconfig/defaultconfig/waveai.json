@@ -9,7 +9,7 @@
         "ai:model": "claude-sonnet-4-5",
         "ai:apitokensecretname": "ISKRA_AI_KEY",
         "ai:endpoint": "https://api.ceiller.ru/claude-kiro-oauth/v1/messages",
-        "ai:capabilities": ["tools"]
+        "ai:capabilities": ["tools", "images"]
     },
     "anthropic@haiku": {
         "display:name": "Claude Haiku 4.5",
@@ -21,7 +21,7 @@
         "ai:model": "claude-haiku-4-5",
         "ai:apitokensecretname": "ISKRA_AI_KEY",
         "ai:endpoint": "https://api.ceiller.ru/claude-kiro-oauth/v1/messages",
-        "ai:capabilities": ["tools"]
+        "ai:capabilities": ["tools", "images"]
     },
     "qwen@coder3plus": {
         "display:name": "Qwen Coder 3 Plus",
