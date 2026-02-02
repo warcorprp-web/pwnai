@@ -426,6 +426,9 @@ const AIPanelComponentInner = memo(() => {
                 if (errorMsg.includes("secret ISKRA_AI_KEY not found or empty")) {
                     errorMsg = "Секрет ISKRA_AI_KEY не найден. Пожалуйста, войдите в систему.";
                 }
+                if (errorMsg.includes("429") || errorMsg.includes("quota") || errorMsg.includes("rate limit")) {
+                    errorMsg = "Лимит запросов исчерпан. Обновится завтра или оформите подписку Pro.";
+                }
             }
             
             model.setError(errorMsg);
@@ -464,6 +467,9 @@ const AIPanelComponentInner = memo(() => {
             }
             if (errorMsg.includes("secret ISKRA_AI_KEY not found or empty")) {
                 errorMsg = "Секрет ISKRA_AI_KEY не найден. Пожалуйста, войдите в систему.";
+            }
+            if (errorMsg.includes("429") || errorMsg.includes("quota") || errorMsg.includes("rate limit")) {
+                errorMsg = "Лимит запросов исчерпан. Обновится завтра или оформите подписку Pro.";
             }
             
             model.setError(errorMsg);
